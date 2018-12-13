@@ -1,0 +1,12 @@
+server:
+  port: 8041 #服务端口
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  application:
+    name: service-storage
+  messages:
+    basename: message/base/messages,message/validation/messages,message/business/messages  #国际化配置
+    encoding: UTF-8

@@ -1,0 +1,5 @@
+com\univer\base\util\CaptchaUtilTest.class
+com\univer\base\util\PatternUtilTest.class
+com\univer\base\util\UUIDUtilTest.class
+com\univer\base\util\VoUtilsTest.class
+com\univer\base\util\JwtUtilTest.class

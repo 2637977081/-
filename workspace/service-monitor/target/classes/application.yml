@@ -1,0 +1,13 @@
+server:
+  port: 9091 #服务端口
+
+spring:
+  application:
+    name: service-monitor
+  boot:
+    admin:
+      ui:
+        title: Univer Micro-Service Monitor
+        brand: "<img src=\"assets/img/icon-spring-boot-admin.svg\"><span>Univer Micro-Service Monitor</span>"
+      discovery:
+        ignored-services: "*service-monitor*"

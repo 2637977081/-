@@ -1,0 +1,24 @@
+server:
+  port: 8041 #服务端口
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  application:
+    name: service-storage
+  messages:
+    basename: message/base/messages,message/validation/messages,message/business/messages  #国际化配置
+    encoding: UTF-8
+  servlet:
+    multipart:
+      max-file-size: 1024Mb
+      max-request-size: 1024Mb
+      resolve-lazily: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  elasticsearch:
+    jest:
+      uris: http://192.168.152.128:9200
+      read-timeout: 5000

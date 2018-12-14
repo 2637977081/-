@@ -55,7 +55,7 @@ public class AccountControllerTest {
         when(userVo.getUserId()).thenReturn(Long.valueOf(1));
         when(userVo.getCode()).thenReturn("getCodeResponse");
         when(userVo.getUsername()).thenReturn("getUsernameResponse");
-        when(userVo.getNickname()).thenReturn("getNicknameResponse");
+        when(userVo.getName()).thenReturn("getNameResponse");
         when(userVo.getEmail()).thenReturn("getEmailResponse");
         when(userVo.getPhone()).thenReturn("getPhoneResponse");
         when(userVo.getPassword()).thenReturn("getPasswordResponse");
@@ -91,7 +91,7 @@ public class AccountControllerTest {
 
     @Test
     public void testExist() throws Exception {
-        when(userService.findUser(anyLong(), anyString())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findUser(anyLong(), anyString())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         when(resultVo.getInstance(anyString())).thenReturn(new ResultVo());
 
         ResultVo result = accountController.exist(Long.valueOf(1), "commonName");
@@ -120,14 +120,14 @@ public class AccountControllerTest {
         when(userVo.getUserId()).thenReturn(Long.valueOf(1));
         when(userVo.getCode()).thenReturn("getCodeResponse");
         when(userVo.getUsername()).thenReturn("getUsernameResponse");
-        when(userVo.getNickname()).thenReturn("getNicknameResponse");
+        when(userVo.getName()).thenReturn("getNameResponse");
         when(userVo.getEmail()).thenReturn("getEmailResponse");
         when(userVo.getPhone()).thenReturn("getPhoneResponse");
-        when(userService.findUser(anyString())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findUser(anyString())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         when(resultVo.getInstance(anyString())).thenReturn(new ResultVo());
         ValueOperations valueOperations = Mockito.mock(ValueOperations.class);
         when(template.opsForValue()).thenReturn(valueOperations);
-        ResultVo result = accountController.emailCaptchaValid(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        ResultVo result = accountController.emailCaptchaValid(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
@@ -136,7 +136,7 @@ public class AccountControllerTest {
         when(userVo.getRandom()).thenReturn("getRandomResponse");
         ValueOperations valueOperations = Mockito.mock(ValueOperations.class);
         when(template.opsForValue()).thenReturn(valueOperations);
-        ResultVo result = accountController.phoneCaptcha(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        ResultVo result = accountController.phoneCaptcha(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 }

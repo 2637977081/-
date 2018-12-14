@@ -1,8 +1,8 @@
 server:
-  port: 9031 #服务端口
+  port: 8031 #服务端口
 
 grpc:
-  port: 9032
+  port: 8032
 
 spring:
   application:
@@ -45,7 +45,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://service-monitor:9091
+        url: http://service-monitor:8091
         instance:
           prefer-ip: true
 
@@ -66,7 +66,7 @@ pagehelper:
   params: count=countSql
 
 jjwt:
-  secret: sh8e2a6d7d3d33a7b6b98b0op7bce6ef45c076d1d4116f1997bf2029c3ac2328  #JWT私钥
+  secret: bei0hua1university2graduation3design  #JWT私钥
   ttlMillis: 86400000  #token有效时间（毫秒）
 
 bcrypt:

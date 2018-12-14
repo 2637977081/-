@@ -47,15 +47,15 @@ public class UserControllerTest {
 
     @Test
     public void testList() throws Exception {
-        when(userService.findByPage(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email")));
+        when(userService.findByPage(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email")));
 
-        ResultVo result = userController.list(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        ResultVo result = userController.list(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
     @Test
     public void testDetail() throws Exception {
-        when(userService.findUserById(anyLong())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findUserById(anyLong())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
 
         ResultVo result = userController.detail(Long.valueOf(1));
         Assert.assertNotNull(result);
@@ -64,23 +64,23 @@ public class UserControllerTest {
     @Test
     public void testAdd() throws Exception {
         when(userVo.getPassword()).thenReturn("getPasswordResponse");
-        when(userService.saveUser(any())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.saveUser(any())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         when(userService.isExistedUser(any())).thenReturn(Boolean.TRUE);
         when(loginUser.getUserId()).thenReturn(Long.valueOf(1));
 
-        ResultVo result = userController.add(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        ResultVo result = userController.add(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
     @Test
     public void testUpdate() throws Exception {
         when(userVo.getPassword()).thenReturn("getPasswordResponse");
-        when(userService.updateUser(any())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.updateUser(any())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         int bcryptSalt = 4;
         Field field = userController.getClass().getDeclaredField("bcryptSalt");
         field.setAccessible(true);
         field.set(userController,bcryptSalt);
-        ResultVo result = userController.update(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        ResultVo result = userController.update(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
@@ -99,7 +99,7 @@ public class UserControllerTest {
         ValueOperations valueOperations = Mockito.mock(ValueOperations.class);
         when(template.opsForValue()).thenReturn(valueOperations);
 
-        ResultVo result = userController.updatePassword(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        ResultVo result = userController.updatePassword(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
@@ -123,7 +123,7 @@ public class UserControllerTest {
 
     @Test
     public void testListByIds() throws Exception {
-        when(userService.findByIds(anyString())).thenReturn(Arrays.<User>asList(new User(Long.valueOf(1), "code", "username", "nickname", "phone", "email")));
+        when(userService.findByIds(anyString())).thenReturn(Arrays.<User>asList(new User(Long.valueOf(1), "code", "username", "name", "gender","phone", "email")));
 
         ResultVo result = userController.listByIds("ids");
         Assert.assertNotNull(result);

@@ -100,7 +100,7 @@ public class OrgServiceTest {
         Org org = new Org();
         org.setCode("0");
         when(orgMapper.selectByPrimaryKey(anyLong())).thenReturn(org);
-        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
 
         OrgVo result = orgService.findOrgById(Long.valueOf(1));
         Assert.assertNotNull(result);
@@ -108,7 +108,7 @@ public class OrgServiceTest {
 
     @Test
     public void testGetAllParents() throws Exception {
-        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
 
         orgService.getAllParents(new OrgVo());
     }
@@ -123,7 +123,7 @@ public class OrgServiceTest {
         Org org = new Org();
         org.setOrgId(Long.valueOf(1));
         when(orgService.findOrgById(any())).thenReturn(orgVo);
-        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
 
         OrgVo result = orgService.saveOrg(new OrgVo());
         Assert.assertNotNull(result);
@@ -135,7 +135,7 @@ public class OrgServiceTest {
         orgVo.setOrgId(Long.valueOf(1));
         when(orgMapper.updateByPrimaryKeySelective(any())).thenReturn(1);
         when(orgService.findOrgById(any())).thenReturn(orgVo);
-        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        when(userService.findById(anyLong())).thenReturn(new User(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
 
         OrgVo result = orgService.updateOrg(new OrgVo());
         Assert.assertNotNull(result);
@@ -143,7 +143,7 @@ public class OrgServiceTest {
 
     @Test
     public void testDeleteOrgById() throws Exception {
-        when(userService.findUserByOrgId(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email")));
+        when(userService.findUserByOrgId(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email")));
 
         String result = orgService.deleteOrgById(Long.valueOf(1));
         Assert.assertEquals("1010003", result);

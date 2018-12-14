@@ -54,9 +54,9 @@ public class UserServiceTest {
 
     @Test
     public void testFindByPage() throws Exception {
-        when(userMapper.selectUserVoByCondition(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email")));
+        when(userMapper.selectUserVoByCondition(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email")));
 
-        List<UserVo> result = userService.findByPage(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        List<UserVo> result = userService.findByPage(new UserVo(Long.valueOf(1), "code", "username", "nickname", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
@@ -116,7 +116,7 @@ public class UserServiceTest {
         UserVo userVo = new UserVo();
         userVo.setUserId(Long.valueOf(1));
         when(userService.findUserById(any())).thenReturn(userVo);
-        UserVo result = userService.saveUser(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        UserVo result = userService.saveUser(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
@@ -129,43 +129,43 @@ public class UserServiceTest {
         UserVo userVo = new UserVo();
         userVo.setUserId(Long.valueOf(1));
         when(userService.findUserById(any())).thenReturn(userVo);
-        UserVo result = userService.updateUser(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        UserVo result = userService.updateUser(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
     @Test
     public void testUpdatePassword() throws Exception {
         when(userMapper.updateByPrimaryKeySelective(any())).thenReturn(1);
-        Boolean result = userService.updatePassword(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        Boolean result = userService.updatePassword(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertEquals(Boolean.TRUE, result);
     }
 
     @Test
     public void testUpdateCaptchaStatus() throws Exception {
         when(userMapper.updateByPrimaryKeySelective(any())).thenReturn(1);
-        Boolean result = userService.updateCaptchaStatus(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        Boolean result = userService.updateCaptchaStatus(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertEquals(Boolean.TRUE, result);
     }
 
     @Test
     public void testUpdateResetStatus() throws Exception {
         when(userMapper.updateByPrimaryKeySelective(any())).thenReturn(1);
-        Boolean result = userService.updateResetStatus(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        Boolean result = userService.updateResetStatus(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertEquals(Boolean.TRUE, result);
     }
 
     @Test
     public void testFindUserByOrgId() throws Exception {
-        when(userMapper.selectUserVoByOrgId(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email")));
+        when(userMapper.selectUserVoByOrgId(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email")));
 
-        List<UserVo> result = userService.findUserByOrgId(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        List<UserVo> result = userService.findUserByOrgId(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 
     @Test
     public void testIsExistedUser() throws Exception {
         when(userMapper.selectCountByCondition(any())).thenReturn(1);
-        Boolean result = userService.isExistedUser(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+        Boolean result = userService.isExistedUser(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertEquals(Boolean.TRUE, result);
     }
 }

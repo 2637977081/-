@@ -66,8 +66,8 @@ public class UserVo extends User {
     /**
      * 构造器
      */
-    public UserVo(Long userId, String code, String username, String nickname, String phone, String email) {
-        super(userId, code, username, nickname, phone, email);
+    public UserVo(Long userId, String code, String username,String gender ,String name, String phone, String email) {
+        super(userId, code, username, gender,name, phone, email);
     }
 
     public String getCommonName() {

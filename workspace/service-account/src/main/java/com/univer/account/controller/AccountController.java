@@ -10,13 +10,18 @@ import com.univer.account.validation.PasswordChange;
 import com.univer.account.vo.UserVo;
 import com.univer.base.bo.JwtToken;
 import com.univer.base.bo.UserBo;
+import com.univer.base.constant.ServiceConstant;
 import com.univer.base.constant.StatusConstant;
 import com.univer.base.constant.TypeConstant;
 import com.univer.base.controller.BaseController;
+import com.univer.base.grpc.message.MessageRequest;
+import com.univer.base.grpc.message.MessageResponse;
 import com.univer.base.util.CaptchaUtil;
 import com.univer.base.util.JwtUtil;
 import com.univer.base.util.VoUtils;
 import com.univer.base.vo.ResultVo;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -42,6 +47,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author guwei
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/account/")
 @Scope("prototype")
@@ -186,8 +192,8 @@ public class AccountController extends BaseController {
         template.opsForValue().set(temp.getRandom(), captcha.toLowerCase(), captchaTimeout, TimeUnit.MILLISECONDS);
         String subject = messageSource.getMessage("forgot.password.subject", null, LocaleContextHolder.getLocale());
         String content = messageSource.getMessage("forgot.password.content", new Object[]{captcha, temp.getEmail(), DateFormatUtils.format(new Date(), "yyyy-MM-dd")}, LocaleContextHolder.getLocale());
-        //final ManagedChannel channel = ManagedChannelBuilder.forAddress(ServiceConstant.SERVICE_MESSAGE, ServiceConstant.SERVICE_MESSAGE_GRPC_PORT).usePlaintext().build();
-//        try {
+//        final ManagedChannel channel = ManagedChannelBuilder.forAddress(ServiceConstant.SERVICE_MESSAGE, ServiceConstant.SERVICE_MESSAGE_GRPC_PORT).usePlaintext().build();
+        try {
 //            ManagedChannel channel = SingletonMessageChannel.getManagedChannel();
 //            MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
 //
@@ -208,9 +214,9 @@ public class AccountController extends BaseController {
 //            } else {
 //                resultVo.getInstance(MsgConstant.SEND_EMAIL_ERROR);
 //            }
-//        } catch (Exception e) {
-//            logger.error(e.getMessage());
-//        }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
         return resultVo;
     }
 

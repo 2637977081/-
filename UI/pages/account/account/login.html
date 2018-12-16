@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Purple Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../../css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../../images/favicon.png" />
+
+  <script >
+    var bashAccountIp = "127.0.0.1";
+    var bashAccountPort = "8031";
+    var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
+    var random = "0000";
+    
+    var usernameReg = /^[0-9]{5,15}/;
+    var passwordReg = /^[0-9a-zA-Z]{5,15}/;
+    var captchaReg = /^[0-9a-zA-Z]{4}$/;
+    
+    //登陆
+    function login(){
+      var username = $("#username").val();
+      var password = $("#password").val();
+      var captcha = $("#captcha").val();
+      console.log(username+"--"+password+"--"+captcha);
+      var boolUsername = usernameReg.test(username);
+      var boolPassword = passwordReg.test(password);
+      var boolCaptha = captchaReg.test(captcha);
+      console.log(boolUsername+"--"+boolPassword+"--"+boolCaptha);
+      
+      //ajax
+      $.ajax({
+        type:"post",
+        url:bashAccountUrl+"login",
+        contentType:"application/json;charset:utf-8",
+        data:JSON.stringify({
+          commonName:username,
+          password:password,
+          captcha:captcha,
+          random:random
+        }),
+        dataType:"json",
+        beforeSend:function(request){
+          request.setRequestHeader('Access-Control-Allow-Origin', '*');
+          request.setRequestHeader('Access-Control-Allow-Credentials', true);
+          request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+        },
+        success:function(data){
+          console.log("data",data);
+          if(data.code==200){
+            var str  = JSON.stringify(data.data);
+            console.log("data.data",data.data);
+            window.localStorage.setItem("user",str);
+            // setCookie("user",data.data);
+            // var inf = getCookie("user");
+            // console.log("inf",inf);
+            window.location="/pages/index.html";
+          }else{
+            alert("code:"+data.code+"\n msg"+data.msg);
+            //登陆错误显示验证码
+            hideCaptcha();
+            showCaptcha();
+          }
+        },error:function(error){
+          console.log("error",error);
+          // window.location="/pages/error/error.html";
+        }
+      });
+      
+    }
+
+    //获取验证码
+    function showCaptcha(){
+      /*
+        第一次登陆不显示验证码，更改账号不显示验证码
+      */
+      console.log("显示验证码");
+      $("#captchaDiv").html(
+          '<input type="text" class="form-control form-control-lg" style="width: 50%;float: left;" id="captcha" placeholder="captcha">'+
+          '<img src="http://localhost:8031/account/captcha?random='+ random +'"></image>'
+        )
+    }
+
+    //更换账号隐藏验证码
+    function hideCaptcha(){
+      console.log("显示验证码");
+      $("#captchaDiv").html('');
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth">
+        <div class="row w-100">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left p-5">
+              <div class="brand-logo">
+                <img src="../../../images/logo.svg">
+              </div>
+              <h4>学分管理系统</h4>
+              <h6 class="font-weight-light">登陆 开始吧.</h6>
+              <form class="pt-3">
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-lg" id="username" placeholder="Username" onchange="hideCaptcha()">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" id="password" placeholder="Password">
+                </div>
+                <div class="form-group" id="captchaDiv">
+                </div>
+                <div class="mt-3">
+                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="#" onclick="login()">登陆</a>
+                </div>
+                <div class="my-2 d-flex justify-content-between align-items-center">
+                  <div class="form-check">
+                    <label class="form-check-label text-muted">
+                      <input type="checkbox" class="form-check-input">
+                      记住账号密码
+                    </label>
+                  </div>
+                  <a href="/pages/account/account/forgetPassword.html" class="auth-link text-black">忘记密码</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../../../vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="../../../js/off-canvas.js"></script>
+  <script src="../../../js/misc.js"></script>
+  <!-- endinject -->
+  <script src="../../../js/me.js"></script>
+  <script src="../../../js/jquery.cookie.js"></script>
+</body>
+
+</html>

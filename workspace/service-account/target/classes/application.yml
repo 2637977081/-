@@ -8,8 +8,8 @@ spring:
   application:
     name: service-account #服务名称
   datasource:
-    url: jdbc:mysql://192.168.152.128:3306/account?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
-    username: lvgang
+    url: jdbc:mysql://localhost:3306/account?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+    username: root
     password: 123456
     driverClassName: com.mysql.jdbc.Driver
     hikari:
@@ -33,7 +33,7 @@ spring:
     add-mappings: false
   redis:
     database: 10
-    host: 192.168.152.128
+    host: localhost
     port: 6379
   servlet:
     multipart:

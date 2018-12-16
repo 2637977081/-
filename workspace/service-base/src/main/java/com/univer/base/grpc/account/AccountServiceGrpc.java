@@ -1,10 +1,18 @@
 package com.univer.base.grpc.account;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
+import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
 import static io.grpc.stub.ClientCalls.asyncUnaryCall;
+import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
 import static io.grpc.stub.ClientCalls.blockingUnaryCall;
 import static io.grpc.stub.ClientCalls.futureUnaryCall;
+import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnaryCall;
+import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
@@ -19,21 +27,21 @@ public final class AccountServiceGrpc {
   public static final String SERVICE_NAME = "account.AccountService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getDetailMethod;
+  private static volatile io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getDetailMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "detail",
       requestType = com.univer.base.grpc.account.AccountRequest.class,
       responseType = com.univer.base.grpc.account.AccountResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getDetailMethod() {
-    io.grpc.MethodDescriptor<AccountRequest, AccountResponse> getDetailMethod;
+  public static io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getDetailMethod() {
+    io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse> getDetailMethod;
     if ((getDetailMethod = AccountServiceGrpc.getDetailMethod) == null) {
       synchronized (AccountServiceGrpc.class) {
         if ((getDetailMethod = AccountServiceGrpc.getDetailMethod) == null) {
-          AccountServiceGrpc.getDetailMethod = getDetailMethod =
+          AccountServiceGrpc.getDetailMethod = getDetailMethod = 
               io.grpc.MethodDescriptor.<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -51,21 +59,21 @@ public final class AccountServiceGrpc {
      return getDetailMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getListByIdsMethod;
+  private static volatile io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getListByIdsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "listByIds",
       requestType = com.univer.base.grpc.account.AccountRequest.class,
       responseType = com.univer.base.grpc.account.AccountResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getListByIdsMethod() {
-    io.grpc.MethodDescriptor<AccountRequest, AccountResponse> getListByIdsMethod;
+  public static io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getListByIdsMethod() {
+    io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse> getListByIdsMethod;
     if ((getListByIdsMethod = AccountServiceGrpc.getListByIdsMethod) == null) {
       synchronized (AccountServiceGrpc.class) {
         if ((getListByIdsMethod = AccountServiceGrpc.getListByIdsMethod) == null) {
-          AccountServiceGrpc.getListByIdsMethod = getListByIdsMethod =
+          AccountServiceGrpc.getListByIdsMethod = getListByIdsMethod = 
               io.grpc.MethodDescriptor.<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -83,21 +91,21 @@ public final class AccountServiceGrpc {
      return getListByIdsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getFindDictByTypeMethod;
+  private static volatile io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getFindDictByTypeMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "findDictByType",
       requestType = com.univer.base.grpc.account.AccountRequest.class,
       responseType = com.univer.base.grpc.account.AccountResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getFindDictByTypeMethod() {
-    io.grpc.MethodDescriptor<AccountRequest, AccountResponse> getFindDictByTypeMethod;
+  public static io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getFindDictByTypeMethod() {
+    io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse> getFindDictByTypeMethod;
     if ((getFindDictByTypeMethod = AccountServiceGrpc.getFindDictByTypeMethod) == null) {
       synchronized (AccountServiceGrpc.class) {
         if ((getFindDictByTypeMethod = AccountServiceGrpc.getFindDictByTypeMethod) == null) {
-          AccountServiceGrpc.getFindDictByTypeMethod = getFindDictByTypeMethod =
+          AccountServiceGrpc.getFindDictByTypeMethod = getFindDictByTypeMethod = 
               io.grpc.MethodDescriptor.<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -115,21 +123,21 @@ public final class AccountServiceGrpc {
      return getFindDictByTypeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getFindMapByTypeMethod;
+  private static volatile io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getFindMapByTypeMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "findMapByType",
       requestType = com.univer.base.grpc.account.AccountRequest.class,
       responseType = com.univer.base.grpc.account.AccountResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getFindMapByTypeMethod() {
-    io.grpc.MethodDescriptor<AccountRequest, AccountResponse> getFindMapByTypeMethod;
+  public static io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getFindMapByTypeMethod() {
+    io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse> getFindMapByTypeMethod;
     if ((getFindMapByTypeMethod = AccountServiceGrpc.getFindMapByTypeMethod) == null) {
       synchronized (AccountServiceGrpc.class) {
         if ((getFindMapByTypeMethod = AccountServiceGrpc.getFindMapByTypeMethod) == null) {
-          AccountServiceGrpc.getFindMapByTypeMethod = getFindMapByTypeMethod =
+          AccountServiceGrpc.getFindMapByTypeMethod = getFindMapByTypeMethod = 
               io.grpc.MethodDescriptor.<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -147,21 +155,21 @@ public final class AccountServiceGrpc {
      return getFindMapByTypeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getFindNameByUserIdMethod;
+  private static volatile io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getFindNameByUserIdMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "findNameByUserId",
       requestType = com.univer.base.grpc.account.AccountRequest.class,
       responseType = com.univer.base.grpc.account.AccountResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<AccountRequest,
-      AccountResponse> getFindNameByUserIdMethod() {
-    io.grpc.MethodDescriptor<AccountRequest, AccountResponse> getFindNameByUserIdMethod;
+  public static io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest,
+      com.univer.base.grpc.account.AccountResponse> getFindNameByUserIdMethod() {
+    io.grpc.MethodDescriptor<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse> getFindNameByUserIdMethod;
     if ((getFindNameByUserIdMethod = AccountServiceGrpc.getFindNameByUserIdMethod) == null) {
       synchronized (AccountServiceGrpc.class) {
         if ((getFindNameByUserIdMethod = AccountServiceGrpc.getFindNameByUserIdMethod) == null) {
-          AccountServiceGrpc.getFindNameByUserIdMethod = getFindNameByUserIdMethod =
+          AccountServiceGrpc.getFindNameByUserIdMethod = getFindNameByUserIdMethod = 
               io.grpc.MethodDescriptor.<com.univer.base.grpc.account.AccountRequest, com.univer.base.grpc.account.AccountResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -209,39 +217,39 @@ public final class AccountServiceGrpc {
     /**
      */
     public void detail(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getDetailMethod(), responseObserver);
     }
 
     /**
      */
     public void listByIds(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getListByIdsMethod(), responseObserver);
     }
 
     /**
      */
     public void findDictByType(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getFindDictByTypeMethod(), responseObserver);
     }
 
     /**
      */
     public void findMapByType(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getFindMapByTypeMethod(), responseObserver);
     }
 
     /**
      */
     public void findNameByUserId(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getFindNameByUserIdMethod(), responseObserver);
     }
 
-    @Override public final io.grpc.ServerServiceDefinition bindService() {
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getDetailMethod(),
@@ -294,7 +302,7 @@ public final class AccountServiceGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected AccountServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new AccountServiceStub(channel, callOptions);
@@ -303,7 +311,7 @@ public final class AccountServiceGrpc {
     /**
      */
     public void detail(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getDetailMethod(), getCallOptions()), request, responseObserver);
     }
@@ -311,7 +319,7 @@ public final class AccountServiceGrpc {
     /**
      */
     public void listByIds(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getListByIdsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -319,7 +327,7 @@ public final class AccountServiceGrpc {
     /**
      */
     public void findDictByType(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getFindDictByTypeMethod(), getCallOptions()), request, responseObserver);
     }
@@ -327,7 +335,7 @@ public final class AccountServiceGrpc {
     /**
      */
     public void findMapByType(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getFindMapByTypeMethod(), getCallOptions()), request, responseObserver);
     }
@@ -335,7 +343,7 @@ public final class AccountServiceGrpc {
     /**
      */
     public void findNameByUserId(com.univer.base.grpc.account.AccountRequest request,
-        io.grpc.stub.StreamObserver<AccountResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getFindNameByUserIdMethod(), getCallOptions()), request, responseObserver);
     }
@@ -353,7 +361,7 @@ public final class AccountServiceGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected AccountServiceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new AccountServiceBlockingStub(channel, callOptions);
@@ -407,7 +415,7 @@ public final class AccountServiceGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected AccountServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new AccountServiceFutureStub(channel, callOptions);
@@ -415,7 +423,7 @@ public final class AccountServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<AccountResponse> detail(
+    public com.google.common.util.concurrent.ListenableFuture<com.univer.base.grpc.account.AccountResponse> detail(
         com.univer.base.grpc.account.AccountRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getDetailMethod(), getCallOptions()), request);
@@ -423,7 +431,7 @@ public final class AccountServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<AccountResponse> listByIds(
+    public com.google.common.util.concurrent.ListenableFuture<com.univer.base.grpc.account.AccountResponse> listByIds(
         com.univer.base.grpc.account.AccountRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getListByIdsMethod(), getCallOptions()), request);
@@ -431,7 +439,7 @@ public final class AccountServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<AccountResponse> findDictByType(
+    public com.google.common.util.concurrent.ListenableFuture<com.univer.base.grpc.account.AccountResponse> findDictByType(
         com.univer.base.grpc.account.AccountRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getFindDictByTypeMethod(), getCallOptions()), request);
@@ -439,7 +447,7 @@ public final class AccountServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<AccountResponse> findMapByType(
+    public com.google.common.util.concurrent.ListenableFuture<com.univer.base.grpc.account.AccountResponse> findMapByType(
         com.univer.base.grpc.account.AccountRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getFindMapByTypeMethod(), getCallOptions()), request);
@@ -447,7 +455,7 @@ public final class AccountServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<AccountResponse> findNameByUserId(
+    public com.google.common.util.concurrent.ListenableFuture<com.univer.base.grpc.account.AccountResponse> findNameByUserId(
         com.univer.base.grpc.account.AccountRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getFindNameByUserIdMethod(), getCallOptions()), request);
@@ -473,37 +481,37 @@ public final class AccountServiceGrpc {
       this.methodId = methodId;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_DETAIL:
           serviceImpl.detail((com.univer.base.grpc.account.AccountRequest) request,
-              (io.grpc.stub.StreamObserver<AccountResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse>) responseObserver);
           break;
         case METHODID_LIST_BY_IDS:
           serviceImpl.listByIds((com.univer.base.grpc.account.AccountRequest) request,
-              (io.grpc.stub.StreamObserver<AccountResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse>) responseObserver);
           break;
         case METHODID_FIND_DICT_BY_TYPE:
           serviceImpl.findDictByType((com.univer.base.grpc.account.AccountRequest) request,
-              (io.grpc.stub.StreamObserver<AccountResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse>) responseObserver);
           break;
         case METHODID_FIND_MAP_BY_TYPE:
           serviceImpl.findMapByType((com.univer.base.grpc.account.AccountRequest) request,
-              (io.grpc.stub.StreamObserver<AccountResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse>) responseObserver);
           break;
         case METHODID_FIND_NAME_BY_USER_ID:
           serviceImpl.findNameByUserId((com.univer.base.grpc.account.AccountRequest) request,
-              (io.grpc.stub.StreamObserver<AccountResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.univer.base.grpc.account.AccountResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
       }
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
@@ -517,12 +525,12 @@ public final class AccountServiceGrpc {
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
     AccountServiceBaseDescriptorSupplier() {}
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
       return com.univer.base.grpc.account.Account.getDescriptor();
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
       return getFileDescriptor().findServiceByName("AccountService");
     }
@@ -542,7 +550,7 @@ public final class AccountServiceGrpc {
       this.methodName = methodName;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.MethodDescriptor getMethodDescriptor() {
       return getServiceDescriptor().findMethodByName(methodName);
     }

@@ -32,7 +32,7 @@ public class FileService {
         try {
 
             String oldName = file.getOriginalFilename();
-            String type = oldName.substring(oldName.lastIndexOf("."));
+            String type = oldName.substring(oldName.lastIndexOf(".")+1);
             String newName = UUID.randomUUID().toString().replaceAll("-","")+"."+type;
             InputStream input = file.getInputStream();
 

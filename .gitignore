@@ -10,3 +10,6 @@ workspace/.idea/compiler.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/vcs.xml
+*.class
+*.class
+*.class

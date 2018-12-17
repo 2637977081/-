@@ -1,11 +1,9 @@
-package com.univer.storage.service;
+package com.univer.base.file;
 
-import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -14,19 +12,17 @@ import java.util.UUID;
 /**
  * @author lvgang
  * @descript
- * @time 2018-12-11 19:19
+ * @time 2018-12-17 18:05
  */
-@Service
-public class FileService {
+public class FTP {
+    private static String IP = "192.168.152.128";
+    private static String USERNAME = "lvgang";
+    private static String PASSWORD = "123456";
+    private static String REMOTEPATH = "nginx/file";
 
-    private String ip = "192.168.152.128";
-    private String userName = "lvgang";
-    private String passWord = "123456";
-    private String remoteDirectoryPath = "nginx/file";
+    private static Logger logger = LoggerFactory.getLogger(FTP.class);
 
-    private Logger logger = LoggerFactory.getLogger(FileService.class);
-
-    public String uploadFile(MultipartFile file){
+    public static String uploadFile(MultipartFile file){
         String name = null;
         FTPClient ftpClient = new FTPClient();
         try {
@@ -36,15 +32,15 @@ public class FileService {
             String newName = UUID.randomUUID().toString().replaceAll("-","")+"."+type;
             InputStream input = file.getInputStream();
 
-            ftpClient.connect(ip);
-            boolean isLogin = ftpClient.login(userName, passWord);
+            ftpClient.connect(IP);
+            boolean isLogin = ftpClient.login(USERNAME, PASSWORD);
             logger.info("uploadFile 登陆成功？ " + isLogin);
             ftpClient.setControlEncoding("UTF-8");
             //client告诉ftp server开通 一个端口来传输数据
             ftpClient.enterLocalPassiveMode();
             //设置文件类型
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            ftpClient.changeWorkingDirectory(remoteDirectoryPath);
+            ftpClient.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
+            ftpClient.changeWorkingDirectory(REMOTEPATH);
             boolean isStore = ftpClient.storeFile(new String(newName.getBytes("UTF-8"),"iso-8859-1"), input);
             System.out.println("上传成功？ " + isStore);
             if(isStore){
@@ -63,19 +59,19 @@ public class FileService {
         return name;
     }
 
-    public boolean downloadFile(String name,String localFilePath){
+    public static boolean downloadFile(String name,String localFilePath){
         if(localFilePath.isEmpty()){
             localFilePath="D:\\";
         }
         boolean bool = true;
         FTPClient ftpClient = new FTPClient();
         try {
-            ftpClient.connect(ip);
-            boolean isLogin = ftpClient.login(userName, passWord);
+            ftpClient.connect(IP);
+            boolean isLogin = ftpClient.login(USERNAME, PASSWORD);
             logger.info("uploadFile 登陆成功？ " + isLogin);
             ftpClient.setControlEncoding("UTF-8");
             ftpClient.enterLocalPassiveMode();
-            ftpClient.changeWorkingDirectory(remoteDirectoryPath);
+            ftpClient.changeWorkingDirectory(REMOTEPATH);
             FTPFile[] files = ftpClient.listFiles();
             for (FTPFile file : files) {
                 if (file.getName().equals(name)) {

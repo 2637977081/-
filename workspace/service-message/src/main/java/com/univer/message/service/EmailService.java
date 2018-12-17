@@ -1,11 +1,15 @@
 package com.univer.message.service;
 
+import com.univer.base.util.CaptchaUtil;
+import com.univer.message.po.Email;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -13,11 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
-/**
- * @author lvgang
- * @descript
- * @time 2018-11-16 20:06
- */
 @Service
 public class EmailService {
 
@@ -30,30 +29,61 @@ public class EmailService {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private StringRedisTemplate template;
+
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
-    public Boolean sendHtml(){
-        String toEmail = "lvgang@univer.ai";
-        String subject ="标题1";
-        String captcha = "a1b2";
-        String content = "邮箱测试成功";
+
+    /**
+     * 发送验证码
+     * @param email
+     * @return
+     */
+    public Boolean sendCaptcha(Email email){
+        String subject = messageSource.getMessage("forgot.password.subject",new Object[]{email.getSubject()},LocaleContextHolder.getLocale());
+        String captcha = RandomStringUtils.random(4, CaptchaUtil.CHARS);
+        String content = messageSource.getMessage("forgot.password.content",new Object[]{captcha},LocaleContextHolder.getLocale());
+        email.setSubject(subject);
+        email.setContent(content);
+        Boolean bool = false;
+        if(sendEmail(email)){
+            bool = true;
+            email.setStatus("sending");
+            //数据库存储
+        }
+        return bool;
+    }
+
+    public Boolean sendMessage(Email email){
+        String subject = messageSource.getMessage("send.message.subject",new Object[]{email.getSubject()},LocaleContextHolder.getLocale());
+        String content = messageSource.getMessage("send.message.content",new Object[]{email.getContent()},LocaleContextHolder.getLocale());
+        email.setSubject(subject);
+        email.setContent(content);
+        Boolean bool = false;
+        if(sendEmail(email)){
+            bool = true;
+            email.setStatus("sending");
+            //数据库存储
+        }
+        return bool;
+    }
+
+    private boolean sendEmail(Email email){
+        boolean bool = false;
         try {
-            subject = messageSource.getMessage("forgot.password.subject",new Object[]{subject},LocaleContextHolder.getLocale());
-            content = messageSource.getMessage("forgot.password.content",new Object[]{captcha,toEmail,content,new Date()},LocaleContextHolder.getLocale());
-            System.out.println("subject:"+subject);
-            System.out.println("content:"+content);
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message);
-            helper.setFrom(fromEmail);
-            helper.setTo(toEmail);
-            helper.setSentDate(new Date());
-            helper.setSubject(subject);
-            helper.setText(content, true);
+            helper.setFrom(email.getFromEmail());
+            helper.setTo(email.getToEmail());
+            email.setCreateTime(new Date());
+            helper.setSentDate(email.getCreateTime());
+            helper.setSubject(email.getSubject());
+            helper.setText(email.getContent(), true);
             mailSender.send(message);
             return true;
         }catch (Exception e){
-            e.printStackTrace();
-            logger.error("email:"+toEmail+" is not exit");
+            logger.error("email:{0} is not exit,cause throws by{1}",email.getToEmail(),e.getMessage());
         }
-        return false;
+        return bool;
     }
 }

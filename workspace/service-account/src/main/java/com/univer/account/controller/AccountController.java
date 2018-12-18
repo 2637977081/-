@@ -8,6 +8,7 @@ import com.univer.account.validation.EmailCaptchaValid;
 import com.univer.account.validation.Login;
 import com.univer.account.validation.PasswordChange;
 import com.univer.account.vo.UserVo;
+import com.univer.base.bo.EmailBo;
 import com.univer.base.bo.JwtToken;
 import com.univer.base.bo.UserBo;
 import com.univer.base.constant.ServiceConstant;
@@ -16,6 +17,8 @@ import com.univer.base.constant.TypeConstant;
 import com.univer.base.controller.BaseController;
 import com.univer.base.grpc.message.MessageRequest;
 import com.univer.base.grpc.message.MessageResponse;
+import com.univer.base.grpc.message.MessageServiceGrpc;
+import com.univer.base.grpc.message.SingletonMessageChannel;
 import com.univer.base.util.CaptchaUtil;
 import com.univer.base.util.JwtUtil;
 import com.univer.base.util.VoUtils;
@@ -192,28 +195,31 @@ public class AccountController extends BaseController {
         template.opsForValue().set(temp.getRandom(), captcha.toLowerCase(), captchaTimeout, TimeUnit.MILLISECONDS);
         String subject = messageSource.getMessage("forgot.password.subject", null, LocaleContextHolder.getLocale());
         String content = messageSource.getMessage("forgot.password.content", new Object[]{captcha, temp.getEmail(), DateFormatUtils.format(new Date(), "yyyy-MM-dd")}, LocaleContextHolder.getLocale());
-//        final ManagedChannel channel = ManagedChannelBuilder.forAddress(ServiceConstant.SERVICE_MESSAGE, ServiceConstant.SERVICE_MESSAGE_GRPC_PORT).usePlaintext().build();
         try {
-//            ManagedChannel channel = SingletonMessageChannel.getManagedChannel();
-//            MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
-//
+            ManagedChannel channel = SingletonMessageChannel.getManagedChannel();
+            MessageServiceGrpc.MessageServiceBlockingStub stub = MessageServiceGrpc.newBlockingStub(channel);
+
 //            HashMap<Object, Object> jsonDataMap = new HashMap<>(5);
 //            jsonDataMap.put("subject", subject);
 //            jsonDataMap.put("content", content);
 //            jsonDataMap.put("recipientEmail", temp.getEmail());
-//
-//            //把包装的数据发送给grpc服务端
-//            String jsonData = objectMapper.writeValueAsString(jsonDataMap);
-//            MessageRequest request = MessageRequest.newBuilder().setJsonData(jsonData).build();
-//            //grpc服务端响应
-//            MessageResponse response = stub.captcha(request);
-//            String responseJsonData = response.getJsonData();
-//            Boolean resultBool = objectMapper.readValue(responseJsonData, Boolean.class);
-//            if (resultBool) {
-//                resultVo.getInstance(HttpStatus.OK.toString());
-//            } else {
-//                resultVo.getInstance(MsgConstant.SEND_EMAIL_ERROR);
-//            }
+            EmailBo emailBo = new EmailBo();
+            emailBo.setType("captcha");
+            emailBo.setContent(content);
+            emailBo.setSubject(subject);
+            emailBo.setToEmail(temp.getEmail());
+            //把包装的数据发送给grpc服务端
+            String jsonData = objectMapper.writeValueAsString(emailBo);
+            MessageRequest request = MessageRequest.newBuilder().setJsonData(jsonData).build();
+            //grpc服务端响应
+            MessageResponse response = stub.captcha(request);
+            String responseJsonData = response.getJsonData();
+            Boolean resultBool = objectMapper.readValue(responseJsonData, Boolean.class);
+            if (resultBool) {
+                resultVo.getInstance(HttpStatus.OK.toString());
+            } else {
+                resultVo.getInstance(MsgConstant.SEND_EMAIL_ERROR);
+            }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

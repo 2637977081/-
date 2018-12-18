@@ -56,7 +56,7 @@ public class UserServiceTest {
     public void testFindByPage() throws Exception {
         when(userMapper.selectUserVoByCondition(any())).thenReturn(Arrays.<UserVo>asList(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email")));
 
-        List<UserVo> result = userService.findByPage(new UserVo(Long.valueOf(1), "code", "username", "nickname", "gender","phone", "email"));
+        List<UserVo> result = userService.findByPage(new UserVo(Long.valueOf(1), "code", "username", "name", "gender","phone", "email"));
         Assert.assertNotNull(result);
     }
 

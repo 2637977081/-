@@ -6,8 +6,7 @@ option java_outer_classname = "Message";
 package message;
 
 service MessageService {
-    rpc captcha (MessageRequest) returns (MessageResponse) {
-    };
+    rpc captcha (MessageRequest) returns (MessageResponse) {};
 }
 
 message MessageRequest {

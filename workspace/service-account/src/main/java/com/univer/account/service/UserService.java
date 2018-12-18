@@ -63,7 +63,7 @@ public class UserService extends BaseService<User> {
             map.put("username", userVo.getUsername());
         }
         if (!StringUtils.isEmpty(userVo.getName())) {
-            map.put("nickname", userVo.getName());
+            map.put("name", userVo.getName());
         }
         if (!StringUtils.isEmpty(userVo.getPhone())) {
             map.put("phone", userVo.getPhone());

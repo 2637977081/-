@@ -55,7 +55,7 @@ public class UserController extends AuthorizationController<Object> {
      */
 	@GetMapping("list")
 	public ResultVo list(UserVo temp) throws Exception {
-        VoUtils.copyProperties(temp, userVo, "username", "nickname", "phone", "email", "type", "orgId", "createrId", "status", "roleName", "page", "rows");
+        VoUtils.copyProperties(temp, userVo, "username", "name", "phone", "email", "type", "orgId", "createrId", "status", "roleName", "page", "rows");
 		List<UserVo> list = userService.findByPage(userVo);
 		PageInfo<UserVo> pageInfo = new PageInfo<UserVo>(list);
 		resultVo.getInstance(HttpStatus.OK.toString(), pageInfo);

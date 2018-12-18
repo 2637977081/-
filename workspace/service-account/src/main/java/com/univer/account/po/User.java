@@ -149,12 +149,12 @@ public class User extends BaseEntity {
     /**
      * 构造器
      */
-    public User(Long userId, String code, String username, String nickname, String phone, String email,String gender) {
+    public User(Long userId, String code, String username, String name, String phone, String email,String gender) {
         super();
         this.userId = userId;
         this.code = code;
         this.username = username;
-        this.name = nickname;
+        this.name = name;
         this.phone = phone;
         this.email = email;
         this.gender = gender;

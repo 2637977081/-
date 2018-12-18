@@ -5,7 +5,8 @@
         <id column="user_id" jdbcType="BIGINT" property="userId" />
         <result column="code" jdbcType="VARCHAR" property="code" />
         <result column="username" jdbcType="VARCHAR" property="username" />
-        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="gender" jdbcType="VARCHAR" property="gender" />
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="phone" jdbcType="VARCHAR" property="phone" />
         <result column="password" jdbcType="VARCHAR" property="password" />
@@ -25,7 +26,8 @@
         select u.user_id as userId,
         u.code,
         u.username,
-        u.nickname,
+        u.name,
+        u.gender,
         u.email,
         u.phone,
         u.type,
@@ -49,8 +51,8 @@
         <if test="username != null">
             and u.username like CONCAT('%',#{username},'%')
         </if>
-        <if test="nickname != null">
-            and u.nickname like CONCAT('%',#{nickname},'%')
+        <if test="name != null">
+            and u.ame like CONCAT('%',#{name},'%')
         </if>
         <if test="phone != null">
             and u.phone like CONCAT('%',#{phone},'%')
@@ -83,7 +85,8 @@
         select u.user_id as userId,
         u.code,
         u.username,
-        u.nickname,
+        u.name,
+        u.gender,
         u.email,
         u.phone,
         u.type,

@@ -13,6 +13,7 @@ public class Email extends BaseEntity {
     private String fromEmail;
     private Long toUser;
     private String toEmail;
+    private String type;
     private String status;
     private Date createTime;
     private Date updateTime;
@@ -79,6 +80,14 @@ public class Email extends BaseEntity {
 
     public void setToEmail(String toEmail) {
         this.toEmail = toEmail;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getStatus() {

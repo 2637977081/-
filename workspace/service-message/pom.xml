@@ -33,17 +33,6 @@
             <version>${service-base.version}</version>
         </dependency>
 
-        <!-- email 支持-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>5.0.8.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.1</version>
-        </dependency>
     </dependencies>
 
     <build>

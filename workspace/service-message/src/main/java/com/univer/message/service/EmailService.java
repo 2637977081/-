@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
+/**
+ * @
+ */
 @Service
 public class EmailService {
 
@@ -40,12 +43,8 @@ public class EmailService {
      * @return
      */
     public Boolean sendCaptcha(Email email){
-        String subject = messageSource.getMessage("forgot.password.subject",new Object[]{email.getSubject()},LocaleContextHolder.getLocale());
-        String captcha = RandomStringUtils.random(4, CaptchaUtil.CHARS);
-        String content = messageSource.getMessage("forgot.password.content",new Object[]{captcha},LocaleContextHolder.getLocale());
-        email.setSubject(subject);
-        email.setContent(content);
         Boolean bool = false;
+        email.setFromEmail(fromEmail);
         if(sendEmail(email)){
             bool = true;
             email.setStatus("sending");

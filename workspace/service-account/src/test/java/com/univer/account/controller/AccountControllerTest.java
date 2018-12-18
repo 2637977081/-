@@ -100,14 +100,14 @@ public class AccountControllerTest {
 
 //    @Test
 //    public void testEmailCaptcha() throws Exception {
-//        when(userService.findUser(any())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+//        when(userService.findUser(any())).thenReturn(new UserVo(Long.valueOf(1), "code", "username", "name", "phone", "email"));
 //        when(userVo.getRandom()).thenReturn("getRandomResponse");
 //        when(userVo.getEmail()).thenReturn("getEmailResponse");
 //        when(emailFeign.emailCaptcha(any())).thenReturn(new ResultVo());
 //        ValueOperations valueOperations = Mockito.mock(ValueOperations.class);
 //        when(template.opsForValue()).thenReturn(valueOperations);
 //
-//        ResultVo result = accountController.emailCaptcha(new UserVo(Long.valueOf(1), "code", "username", "nickname", "phone", "email"));
+//        ResultVo result = accountController.emailCaptcha(new UserVo(Long.valueOf(1), "code", "username", "name", "phone", "email"));
 //        Assert.assertNotNull(result);
 //    }
 

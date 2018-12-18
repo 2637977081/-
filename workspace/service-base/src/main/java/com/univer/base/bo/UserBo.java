@@ -24,7 +24,7 @@ public class UserBo {
     /**用户名*/
 	private String username;
     /**用户名称*/
-	private String nickname;
+	private String name;
     /**手机号*/
 	private String phone;
     /**邮箱*/
@@ -148,11 +148,11 @@ public class UserBo {
 		super();
 	}
 
-	public UserBo(Long userId, String code, String username, String nickname, String phone, String email) {
+	public UserBo(Long userId, String code, String username, String name, String phone, String email) {
 		this.userId = userId;
 		this.code = code;
 		this.username = username;
-		this.nickname = nickname;
+		this.name = name;
 		this.phone = phone;
 		this.email = email;
 	}
@@ -181,12 +181,12 @@ public class UserBo {
 		this.username = username;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getName() {
+		return name;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPhone() {

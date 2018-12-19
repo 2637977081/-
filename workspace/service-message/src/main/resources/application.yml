@@ -24,9 +24,9 @@ spring:
     basename: message/messages,message/validation/messages,message/business/messages  #国际化配置
     encoding: UTF-8
   mail:
-    host: smtp.qq.com
-    username: 2637977081@qq.com
-    password: fzugpomwwjqxebbf
+    host: smtp.163.com
+    username: 18844212412@163.com
+    password: 19971128lv
     properties:
       mail:
         smtp:

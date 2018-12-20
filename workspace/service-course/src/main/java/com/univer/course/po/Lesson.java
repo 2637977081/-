@@ -246,4 +246,27 @@ public class Lesson extends BaseEntity {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "lessonId=" + lessonId +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", courseId=" + courseId +
+                ", description='" + description + '\'' +
+                ", maxnum=" + maxnum +
+                ", num=" + num +
+                ", type='" + type + '\'' +
+                ", teacherId=" + teacherId +
+                ", teacherName='" + teacherName + '\'' +
+                ", behavior=" + behavior +
+                ", test=" + test +
+                ", exam=" + exam +
+                ", status='" + status + '\'' +
+                ", createId=" + createId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

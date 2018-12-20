@@ -231,4 +231,26 @@ public class Teach extends BaseEntity {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Teach{" +
+                "teachId=" + teachId +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", studentId=" + studentId +
+                ", studentName='" + studentName + '\'' +
+                ", behavior=" + behavior +
+                ", test=" + test +
+                ", exam=" + exam +
+                ", score=" + score +
+                ", credit=" + credit +
+                ", status='" + status + '\'' +
+                ", createId=" + createId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

@@ -43,12 +43,12 @@ public class CourseController extends AuthorizationController<Object> {
             courseVo.setCode(UUIDUtil.getUUID());
             courseVo.setCreateId(loginUser.getUserId());
             courseVo.setCreateTime(new Date());
-        }
-        courseVo = courseService.saveCourse(courseVo);
-        if(courseVo!=null){
-            resultVo.getInstance(HttpStatus.OK.toString(),courseVo);
-        }else {
-            resultVo.getInstance(MsgConstant.CREATE_ERROR);
+            courseVo = courseService.saveCourse(courseVo);
+            if(courseVo!=null){
+                resultVo.getInstance(HttpStatus.OK.toString(),courseVo);
+            }else {
+                resultVo.getInstance(MsgConstant.CREATE_ERROR);
+            }
         }
         return resultVo;
     }

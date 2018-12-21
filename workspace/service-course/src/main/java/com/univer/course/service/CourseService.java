@@ -99,6 +99,9 @@ public class CourseService {
         if(!StringUtils.isEmpty(courseVo.getName())){
             map.put("name",courseVo.getName());
         }
+        if(!StringUtils.isEmpty(courseVo.getType())){
+            map.put("type",courseVo.getType());
+        }
         if(courseVo.getUniversityId()!=null){
             map.put("universityId",courseVo.getUniversityId());
         }

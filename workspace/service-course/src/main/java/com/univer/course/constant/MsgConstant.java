@@ -7,5 +7,5 @@ package com.univer.course.constant;
  */
 public class MsgConstant extends com.univer.base.constant.MsgConstant{
     public static final String COURSE_EXISTED = "1210001";
-    public static final String COURSE_NAME_EXISTED = "1210001";
+    public static final String COURSE_NAME_EXISTED = "1210002";
 }

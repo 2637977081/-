@@ -2,11 +2,14 @@ package com.univer.course.service;
 
 import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
+import com.univer.course.enums.CourseTypeEnum;
 import com.univer.course.mapper.LessonMapper;
 import com.univer.course.po.Lesson;
+import com.univer.course.redis.RedisProducer;
 import com.univer.course.vo.LessonVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -24,9 +27,30 @@ public class LessonService {
     @Autowired
     private LessonMapper lessonMapper;
 
-    public Integer addLesson(List<Lesson> list){
-        Integer result = lessonMapper.insertList(list);
-        return result;
+    @Autowired
+    private RedisProducer redisProducer;
+
+    public List<Lesson> addLesson(List<Lesson> temp,String type){
+        Integer result = lessonMapper.insertList(temp);
+        Long courseId = temp.get(0).getCourseId();
+        Lesson lesson = new Lesson();
+        lesson.setCourseId(courseId);
+        List<Lesson> list = lessonMapper.select(lesson);
+        //将选修课放入队列
+        if(CourseTypeEnum.isExisted(type)){
+            for(Lesson l:list){
+                for(int i=0;i<l.getMaxnum();i++){
+                    String num = "";
+                    if(i<10){
+                        num = "0"+i;
+                    }else {
+                        num = ""+i;
+                    }
+                    redisProducer.sendResourceMessage(l.getCode(),l.getLessonId()+num);
+                }
+            }
+        }
+        return list;
     }
 
     public List<Lesson> findByPage(LessonVo lessonVo){

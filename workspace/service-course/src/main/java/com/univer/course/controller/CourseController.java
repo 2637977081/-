@@ -81,6 +81,21 @@ public class CourseController extends AuthorizationController<Object> {
         return resultVo;
     }
 
+    @GetMapping("/enable/{id}")
+    public ResultVo enable(@PathVariable Long id){
+        CourseVo courseVo = new CourseVo();
+        courseVo.setCourseId(id);
+        courseVo.setUpdateTime(new Date());
+        courseVo.setStatus(StatusEnum.ENABLED.toString());
+        Boolean bool = courseService.updateCourse(courseVo);
+        if(bool){
+            resultVo.getInstance(HttpStatus.OK.toString(),bool);
+        }else {
+            resultVo.getInstance(MsgConstant.INVALID_DATA);
+        }
+        return resultVo;
+    }
+
     @GetMapping("/detail/{id}")
     public ResultVo detail(@PathVariable Long id){
         CourseVo courseVo = courseService.detail(id);

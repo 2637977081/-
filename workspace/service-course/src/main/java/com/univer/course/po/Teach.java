@@ -43,6 +43,10 @@ public class Teach extends BaseEntity {
     private String name;
 
     /**
+     * 课程id
+     */
+    private String lessonId;
+    /**
      * 描述
      */
     @Size(min = 1, max = 1024, message = "{teach.avatar.max}", groups = { })
@@ -126,6 +130,14 @@ public class Teach extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(String lessonId) {
+        this.lessonId = lessonId;
     }
 
     public String getDescription() {
@@ -238,6 +250,7 @@ public class Teach extends BaseEntity {
                 "teachId=" + teachId +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
+                ", lessonId='" + lessonId + '\'' +
                 ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
                 ", studentId=" + studentId +

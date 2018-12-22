@@ -26,6 +26,15 @@ public enum CourseTypeEnum {
         return null;
     }
 
+    public static Boolean isExisted(String str){
+        for (CourseTypeEnum courseTypeEnum: CourseTypeEnum.values()) {
+            if (courseTypeEnum.getCourseTypeEnum().equals(str)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     CourseTypeEnum(String courseType) {
         this.courseType = courseType;
     }

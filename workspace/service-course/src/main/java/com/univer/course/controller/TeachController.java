@@ -5,9 +5,9 @@ import com.univer.base.controller.AuthorizationController;
 import com.univer.base.enums.StatusEnum;
 import com.univer.base.util.VoUtils;
 import com.univer.course.constant.MsgConstant;
-import com.univer.course.po.Lesson;
-import com.univer.course.service.LessonService;
-import com.univer.course.vo.LessonVo;
+import com.univer.course.po.Teach;
+import com.univer.course.service.TeachService;
+import com.univer.course.vo.TeachVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -19,22 +19,22 @@ import java.util.List;
 /**
  * @author lvgang
  * @descript
- * @time 2018-12-20 16:08
+ * @time 2018-12-21 10:20
  */
 @RestController
-@RequestMapping("/lesson")
+@RequestMapping("teach")
 @Scope("prototype")
-public class LessonController extends AuthorizationController<Object> {
+public class TeachController extends AuthorizationController<Object> {
 
     @Autowired
-    private LessonVo lessonVo;
+    private TeachVo teachVo;
 
     @Autowired
-    private LessonService lessonService;
+    private TeachService teachService;
 
-    @PostMapping("add/lesson")
-    public Object addLesson(@RequestBody List<Lesson> temp,String type){
-        List<Lesson> list = lessonService.addLesson(temp,type);
+    @PostMapping("add/teach")
+    public Object addTeach(@RequestBody List<Teach> temp){
+        List<Teach> list = teachService.addTeach(temp);
         if(list.size()>0){
             resultVo.getInstance(HttpStatus.OK.toString(),list);
         }else {
@@ -43,13 +43,19 @@ public class LessonController extends AuthorizationController<Object> {
         return resultVo;
     }
 
+    @PostMapping("get/teach")
+    public Object getTeach(@RequestBody Teach teach){
+
+        return resultVo;
+    }
+
     @GetMapping("delete/{id}")
     public Object delete(@PathVariable Long id){
-        LessonVo lessonVo = new LessonVo();
-        lessonVo.setLessonId(id);
-        lessonVo.setUpdateTime(new Date());
-        lessonVo.setStatus(StatusEnum.DISABLED.toString());
-        Boolean bool = lessonService.updateLesson(lessonVo);
+        TeachVo teachVo = new TeachVo();
+        teachVo.setTeachId(id);
+        teachVo.setUpdateTime(new Date());
+        teachVo.setStatus(StatusEnum.DISABLED.toString());
+        Boolean bool = teachService.updateTeach(teachVo);
         if(bool){
             resultVo.getInstance(HttpStatus.OK.toString(),bool);
         }else {
@@ -60,11 +66,11 @@ public class LessonController extends AuthorizationController<Object> {
 
     @GetMapping("enable/{id}")
     public Object enable(@PathVariable Long id){
-        LessonVo lessonVo = new LessonVo();
-        lessonVo.setLessonId(id);
-        lessonVo.setUpdateTime(new Date());
-        lessonVo.setStatus(StatusEnum.ENABLED.toString());
-        Boolean bool = lessonService.updateLesson(lessonVo);
+        TeachVo teachVo = new TeachVo();
+        teachVo.setTeachId(id);
+        teachVo.setUpdateTime(new Date());
+        teachVo.setStatus(StatusEnum.ENABLED.toString());
+        Boolean bool = teachService.updateTeach(teachVo);
         if(bool){
             resultVo.getInstance(HttpStatus.OK.toString(),bool);
         }else {
@@ -74,10 +80,10 @@ public class LessonController extends AuthorizationController<Object> {
     }
 
     @PostMapping("/update")
-    public Object update(@RequestBody LessonVo temp) throws Exception{
-        VoUtils.copyProperties(temp, lessonVo,"lessonId","name","type","teacherId","teacherName","behavior","test","exam","credit","teachTime");
-        lessonVo.setUpdateTime(new Date());
-        Boolean bool = lessonService.updateLesson(lessonVo);
+    public Object update(@RequestBody TeachVo temp) throws Exception{
+        VoUtils.copyProperties(temp, teachVo,"teachId","name","type","studentId","studentName","behavior","test","exam","credit","score");
+        teachVo.setUpdateTime(new Date());
+        Boolean bool = teachService.updateTeach(teachVo);
         if(bool){
             resultVo.getInstance(HttpStatus.OK.toString(),bool);
         }else {
@@ -88,16 +94,17 @@ public class LessonController extends AuthorizationController<Object> {
 
     @GetMapping("detail/{id}")
     public Object detail(@PathVariable Long id){
-        Lesson lesson = lessonService.detail(id);
-        return resultVo.getInstance(HttpStatus.OK.toString(),lesson);
+        Teach teach = teachService.detail(id);
+        return resultVo.getInstance(HttpStatus.OK.toString(),teach);
     }
 
     @GetMapping("list")
-    public Object list(LessonVo temp) throws Exception {
-        VoUtils.copyProperties(temp, lessonVo,"lessonId","name","type","teacherId","teacherName","behavior","test","exam","credit","teachTime", "page", "rows");
-        List<Lesson> list = lessonService.findByPage(lessonVo);
-        PageInfo<Lesson> pageInfo = new PageInfo<Lesson>(list);
+    public Object list(TeachVo temp) throws Exception {
+        VoUtils.copyProperties(temp, teachVo,"teachId","name","type","teacherId","teacherName","behavior","test","exam","credit","teachTime", "page", "rows");
+        List<Teach> list = teachService.findByPage(teachVo);
+        PageInfo<Teach> pageInfo = new PageInfo<Teach>(list);
         resultVo.getInstance(HttpStatus.OK.toString(), pageInfo);
         return resultVo;
     }
+
 }

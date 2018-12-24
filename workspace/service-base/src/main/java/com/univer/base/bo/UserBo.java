@@ -150,7 +150,7 @@ public class UserBo {
 		super();
 	}
 
-	public UserBo(Long userId, String code, String username, String name, String phone, String email,String gender) {
+	public UserBo(Long userId, String code, String username, String name, String phone, String email,String gender,String avatar) {
 		this.userId = userId;
 		this.code = code;
 		this.username = username;
@@ -158,6 +158,7 @@ public class UserBo {
 		this.phone = phone;
 		this.email = email;
 		this.gender = gender;
+		this.avatar = avatar;
 	}
 
 	public Long getUserId() {

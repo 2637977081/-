@@ -2,6 +2,7 @@ package com.univer.account.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.univer.account.constant.MsgConstant;
+import com.univer.account.po.User;
 import com.univer.account.service.UserService;
 import com.univer.account.validation.EmailCaptcha;
 import com.univer.account.validation.EmailCaptchaValid;
@@ -117,7 +118,7 @@ public class AccountController extends BaseController {
         if (BCrypt.checkpw(userVo.getPassword(), persist.getPassword())) {
             if (StatusConstant.ENABLED.equals(persist.getStatus())) {
                 String code = persist.getCode();
-                String jwtToken = jwtUtil.createJWT(code, objectMapper.writeValueAsString(new UserBo(persist.getUserId(), persist.getCode(), persist.getUsername(), persist.getName(), persist.getPhone(), persist.getEmail(),persist.getGender())));
+                String jwtToken = jwtUtil.createJWT(code, objectMapper.writeValueAsString(new UserBo(persist.getUserId(), persist.getCode(), persist.getUsername(), persist.getName(), persist.getPhone(), persist.getEmail(),persist.getGender(),persist.getAvatar())));
                 persist.setJwtToken(new JwtToken(code, TypeConstant.BEARER_TOKEN, jwtToken, jwtUtil.getTtlMillis()));
                 // 缓存用户信息
                 template.opsForValue().set(code, objectMapper.writeValueAsString(persist));
@@ -238,7 +239,7 @@ public class AccountController extends BaseController {
                 return resultVo.getInstance(MsgConstant.INVALID_USER);
             }
             String code = persist.getCode();
-            String jwtToken = jwtUtil.createJWT(code, objectMapper.writeValueAsString(new UserBo(persist.getUserId(), persist.getCode(), persist.getUsername(), persist.getName(), persist.getPhone(), persist.getEmail(),persist.getGender())));
+            String jwtToken = jwtUtil.createJWT(code, objectMapper.writeValueAsString(new UserBo(persist.getUserId(), persist.getCode(), persist.getUsername(), persist.getName(), persist.getPhone(), persist.getEmail(),persist.getGender(),persist.getAvatar())));
             persist.setJwtToken(new JwtToken(code, TypeConstant.BEARER_TOKEN, jwtToken, jwtUtil.getTtlMillis()));
             // 缓存用户信息
             template.opsForValue().set(code, objectMapper.writeValueAsString(persist));

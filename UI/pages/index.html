@@ -7,13 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Purple Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="http://localhost:8000/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="http://localhost:8000/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="http://localhost:8000/css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="http://localhost:8000/images/favicon.png" />
 
@@ -180,7 +180,7 @@
           <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
               <div class="nav-profile-image">
-                <img src=".http://localhost:8000/images/faces/face1.jpg" alt="profile" id="userImage2">
+                <img src="http://localhost:8000/images/faces/face1.jpg" alt="profile" id="userImage2">
                 <span class="login-status online"></span> <!--change to offline or busy as needed-->              
               </div>
               <div class="nav-profile-text d-flex flex-column">
@@ -242,7 +242,7 @@
     var bashAccountPort = "8031";
     var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
     var random = "0000";
-    var nginxIp = "192.168.65.129";
+    var nginxIp = "192.168.152.128";
       //页面加载函数
       function onload(){
         // for(var i=0;i<getCookie("user").length;i++){
@@ -254,16 +254,14 @@
         // console.log("user",user);
         var user = window.localStorage.getItem("user");
         console.log(JSON.parse(user));
-        
+        setUserInf(JSON.parse(user));
         getJsonUrl();
 
-        setUserInf(JSON.parse(user));
-        
       }
       
       //加载左侧导航栏
       function getJsonUrl(){
-        $.getJSON("http://localhost:8000/json/url.json",function(data){
+        $.getJSON("../json/url.json",function(data){
           console.log("data",data);
           $.each(data, function(i, parent){
             console.log(parent.name);
@@ -298,14 +296,14 @@
       function setUserInf(user){
         console.log("setUserInf",user);
         if(user != null && user !=undefined){
-          var imageUrl = "http://"+nginxIp+"/"+user.avatar;
           $("#userName1").html(user.username);
           $("#userName2").html(user.username);
-          console.log( $("#userImage1"));
-          $("#userImage1").attr("src",imageUrl);
-          console.log( $("#userImage1").src);
-          $("#userImage2").attr("src",imageUrl);
-          $("#role").html(user.roleVoList[0].name);
+		  $("#role").html(user.roleVoList[0].name);
+		  if(user.avatar != null && user.avatar !=undefined){
+			var imageUrl = "http://"+nginxIp+"/"+user.avatar;
+			$("#userImage1").attr("src",imageUrl);
+			$("#userImage2").attr("src",imageUrl);
+		  }
         }
       }
 

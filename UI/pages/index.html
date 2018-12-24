@@ -7,15 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Purple Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="http://localhost:8000/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="http://localhost:8000/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="http://localhost:8000/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../images/favicon.png" />
+  <link rel="shortcut icon" href="http://localhost:8000/images/favicon.png" />
 
 </head>
 
@@ -24,8 +24,8 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../../images/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../../images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="http://localhost:8000/pages/index.html"><img src="http://localhost:8000/images/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="http://localhost:8000/pages/index.html"><img src="http://localhost:8000/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <div class="search-field d-none d-md-block">
@@ -39,7 +39,7 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <div class="nav-profile-img">
-                <img src="../../../images/faces/face1.jpg" alt="image" id="userImage1">
+                <img src="http://localhost:8000/images/faces/face1.jpg" alt="image" id="userImage1">
                 <span class="availability-status online"></span>             
               </div>
               <div class="nav-profile-text">
@@ -52,7 +52,7 @@
                 修改个人信息
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="#" onclick="logout()">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 登出
               </a>
@@ -70,7 +70,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="../../../images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="http://localhost:8000/images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                   <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
@@ -82,7 +82,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="../../../images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="http://localhost:8000/images/faces/face2.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                   <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
@@ -94,7 +94,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="../../../images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="http://localhost:8000/images/faces/face3.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                   <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
@@ -180,7 +180,7 @@
           <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
               <div class="nav-profile-image">
-                <img src="../../../images/faces/face1.jpg" alt="profile" id="userImage2">
+                <img src=".http://localhost:8000/images/faces/face1.jpg" alt="profile" id="userImage2">
                 <span class="login-status online"></span> <!--change to offline or busy as needed-->              
               </div>
               <div class="nav-profile-text d-flex flex-column">
@@ -192,7 +192,7 @@
           </li>
 
           <li class="nav-item active" >
-            <a class="nav-link" onclick="clickUrl('index.html')" href="#">
+            <a class="nav-link" onclick="clickUrl('http://localhost:8000/pages/index.html')" href="#">
               <span class="menu-title">主页</span>
               <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -202,7 +202,7 @@
       </nav>
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper" id="mainContent" style="background-image:url(../images/background/jianchi.jpg)">
+        <div class="content-wrapper" id="mainContent" style="background-image:url('http://localhost:8000/images/background/jianchi.jpg')">
           
         </div>
         <!-- content-wrapper ends -->
@@ -227,16 +227,16 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="http://localhost:8000/vendors/js/vendor.bundle.base.js"></script>
+  <script src="http://localhost:8000/vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="../js/off-canvas.js"></script>
-  <script src="../js/misc.js"></script>
-  <script src="../js/me.js"></script>
-  <script src="../js/jquery.cookie.js"></script>
+  <script src="http://localhost:8000/js/off-canvas.js"></script>
+  <script src="http://localhost:8000/js/misc.js"></script>
+  <script src="http://localhost:8000/js/me.js"></script>
+  <script src="http://localhost:8000/js/jquery.cookie.js"></script>
   <script>
     var bashAccountIp = "127.0.0.1";
     var bashAccountPort = "8031";
@@ -263,7 +263,7 @@
       
       //加载左侧导航栏
       function getJsonUrl(){
-        $.getJSON("../json/url.json",function(data){
+        $.getJSON("http://localhost:8000/json/url.json",function(data){
           console.log("data",data);
           $.each(data, function(i, parent){
             console.log(parent.name);
@@ -277,7 +277,7 @@
                 '<ul class="nav flex-column sub-menu">';
 
                   $.each(parent.children, function(i, son){
-                    html=html+'<li class="nav-item"> <a class="nav-link" href="#">'+son.name+'</a></li>';
+                    html=html+'<li class="nav-item"> <a class="nav-link" href="'+son.url+'">'+son.name+'</a></li>';
                   });
 
                 html=html+'</ul>'+
@@ -288,7 +288,12 @@
           });
         });
       }
-
+	  
+	  //跳转页面
+	  function clickUrl(url){
+		window.location=url;
+	  }
+	
       //设置当前登录用户信息
       function setUserInf(user){
         console.log("setUserInf",user);
@@ -308,10 +313,46 @@
       function gotoLogin(){
         var user = window.localStorage.getItem("user");
         if(user == null || user ==undefined){
-          window.location="/account/account/login.html";
+          window.location="/pages/account/account/login.html";
         }
       }
-   
+	
+	  function logout(){
+		var user = JSON.parse(window.localStorage.getItem("user"));
+		console.log("登出user",user);
+		if(user == null || user ==undefined){
+          window.location="/pages/account/account/login.html";
+        }else{
+			//ajax
+		$.ajax({
+			type:"post",
+			url:bashAccountUrl+"logout",
+			contentType:"application/json;charset:utf-8",
+			data:JSON.stringify({
+			}),
+			dataType:"json",
+			beforeSend:function(request){
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Access-Control-Allow-Credentials', true);
+				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+				request.setRequestHeader('Univer-Code', user.jwtToken.code);
+				request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},
+			success:function(data){
+				alert("code:"+data.code+"\n msg"+data.msg);
+				if(data.code==200){
+					window.location="/pages/account/account/login.html";
+				}else{
+					
+				}
+			},error:function(error){
+				console.log("error",error);
+				// window.location="/pages/error/error.html";
+			}
+		});
+		}
+		
+	  }
     </script>
   <!-- endinject -->
   <!-- Custom js for this page-->

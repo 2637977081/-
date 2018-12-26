@@ -54,6 +54,8 @@
           request.setRequestHeader('Access-Control-Allow-Origin', '*');
           request.setRequestHeader('Access-Control-Allow-Credentials', true);
           request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+		  request.setRequestHeader('Univer-Code', "user.jwtToken.code");
+		  request.setRequestHeader('Univer-Token', "user.jwtToken.accessToken");
         },
         success:function(data){
           console.log("data",data);
@@ -64,7 +66,7 @@
             // setCookie("user",data.data);
             // var inf = getCookie("user");
             // console.log("inf",inf);
-            window.location="/pages/index.html";
+            window.location="http://localhost:8000/pages/index.html";
           }else{
             alert("code:"+data.code+"\n msg"+data.msg);
             //登陆错误显示验证码

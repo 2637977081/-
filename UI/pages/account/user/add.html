@@ -202,10 +202,10 @@
       </nav>
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper" id="mainContent" >
+        <div class="content-wrapper" id="mainContent">
           <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
+            <div class="card" style="margin-top:10%;">
+              <div class="card-body" >
                 <h4 class="card-title">账号管理</h4>
                 <p class="card-description">
                   添加用户
@@ -213,50 +213,47 @@
                 <form class="forms-sample">
                   <div class="form-group row">
                     <label for="username" class="col-sm-3 col-form-label">账号</label>
-                    <input type="text" class="form-control" id="username" placeholder="账号" style="width:40%;margin-left:-15%">
+                    <input type="text" class="form-control" id="form_username" placeholder="账号" style="width:40%;margin-left:-15%">
                     
                     <label for="password" class="col-sm-3 col-form-label">密码</label>
-                    <input type="password" class="form-control" id="password" placeholder="密码" style="width:40%;margin-left:-15%">
+                    <input type="password" class="form-control" id="form_password" placeholder="密码" style="width:40%;margin-left:-15%">
                   </div>
                   <div class="form-group row">
                     <label for="name" class="col-sm-3 col-form-label">姓名</label>
-                    <input type="email" class="form-control" id="name" placeholder="姓名" style="width:40%;margin-left:-15%">
+                    <input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:40%;margin-left:-15%">
                     
                     <label for="email" class="col-sm-3 col-form-label">邮箱</label>
-                    <input type="text" class="form-control" id="email" placeholder="邮箱地址" style="width:40%;margin-left:-15%">
+                    <input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:40%;margin-left:-15%">
                   </div>
                   <div class="form-group row">
                     <label for="phone" class="col-sm-3 col-form-label">电话号码</label>
-                    <input type="text" class="form-control" id="phone" placeholder="电话号码" style="width:40%;margin-left:-15%">
-                    <input type="file" name="img[]" class="file-upload-default" id="avatar">
+                    <input type="text" class="form-control" id="form_phone" placeholder="电话号码" style="width:40%;margin-left:-15%">
+                    <input type="file" name="img[]" class="file-upload-default" >
                     
-                    <input type="text" class="form-control file-upload-info"  style="width:30%;margin-left: 5%" disabled="" placeholder="上传头像">
+                    <input type="text" class="form-control file-upload-info" id="form_avatar" style="width:30%;margin-left: 5%" disabled="" placeholder="上传头像">
                     <span class="input-group-append">
                       <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
                     </span>
                   </div>  
                   <div class="form-group row">
                     <label for="gender" class="col-sm-3 col-form-label">性别</label>
-                    <select class="form-control" id="gender" style="width:20%;margin-left: -15%;">
+                    <select class="form-control" id="form_gender" style="width:20%;margin-left: -15%;">
                       <option value="male">男</option>
                       <option value="female">女</option>
                     </select>
-                    <label for="gender" class="col-sm-3 col-form-label">组织结构</label>
-                    <select class="form-control" id="org" style="width:20%;margin-left: -15%;">
-                      <option value="jsj">计算机科学技术学院</option>
-                      <option value="jx">机械学院</option>
+                    <label for="role" class="col-sm-3 col-form-label" >角色</label>
+                    <select class="form-control" id="form_role" style="width:20%;margin-left: -15%;" onclick="getOrgList(this.selectedIndex)">
                     </select>
-                    <label for="role" class="col-sm-3 col-form-label">角色</label>
-                    <select class="form-control" id="role" style="width:20%;margin-left: -15%;">
-                      <option value="admin">管理员</option>
-                      <option value="teacher">教师</option>
-                      <option value="Student">学生</option>
+                    <label for="gender" class="col-sm-3 col-form-label">组织结构</label>
+                    <select class="form-control" id="form_org" style="width:20%;margin-left: -15%;">
+                      <option value="">计算机科学技术学院</option>
+                      <option value="jx">机械学院</option>
                     </select>
                   </div>
                   <div class="form-group row">
-                    <textarea class="form-control" id="exampleTextarea1" rows="4">个人描述</textarea>
+                    <textarea class="form-control" id="form_description" rows="4">个人描述</textarea>
                   </div>
-                  <button type="submit" class="btn btn-gradient-primary mr-2">提交</button>
+                  <button onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
                   <button class="btn btn-light">重置</button>
                 </form>
               </div>
@@ -306,8 +303,11 @@
     var bashAccountIp = "127.0.0.1";
     var bashAccountPort = "8031";
     var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
+	var bashOrgUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/org/";
+	var bashRoleUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/role/";
     var random = "0000";
     var nginxIp = "192.168.152.128";
+	var user = null;
       //页面加载函数
       function onload(){
         // for(var i=0;i<getCookie("user").length;i++){
@@ -317,13 +317,14 @@
         // console.log("json",json);
         
         // console.log("user",user);
-        var user = window.localStorage.getItem("user");
-        console.log(JSON.parse(user));
+        user = JSON.parse(window.localStorage.getItem("user"));
+        console.log(user);
         
         getJsonUrl();
 
-        setUserInf(JSON.parse(user));
+        setUserInf();
         
+		getRoleList();
       }
       
       //加载左侧导航栏
@@ -354,15 +355,91 @@
         });
       }
 	  
+	  //获取角色列表
+	  function getRoleList(){
+		if(user!=null&&user!='null'&&user!=undefined){
+		//ajax
+		  $.ajax({
+			type:"get",
+			url:bashRoleUrl+"list",
+			contentType:"application/json;charset:utf-8",
+			dataType:"json",
+			beforeSend:function(request){
+			  request.setRequestHeader('Access-Control-Allow-Origin', '*');
+			  request.setRequestHeader('Access-Control-Allow-Credentials', true);
+			  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+			  request.setRequestHeader('Univer-Code', user.jwtToken.code);
+			  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},
+			success:function(data){
+			  console.log("data",data);
+			  if(data.code==200){
+				$.each(data.data.list, function(i, role){
+					console.log(role.roleId,role.name);
+					var html ='<option value="'+role.roleId+'" id='+role.type+'>'+role.name+'</option>';
+					var element = $(html);
+					$("#form_role").append(element);
+				});
+			  }else{
+				alert("code:"+data.code+"\n msg"+data.msg);
+			  }
+			},error:function(error){
+			  console.log("error",error);
+			  // window.location="/pages/error/error.html";
+			}
+		  });
+		}
+	  }
+	  
+	  function getOrgList(){
+		var type = $("#form_role option:selected")[0].id;
+		console.log("type",type);
+		if(user!=null&&user!='null'&&user!=undefined){
+		//ajax
+		  $.ajax({
+			type:"get",
+			url:bashOrgUrl+"list/org",
+			contentType:"application/json;charset:utf-8",
+			dataType:"json",
+			beforeSend:function(request){
+			  request.setRequestHeader('Access-Control-Allow-Origin', '*');
+			  request.setRequestHeader('Access-Control-Allow-Credentials', true);
+			  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+			  request.setRequestHeader('Univer-Code', user.jwtToken.code);
+			  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},
+			success:function(data){
+			  console.log("data",data);
+			  if(data.code==200){
+				$("#form_org").html(null);
+				$.each(data.data, function(i, org){
+					if(org.type == type){
+						console.log("org",org);
+						var html ='<option value="'+org.orgId+'">'+org.name+'</option>';
+						var element = $(html);
+						$("#form_org").append(element);
+					}
+				});
+			  }else{
+				alert("code:"+data.code+"\n msg"+data.msg);
+			  }
+			},error:function(error){
+			  console.log("error",error);
+			  // window.location="/pages/error/error.html";
+			}
+		  });
+		}
+	  }
+	  
 	  //跳转页面
 	  function clickUrl(url){
 		window.location=url;
 	  }
 	
       //设置当前登录用户信息
-      function setUserInf(user){
+      function setUserInf(){
         console.log("setUserInf",user);
-        if(user != null && user !=undefined){
+        if(user != null && user!='null' && user !=undefined){
           var imageUrl = "http://"+nginxIp+"/"+user.avatar;
           $("#userName1").html(user.username);
           $("#userName2").html(user.username);
@@ -389,33 +466,35 @@
 		if(user == null || user ==undefined){
           window.location="/pages/account/account/login.html";
         }else{
+			//本地存储设为null
+			window.localStorage.setItem("user",null);
 			//ajax
-		$.ajax({
-			type:"post",
-			url:bashAccountUrl+"logout",
-			contentType:"application/json;charset:utf-8",
-			data:JSON.stringify({
-			}),
-			dataType:"json",
-			beforeSend:function(request){
-				request.setRequestHeader('Access-Control-Allow-Origin', '*');
-				request.setRequestHeader('Access-Control-Allow-Credentials', true);
-				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-				request.setRequestHeader('Univer-Code', user.jwtToken.code);
-				request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
-			},
-			success:function(data){
-				alert("code:"+data.code+"\n msg"+data.msg);
-				if(data.code==200){
-					window.location="/pages/account/account/login.html";
-				}else{
-					
+			$.ajax({
+				type:"post",
+				url:bashAccountUrl+"logout",
+				contentType:"application/json;charset:utf-8",
+				data:JSON.stringify({
+				}),
+				dataType:"json",
+				beforeSend:function(request){
+					request.setRequestHeader('Access-Control-Allow-Origin', '*');
+					request.setRequestHeader('Access-Control-Allow-Credentials', true);
+					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+					request.setRequestHeader('Univer-Code', user.jwtToken.code);
+					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+				},
+				success:function(data){
+					if(data.code==200){
+						window.location="/pages/account/account/login.html";
+					}else{
+						alert("code:"+data.code+"\n msg"+data.msg);
+					}
+				},error:function(error){
+					console.log("error",error);
+					alert("网络错误");
+					// window.location="/pages/error/error.html";
 				}
-			},error:function(error){
-				console.log("error",error);
-				// window.location="/pages/error/error.html";
-			}
-		});
+			});
 		}
 		
 	  }

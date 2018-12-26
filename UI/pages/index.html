@@ -243,6 +243,7 @@
     var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
     var random = "0000";
     var nginxIp = "192.168.152.128";
+	var user = null;
       //页面加载函数
       function onload(){
         // for(var i=0;i<getCookie("user").length;i++){
@@ -252,7 +253,7 @@
         // console.log("json",json);
         
         // console.log("user",user);
-        var user = window.localStorage.getItem("user");
+        user = window.localStorage.getItem("user");
         console.log(JSON.parse(user));
         setUserInf(JSON.parse(user));
         getJsonUrl();
@@ -321,6 +322,8 @@
 		if(user == null || user ==undefined){
           window.location="/pages/account/account/login.html";
         }else{
+			//本地存储设为null
+			window.localStorage.setItem("user",null);
 			//ajax
 		$.ajax({
 			type:"post",
@@ -345,6 +348,7 @@
 				}
 			},error:function(error){
 				console.log("error",error);
+				alert("网络错误");
 				// window.location="/pages/error/error.html";
 			}
 		});

@@ -53,7 +53,13 @@ public class OrgController extends AuthorizationController<Object> {
 		resultVo.getInstance(HttpStatus.OK.toString(), orgTreeVo);
 		return resultVo;
 	}
-	
+
+	@GetMapping("list/org")
+	public ResultVo orgList(){
+		List<Org> list = orgService.findAll();
+		return resultVo.getInstance(HttpStatus.OK.toString(),list);
+	}
+
 	/**
      * 查询详情
      */

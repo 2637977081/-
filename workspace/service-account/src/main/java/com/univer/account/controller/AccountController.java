@@ -51,7 +51,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author guwei
  */
-@CrossOrigin
 @RestController
 @RequestMapping("/account/")
 @Scope("prototype")

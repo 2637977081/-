@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.univer.base.constant.MsgConstant;
 import com.univer.base.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  *
  * 控制层基类
  */
+@CrossOrigin
 public class BaseController<T> {
 
 	@Autowired

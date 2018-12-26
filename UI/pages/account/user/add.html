@@ -231,10 +231,10 @@
                               </div>
                     
                     <div class="col-sm-6 row">
-                      <input type="file" name="img[]" class="file-upload-default" id="form_avatar" >
+                      <input type="file" name="img[]" class="file-upload-default" id="form_avatar"  onchange="uploadAvatar()">
                       <input type="text" class="form-control file-upload-info" style="width:50%;" disabled="" placeholder="上传头像" >
                       <span class="input-group-append">
-                        <button class="file-upload-browse btn btn-gradient-primary" type="button" onclick="uploadAvatar()">上传</button>
+                        <button class="file-upload-browse btn btn-gradient-primary" type="button">上传</button>
                       </span>
                     </div>
                               
@@ -306,10 +306,12 @@
   <script>
     var bashAccountIp = "127.0.0.1";
     var bashAccountPort = "8031";
+    var bashStoragePort = "8041";
     var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
 	var bashUserUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/user/";
 	var bashOrgUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/org/";
 	var bashRoleUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/role/";
+  var bashStorageUrl = "http://"+bashAccountIp+":"+bashStoragePort+"/file/";
     var random = "0000";
     var nginxIp = "192.168.152.128";
 	var user = null;
@@ -329,7 +331,7 @@
 
         setUserInf();
         
-		getRoleList();
+		    getRoleList();
       }
       
       //加载左侧导航栏
@@ -359,10 +361,37 @@
           });
         });
       }
-	  
-      function uploadAvatar(){
-
-      }
+	  //上传图片
+    function uploadAvatar(){
+        
+		  var image = $("#form_avatar")[0].files[0];
+      //ajax
+		  $.ajax({
+			  type:"post",
+			  url:bashStorageUrl+"upload",
+        cache: false,
+        processData: false,
+        contentType:false,
+        dataType:"json",
+        data:image ,
+        beforeSend:function(request){
+          request.setRequestHeader('Access-Control-Allow-Origin', '*');
+          request.setRequestHeader('Access-Control-Allow-Credentials', true);
+          request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+        },
+        success:function(data){
+          console.log("data",data);
+          if(data.code==200){
+            
+          }else{
+          alert("code:"+data.code+"\n msg"+data.msg);
+          }
+        },error:function(error){
+          console.log("error",error);
+          // window.location="/pages/error/error.html";
+        }
+		  });
+    }
 
 	  //获取角色列表
 	  function getRoleList(){

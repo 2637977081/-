@@ -15,7 +15,7 @@ import java.util.UUID;
  * @time 2018-12-17 18:05
  */
 public class FTP {
-    private static String IP = "192.168.152.128";
+    private static String IP = "192.168.65.129";
     private static String USERNAME = "lvgang";
     private static String PASSWORD = "123456";
     private static String REMOTEPATH = "nginx/file";

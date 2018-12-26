@@ -103,11 +103,7 @@ public class UserController extends AuthorizationController<Object> {
 		return resultVo;
 	}
 
-	public ResultVo uplaodImage(){
-		return resultVo;
-	}
-
-	/** 
+	/**
      * 更新
      */
 	@PostMapping("update")

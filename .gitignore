@@ -15,3 +15,4 @@ workspace/.idea/
 *.class
 *.iml
 workspace/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml
+*.class

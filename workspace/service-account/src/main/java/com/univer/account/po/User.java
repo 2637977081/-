@@ -85,7 +85,7 @@ public class User extends BaseEntity {
     /**
      * 头像
      */
-    @Size(min = 1, max = 1024, message = "{user.avatar.max}", groups = { UserAdd.class, UserUpdate.class })
+//    @Size(min = 1, max = 1024, message = "{user.avatar.max}", groups = { UserAdd.class, UserUpdate.class })
     private String avatar;
 
     /**

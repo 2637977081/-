@@ -210,42 +210,46 @@
                 <p class="card-description">
                   添加用户
                 </p>
-                <form class="forms-sample">
                   <div class="form-group row">
-                    <label for="username" class="col-sm-3 col-form-label">账号</label>
-                    <input type="text" class="form-control" id="form_username" placeholder="账号" style="width:40%;margin-left:-15%">
+                    <label for="username" class="col-sm-1 col-form-label" style="width:15%">账号</label>
+                    <input type="text" class="form-control" id="form_username" placeholder="账号" style="width:40%">
                     
-                    <label for="password" class="col-sm-3 col-form-label">密码</label>
-                    <input type="password" class="form-control" id="form_password" placeholder="密码" style="width:40%;margin-left:-15%">
+                    <label for="password" class="col-sm-1 col-form-label">密码</label>
+                    <input type="password" class="form-control" id="form_password" placeholder="密码" style="width:40%">
                   </div>
                   <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">姓名</label>
-                    <input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:40%;margin-left:-15%">
+                    <label for="name" class="col-sm-1 col-form-label">姓名</label>
+                    <input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:40%">
                     
-                    <label for="email" class="col-sm-3 col-form-label">邮箱</label>
-                    <input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:40%;margin-left:-15%">
+                    <label for="email" class="col-sm-1 col-form-label">邮箱</label>
+                    <input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:40%">
                   </div>
                   <div class="form-group row">
-                    <label for="phone" class="col-sm-3 col-form-label">电话号码</label>
-                    <input type="text" class="form-control" id="form_phone" placeholder="电话号码" style="width:40%;margin-left:-15%">
-                    <input type="file" name="img[]" class="file-upload-default" >
+					<div class="col-sm-6 row">
+						<label for="phone" class="col-sm-3 col-form-label">电话号码</label>
+						<input type="text" class="form-control" id="form_phone" placeholder="电话号码" style="width:40%;">
+                    </div>
+					
+					<div class="col-sm-6 row">
+						<input type="file" name="img[]" class="file-upload-default" id="form_avatar" >
+						<input type="text" class="form-control file-upload-info" style="width:50%;" disabled="" placeholder="上传头像" >
+						<span class="input-group-append">
+						  <button class="file-upload-browse btn btn-gradient-primary" type="button">上传</button>
+						</span>
+					</div>
                     
-                    <input type="text" class="form-control file-upload-info" id="form_avatar" style="width:30%;margin-left: 5%" disabled="" placeholder="上传头像">
-                    <span class="input-group-append">
-                      <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                    </span>
                   </div>  
                   <div class="form-group row">
-                    <label for="gender" class="col-sm-3 col-form-label">性别</label>
-                    <select class="form-control" id="form_gender" style="width:20%;margin-left: -15%;">
+                    <label for="gender" class="col-sm-1 col-form-label">性别</label>
+                    <select class="form-control" id="form_gender" style="width:20%;">
                       <option value="male">男</option>
                       <option value="female">女</option>
                     </select>
-                    <label for="role" class="col-sm-3 col-form-label" >角色</label>
-                    <select class="form-control" id="form_role" style="width:20%;margin-left: -15%;" onclick="getOrgList(this.selectedIndex)">
+                    <label for="role" class="col-sm-1 col-form-label" >角色</label>
+                    <select class="form-control" id="form_role" style="width:20%;" onclick="getOrgList(this.selectedIndex)">
                     </select>
-                    <label for="gender" class="col-sm-3 col-form-label">组织结构</label>
-                    <select class="form-control" id="form_org" style="width:20%;margin-left: -15%;">
+                    <label for="gender" class="col-sm-1 col-form-label">组织结构</label>
+                    <select class="form-control" id="form_org" style="width:20%;">
                       <option value="">计算机科学技术学院</option>
                       <option value="jx">机械学院</option>
                     </select>
@@ -253,9 +257,9 @@
                   <div class="form-group row">
                     <textarea class="form-control" id="form_description" rows="4">个人描述</textarea>
                   </div>
-                  <button onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
+                  <button type="button" onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
                   <button class="btn btn-light">重置</button>
-                </form>
+                
               </div>
             </div>
           </div>
@@ -303,6 +307,7 @@
     var bashAccountIp = "127.0.0.1";
     var bashAccountPort = "8031";
     var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
+	var bashUserUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/user/";
 	var bashOrgUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/org/";
 	var bashRoleUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/role/";
     var random = "0000";
@@ -431,6 +436,89 @@
 		}
 	  }
 	  
+	  //提交用户信息
+	  function submit(){
+		var username = $("#form_username").val();
+		var password = $("#form_password").val();
+		var name = $("#form_name").val();
+		var email = $("#form_email").val();
+		var phone = $("#form_phone").val();
+		var gender = $("#form_gender option:selected")[0].value;
+		var role = parseInt($("#form_role option:selected")[0].value)
+		var org = parseInt($("#form_org option:selected")[0].value);
+		//图片转BASE64
+		var avatar = "";
+		var image = $("#form_avatar")[0].files[0];
+		console.log("image",image);
+		var reader  = new FileReader();
+		reader.addEventListener("load", function () {
+			avatar = this.result;
+			console.log("addUser",JSON.stringify({
+				  username:username,
+				  password:password,
+				  name:name,
+				  email:email,
+				  phone:phone,
+				  gender:gender,
+				  avatar:avatar,
+				  orgId:org,
+				  roleVoList:[
+						{
+							roleId:role
+						}
+					],
+				  status:"enabled"
+				}));
+			if(user!=null&&user!='null'&&user!=undefined){
+			//ajax
+			  $.ajax({
+				type:"post",
+				url:bashUserUrl+"add",
+				contentType:"application/json;charset:utf-8",
+				data:JSON.stringify({
+				  username:username,
+				  password:password,
+				  name:name,
+				  email:email,
+				  phone:phone,
+				  gender:gender,
+				  avatar:avatar,
+				  orgId:org,
+				  roleVoList:[
+						{
+							roleId:role
+						}
+					],
+				  status:"enabled"
+				}),
+				dataType:"json",
+				beforeSend:function(request){
+				  request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				  request.setRequestHeader('Access-Control-Allow-Credentials', true);
+				  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+				  request.setRequestHeader('Univer-Code', user.jwtToken.code);
+				  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+				},
+				success:function(data){
+				  console.log("data",data);
+				  if(data.code==200){
+					
+				  }else{
+					alert("code:"+data.code+"\n msg"+data.msg);
+				  }
+				},error:function(error){
+				  console.log("error",error);
+				  // window.location="/pages/error/error.html";
+				}
+			  });
+			}
+			
+		}, false);
+		if (image) {
+			reader.readAsDataURL(image);
+		}
+	  }
+	 
 	  //跳转页面
 	  function clickUrl(url){
 		window.location=url;

@@ -1,11 +1,11 @@
 ### IntelliJ IDEA ###
 .idea
 
-workspace/.idea/workspace.xml
-workspace/.idea/modules.xml
-workspace/.idea/misc.xml
-workspace/.idea/encodings.xml
-workspace/.idea/compiler.xml
+workspace/.idea/
+workspace/.idea/
+workspace/.idea
+workspace/.idea/
+workspace/.idea/
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/inspectionProfiles/Project_Default.xml
@@ -14,3 +14,4 @@ workspace/.idea/compiler.xml
 *.class
 *.class
 *.iml
+workspace/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml

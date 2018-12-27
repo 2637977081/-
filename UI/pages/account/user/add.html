@@ -303,18 +303,8 @@
   <!-- Custom js for this page-->
   <script src="http://localhost:8000/js/file-upload.js"></script>
   <!-- End custom js for this page-->
+  <script src="http://localhost:8000/js/init.js"></script>
   <script>
-    var bashAccountIp = "127.0.0.1";
-    var bashAccountPort = "8031";
-    var bashStoragePort = "8041";
-    var bashAccountUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/account/";
-	var bashUserUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/user/";
-	var bashOrgUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/org/";
-	var bashRoleUrl = "http://"+bashAccountIp+":"+bashAccountPort+"/role/";
-  var bashStorageUrl = "http://"+bashAccountIp+":"+bashStoragePort+"/file/";
-    var random = "0000";
-    var nginxIp = "192.168.152.128";
-	var user = null;
       //页面加载函数
       function onload(){
         // for(var i=0;i<getCookie("user").length;i++){
@@ -331,7 +321,7 @@
 
         setUserInf();
         
-		    getRoleList();
+		getRoleList();
       }
       
       //加载左侧导航栏
@@ -364,33 +354,33 @@
 	  //上传图片
     function uploadAvatar(){
         
-		  var image = $("#form_avatar")[0].files[0];
-      //ajax
-		  $.ajax({
-			  type:"post",
-			  url:bashStorageUrl+"upload",
-        cache: false,
-        processData: false,
-        contentType:false,
-        dataType:"json",
-        data:image ,
-        beforeSend:function(request){
-          request.setRequestHeader('Access-Control-Allow-Origin', '*');
-          request.setRequestHeader('Access-Control-Allow-Credentials', true);
-          request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-        },
-        success:function(data){
-          console.log("data",data);
-          if(data.code==200){
-            
-          }else{
-          alert("code:"+data.code+"\n msg"+data.msg);
-          }
-        },error:function(error){
-          console.log("error",error);
-          // window.location="/pages/error/error.html";
-        }
-		  });
+		var image = $("#form_avatar")[0].files[0];
+		//ajax
+		$.ajax({
+			type:"post",
+			url:bashStorageUrl+"upload",
+			cache: false,
+			processData: false,
+			contentType:false,
+			dataType:"json",
+			data:image ,
+			beforeSend:function(request){
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Access-Control-Allow-Credentials', true);
+				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+			},
+			success:function(data){
+				console.log("data",data);
+				if(data.code==200){
+					
+				}else{
+					alert("code:"+data.code+"\n msg"+data.msg);
+				}
+			},error:function(error){
+				console.log("error",error);
+				// window.location="/pages/error/error.html";
+			}
+		});
     }
 
 	  //获取角色列表
@@ -479,32 +469,9 @@
 		var gender = $("#form_gender option:selected")[0].value;
 		var role = parseInt($("#form_role option:selected")[0].value)
 		var org = parseInt($("#form_org option:selected")[0].value);
-		//图片转BASE64
-		var avatar = "";
-		var image = $("#form_avatar")[0].files[0];
-		console.log("image",image);
-		var reader  = new FileReader();
-		reader.addEventListener("load", function () {
-			avatar = this.result;
-			console.log("addUser",JSON.stringify({
-				  username:username,
-				  password:password,
-				  name:name,
-				  email:email,
-				  phone:phone,
-				  gender:gender,
-				  avatar:avatar,
-				  orgId:org,
-				  roleVoList:[
-						{
-							roleId:role
-						}
-					],
-				  status:"enabled"
-				}));
-			if(user!=null&&user!='null'&&user!=undefined){
+    	if(user!=null&&user!='null'&&user!=undefined){
 			//ajax
-			  $.ajax({
+			$.ajax({
 				type:"post",
 				url:bashUserUrl+"add",
 				contentType:"application/json;charset:utf-8",
@@ -543,13 +510,7 @@
 				  console.log("error",error);
 				  // window.location="/pages/error/error.html";
 				}
-			  });
-			}
-			
-		}, false);
-		if (image) {
-			reader.readAsDataURL(image);
-		}
+			});
 	  }
 	 
 	  //跳转页面

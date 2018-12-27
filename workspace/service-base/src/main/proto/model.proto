@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.univer.base.grpc.model";
+option java_outer_classname = "Model";
+
+package model;
+
+service ModelService {
+    rpc predict (ModelRequest) returns (ModelResponse) {};
+}
+
+message ModelRequest {
+    string jsonData = 1;
+}
+
+message ModelResponse {
+    string jsonData = 1;
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.univer.base.grpc.storage";
+option java_outer_classname = "Storage";
+
+package storage;
+
+service StorageService {
+    rpc objectStorage (stream  StorageRequest) returns (StorageResponse) {};
+    rpc logStorage (StorageRequest) returns (StorageResponse) {};
+}
+
+// {"content":"base64后的内容","fileType":"文件后缀","type":"资源类型(image、video、audio)","contentType":"","storageType":"存储ceph、oss","key":"文件目录"}
+message StorageRequest {
+    string jsonData = 1;
+}
+
+message StorageResponse {
+    string jsonData = 1;
+}
+

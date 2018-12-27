@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.univer.course.mapper.CourseMapper">
+    <resultMap id="BaseResultMap" type="com.univer.course.po.Course">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="course_id" jdbcType="BIGINT" property="courseId" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="university_id" jdbcType="BIGINT" property="universityId" />
+        <result column="university_name" jdbcType="VARCHAR" property="universityName" />
+        <result column="faculty_id" jdbcType="BIGINT" property="facultyId" />
+        <result column="faculty_name" jdbcType="VARCHAR" property="facultyName" />
+        <result column="subject_id" jdbcType="VARCHAR" property="subjectId" />
+        <result column="subject_name" jdbcType="INTEGER" property="subjectName" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="create_id" jdbcType="BIGINT" property="createId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+</mapper>

@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.univer.base.grpc.message";
+option java_outer_classname = "Message";
+
+package message;
+
+service MessageService {
+    rpc captcha (MessageRequest) returns (MessageResponse) {};
+}
+
+message MessageRequest {
+    string jsonData = 1;
+}
+
+message MessageResponse {
+    string jsonData = 1;
+}

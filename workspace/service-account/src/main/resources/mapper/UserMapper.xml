@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.univer.account.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.univer.account.po.User">
+        <id column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="gender" jdbcType="VARCHAR" property="gender" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="captcha_status" jdbcType="TINYINT" property="captchaStatus" />
+        <result column="reset_status" jdbcType="TINYINT" property="resetStatus" />
+        <result column="org_id" jdbcType="BIGINT" property="orgId" />
+        <result column="creater_id" jdbcType="BIGINT" property="createrId" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <select id="selectUserVoByCondition" resultType="com.univer.account.vo.UserVo" parameterType="map">
+        select u.user_id as userId,
+        u.code,
+        u.username,
+        u.name,
+        u.gender,
+        u.email,
+        u.phone,
+        u.type,
+        u.avatar,
+        u.description,
+        u.captcha_status as captchaStatus,
+        u.reset_status as resetStatus,
+        u.org_id as orgId,
+        o.name as orgName,
+        u.creater_id as createrId,
+        a.username as createrName,
+        b.roleName,
+        u.status,
+        u.create_time as createTime,
+        u.update_time as updateTime
+        from user u
+        left join org o on u.org_id = o.org_id
+        left join (select user_id, username from user) a on u.creater_id = a.user_id
+        left join (select ur.user_id, GROUP_CONCAT(r.name) as roleName from role r, user_role ur where r.role_id = ur.role_id group by ur.user_id) b on u.user_id = b.user_id
+        where 1 = 1
+        <if test="username != null">
+            and u.username like CONCAT('%',#{username},'%')
+        </if>
+        <if test="name != null">
+            and u.ame like CONCAT('%',#{name},'%')
+        </if>
+        <if test="phone != null">
+            and u.phone like CONCAT('%',#{phone},'%')
+        </if>
+        <if test="email != null">
+            and u.email like CONCAT('%',#{email},'%')
+        </if>
+        <if test="type != null">
+            and u.type = #{type}
+        </if>
+        <if test="orgId != null">
+            and u.org_id = #{orgId}
+        </if>
+        <if test="createrId != null">
+            and u.creater_id = #{createrId}
+        </if>
+        <if test="status != null">
+            and u.status = #{status}
+        </if>
+        <if test="notStatus != null">
+            and u.status != #{notStatus}
+        </if>
+        <if test="roleName != null">
+            and b.roleName like CONCAT('%',#{roleName},'%')
+        </if>
+        order by u.create_time desc
+    </select>
+
+    <select id="selectUserVoByOrgId" resultType="com.univer.account.vo.UserVo" parameterType="map">
+        select u.user_id as userId,
+        u.code,
+        u.username,
+        u.name,
+        u.gender,
+        u.email,
+        u.phone,
+        u.type,
+        u.avatar,
+        u.description,
+        u.captcha_status as captchaStatus,
+        u.reset_status as resetStatus,
+        u.org_id as orgId,
+        u.creater_id as createrId,
+        u.status,
+        u.create_time as createTime,
+        u.update_time as updateTime
+        from user u
+        where u.org_id = #{orgId}
+        <if test="status != null">
+            and u.status = #{status}
+        </if>
+    </select>
+</mapper>

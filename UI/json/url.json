@@ -8,22 +8,22 @@
             {
                 "name":"添加用户",
                 "roles":[1,2],
-                "url":"account/user/add.html"
+                "url":"http://localhost:8000/pages/account/user/add.html"
             },
             {
                 "name":"用户列表",
                 "roles":[1,2,3],
-                "url":"account/user/list.html"
+                "url":"http://localhost:8000/pages/account/user/list.html"
             },
             {
                 "name":"添加组织机构",
                 "roles":[1,2],
-                "url":"account/org/add.html"
+                "url":"http://localhost:8000/pages/account/org/add.html"
             },
             {
                 "name":"组织机构列表",
                 "roles":[1,2],
-                "url":"account/org/list.html"
+                "url":"http://localhost:8000/pages/account/org/list.html"
             }
         ]
     },
@@ -36,22 +36,22 @@
             {
                 "name":"添加用户",
                 "roles":[1,2],
-                "url":"account/user/add.html"
+                "url":"http://localhost:8000/pages/account/user/add.html"
             },
             {
                 "name":"用户列表",
                 "roles":[1,2,3],
-                "url":"account/user/list.html"
+                "url":"http://localhost:8000/pages/account/user/list.html"
             },
             {
                 "name":"添加组织机构",
                 "roles":[1,2],
-                "url":"account/org/add.html"
+                "url":"http://localhost:8000/pages/account/org/add.html"
             },
             {
                 "name":"组织机构列表",
                 "roles":[1,2],
-                "url":"account/org/list.html"
+                "url":"http://localhost:8000/pages/account/org/list.html"
             }
         ]
     }

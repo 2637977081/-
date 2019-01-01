@@ -66,7 +66,7 @@ public class FileController extends BaseController {
                 e.printStackTrace();
             }
         }
-        return resultVo.getInstance(HttpStatus.OK.toString(),savePath);
+        return resultVo.getInstance(HttpStatus.OK.toString(),newName);
     }
 
     @GetMapping("/download")

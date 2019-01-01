@@ -1,0 +1,72 @@
+2018/12/30 18:30:47 [error] 6380#11256: *1 CreateFile() "D:\graduation\nginx/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2018/12/30 18:31:49 [notice] 8600#1828: signal process started
+2018/12/30 18:34:12 [notice] 1188#9160: signal process started
+2018/12/30 18:34:12 [error] 1188#9160: CreateFile() "D:\graduation\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2018/12/30 18:38:50 [error] 6336#10548: *1 directory index of "D:\graduation\nginx/files/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:39:40 [notice] 12168#11924: signal process started
+2018/12/30 18:40:32 [error] 7588#10480: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:40:34 [error] 7588#10480: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:43:22 [error] 7588#10480: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:43:23 [error] 7588#10480: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:43:40 [error] 7588#10480: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:43:41 [error] 7588#10480: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:43:41 [error] 7588#10480: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:43:41 [error] 7588#10480: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:44:14 [notice] 11888#3260: signal process started
+2018/12/30 18:44:27 [error] 7800#8176: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:46:08 [error] 7800#8176: *4 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:46:12 [notice] 8396#5748: signal process started
+2018/12/30 18:46:23 [error] 5072#7852: *1 rewrite or internal redirection cycle while internally redirecting to "/files/", client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:49:23 [notice] 1232#9384: signal process started
+2018/12/30 18:49:33 [error] 6776#10212: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:49:36 [error] 6776#10212: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:52:00 [notice] 9272#10516: signal process started
+2018/12/30 18:52:13 [error] 3296#7588: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:52:17 [error] 3296#7588: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:52:59 [notice] 12056#9656: signal process started
+2018/12/30 18:53:46 [error] 10972#3172: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:56:34 [notice] 7028#8576: signal process started
+2018/12/30 18:56:42 [error] 10212#10080: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 18:57:07 [error] 10212#10080: *1 CreateFile() "D:\graduation\nginx/html/soft" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /soft HTTP/1.1", host: "localhost"
+2018/12/30 18:57:11 [error] 10212#10080: *1 CreateFile() "D:\graduation\nginx/html/softs" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /softs HTTP/1.1", host: "localhost"
+2018/12/30 18:57:25 [error] 10212#10080: *1 CreateFile() "D:\graduation\nginx/html/soft" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /soft HTTP/1.1", host: "localhost"
+2018/12/30 19:08:05 [notice] 13248#13256: signal process started
+2018/12/30 19:08:31 [notice] 1740#1872: signal process started
+2018/12/30 19:08:31 [error] 1740#1872: CreateFile() "D:\graduation\nginx/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2018/12/30 19:10:12 [error] 8912#3172: *4 CreateFile() "D:\graduation\nginx/html/files" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /files HTTP/1.1", host: "localhost"
+2018/12/30 19:10:27 [error] 8912#3172: *4 CreateFile() "D:\graduation\nginx/html/html" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /html HTTP/1.1", host: "localhost"
+2018/12/30 19:11:06 [notice] 9236#12780: signal process started
+2018/12/30 19:11:22 [error] 8828#1452: *1 CreateFile() "D:\graduation\nginx/html/files" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /files HTTP/1.1", host: "localhost"
+2018/12/30 19:14:17 [notice] 14132#14136: signal process started
+2018/12/30 19:14:26 [error] 14208#14276: *1 CreateFile() "D:\graduation\nginx/html/files" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /files HTTP/1.1", host: "localhost"
+2018/12/30 19:15:33 [error] 14208#14276: *4 CreateFile() "D:\graduation\nginx/html/files/soft" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /files/soft HTTP/1.1", host: "localhost"
+2018/12/30 19:15:45 [error] 14208#14276: *4 CreateFile() "D:\graduation\nginx/html/soft" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /soft HTTP/1.1", host: "localhost"
+2018/12/30 19:17:14 [notice] 10916#6476: signal process started
+2018/12/30 19:17:25 [crit] 13336#8008: *1 GetFileAttributesEx() "D:\graduation
+ginx\files" failed (123: The filename, directory name, or volume label syntax is incorrect), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 19:17:26 [crit] 13336#8008: *2 GetFileAttributesEx() "D:\graduation
+ginx\files" failed (123: The filename, directory name, or volume label syntax is incorrect), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 19:17:48 [crit] 13336#8008: *5 GetFileAttributesEx() "D:\graduation
+ginx\files" failed (123: The filename, directory name, or volume label syntax is incorrect), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 19:18:42 [crit] 13336#8008: *7 GetFileAttributesEx() "D:\graduation
+ginx\files" failed (123: The filename, directory name, or volume label syntax is incorrect), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 19:21:09 [notice] 11928#12976: signal process started
+2018/12/30 19:21:21 [error] 2960#11096: *1 "D:/files/index.html" is not found (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2018/12/30 19:22:06 [notice] 236#3104: signal process started
+2018/12/30 19:22:20 [crit] 12776#7124: *1 CreateFile() "D:/graduation/files/新建文本文档.txt" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page), client: 127.0.0.1, server: localhost, request: "GET /%D0%C2%BD%A8%CE%C4%B1%BE%CE%C4%B5%B5.txt HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2018/12/30 19:22:27 [crit] 12776#7124: *4 CreateFile() "D:/graduation/files/images/新建文本文档.txt" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page), client: 127.0.0.1, server: localhost, request: "GET /images/%D0%C2%BD%A8%CE%C4%B1%BE%CE%C4%B5%B5.txt HTTP/1.1", host: "localhost", referrer: "http://localhost/images/"
+2018/12/30 19:25:47 [crit] 12776#7124: *7 CreateFile() "D:/graduation/files/images/新建文本文档.txt" failed (1113: No mapping for the Unicode character exists in the target multi-byte code page), client: 127.0.0.1, server: localhost, request: "GET /images/%D0%C2%BD%A8%CE%C4%B1%BE%CE%C4%B5%B5.txt HTTP/1.1", host: "localhost", referrer: "http://localhost/images/"
+2018/12/30 19:26:49 [error] 12776#7124: *15 directory index of "D:/graduation/files/" is forbidden, client: 127.0.0.1, server: localhost, request: "POST / HTTP/1.1", host: "master.test.dphub.sandai.net:80"
+2018/12/30 19:27:14 [error] 12776#7124: *19 directory index of "D:/graduation/files/" is forbidden, client: 127.0.0.1, server: localhost, request: "POST / HTTP/1.1", host: "master.test.dphub.sandai.net:80"
+2018/12/30 19:40:35 [error] 12776#7124: *29 CreateFile() "D:/graduation/files/files/images" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /files/images HTTP/1.1", host: "localhost"
+2018/12/30 19:40:41 [error] 12776#7124: *32 CreateFile() "D:/graduation/files/files" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /files HTTP/1.1", host: "localhost"
+2018/12/30 19:43:45 [error] 12776#7124: *41 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:44:13 [error] 12776#7124: *42 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:45:12 [error] 12776#7124: *43 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:46:20 [error] 12776#7124: *44 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:48:15 [error] 12776#7124: *45 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:50:00 [error] 12776#7124: *46 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:51:50 [error] 12776#7124: *47 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:53:36 [error] 12776#7124: *48 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://192.168.83.1:8000/pages/account/user/add.html"
+2018/12/30 19:55:42 [error] 12776#7124: *49 CreateFile() "D:/graduation/files/images/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /images/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://localhost:8000/pages/index.html"
+2018/12/30 19:56:36 [error] 12776#7124: *59 CreateFile() "D:/graduation/files/5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /5bafa40f4bfbfbed5572eb3875f0f736afc31f4a.jpg HTTP/1.1", host: "127.0.0.1", referrer: "http://localhost:8000/pages/account/user/add.html"

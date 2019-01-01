@@ -288,28 +288,30 @@
 		window.location=url;
 	  }
 	
-      //设置当前登录用户信息
-      function setUserInf(user){
-        console.log("setUserInf",user);
-        if(user != null && user !=undefined){
-          $("#userName1").html(user.username);
-          $("#userName2").html(user.username);
-		  $("#role").html(user.roleVoList[0].name);
-		  if(user.avatar != null && user.avatar !=undefined){
-			var imageUrl = "http://"+nginxIp+"/"+user.avatar;
-			$("#userImage1").attr("src",imageUrl);
-			$("#userImage2").attr("src",imageUrl);
-		  }
+    //设置当前登录用户信息
+    function setUserInf(user){
+      console.log("setUserInf",user);
+      if(user != null && user !=undefined){
+        $("#userName1").html(user.username);
+        $("#userName2").html(user.username);
+        $("#role").html(user.roleVoList[0].name);
+        console.log("http://"+nginxIp+"/images/"+user.avatar);
+        if(user.avatar != null && user.avatar !=undefined){
+          var imageUrl = "http://"+nginxIp+"/images/"+user.avatar;
+          console.log("avtar",imageUrl);
+          $("#userImage1").attr("src",imageUrl);
+          $("#userImage2").attr("src",imageUrl);
         }
       }
+    }
 
 
-      function gotoLogin(){
-        var user = window.localStorage.getItem("user");
-        if(user == null || user ==undefined){
-          window.location="/pages/account/account/login.html";
-        }
+    function gotoLogin(){
+      var user = window.localStorage.getItem("user");
+      if(user == null || user ==undefined){
+        window.location="/pages/account/account/login.html";
       }
+    }
 	
 	  function logout(){
 		var user = JSON.parse(window.localStorage.getItem("user"));

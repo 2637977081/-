@@ -16,6 +16,6 @@ var user = null;
 
 var random = "0000";
 
-var nginxIp = "192.168.152.128";
+var nginxIp = "127.0.0.1";
 
 var user = null;

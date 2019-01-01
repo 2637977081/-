@@ -258,9 +258,10 @@
 					  <div class="form-group row">
 						<textarea class="form-control" id="form_description" rows="4">个人描述</textarea>
 					  </div>
-					  <button type="button" onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
-					  <button class="btn btn-light">重置</button> 
 				</form>
+				
+					<button type="button" onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
+					<button class="btn btn-light">重置</button> 
               </div>
             </div>
           </div>
@@ -306,6 +307,7 @@
   <!-- End custom js for this page-->
   <script src="http://localhost:8000/js/init.js"></script>
   <script>
+	  var avatar="";
       //页面加载函数
       function onload(){
         // for(var i=0;i<getCookie("user").length;i++){
@@ -364,8 +366,8 @@
 			type:"post",
 			url:bashStorageUrl+"save",
 			cache: false,
-      processData: false,
-      contentType: false,
+      		processData: false,
+      		contentType: false,
 			dataType:"json",
 			data:data ,
 			beforeSend:function(request){
@@ -376,7 +378,8 @@
 			success:function(data){
 				console.log("data",data);
 				if(data.code==200){
-					
+					alert("上传头像成功");
+					avatar = data.msg;
 				}else{
 					alert("code:"+data.code+"\n msg"+data.msg);
 				}
@@ -465,54 +468,57 @@
 	  
 	  //提交用户信息
 	  function submit(){
+		console.log("submit form");
 		var username = $("#form_username").val();
 		var password = $("#form_password").val();
 		var name = $("#form_name").val();
 		var email = $("#form_email").val();
 		var phone = $("#form_phone").val();
 		var gender = $("#form_gender option:selected")[0].value;
-		var role = parseInt($("#form_role option:selected")[0].value)
+		var role = parseInt($("#form_role option:selected")[0].value);
 		var org = parseInt($("#form_org option:selected")[0].value);
+		var data = JSON.stringify({
+					username:username,
+					password:password,
+					name:name,
+					email:email,
+					phone:phone,
+					gender:gender,
+					avatar:avatar,
+					orgId:org,
+					roleVoList:[
+						{
+							roleId:role
+						}
+					],
+				  	status:"enabled"
+				});
+		console.log("##############",data);
     	if(user!=null&&user!='null'&&user!=undefined){
 			//ajax
 			$.ajax({
 				type:"post",
 				url:bashUserUrl+"add",
 				contentType:"application/json;charset:utf-8",
-				data:JSON.stringify({
-				  username:username,
-				  password:password,
-				  name:name,
-				  email:email,
-				  phone:phone,
-				  gender:gender,
-				  avatar:avatar,
-				  orgId:org,
-				  roleVoList:[
-						{
-							roleId:role
-						}
-					],
-				  status:"enabled"
-				}),
+				data:data,
 				dataType:"json",
 				beforeSend:function(request){
-				  request.setRequestHeader('Access-Control-Allow-Origin', '*');
-				  request.setRequestHeader('Access-Control-Allow-Credentials', true);
-				  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-				  request.setRequestHeader('Univer-Code', user.jwtToken.code);
-				  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+					request.setRequestHeader('Access-Control-Allow-Origin', '*');
+					request.setRequestHeader('Access-Control-Allow-Credentials', true);
+					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+					request.setRequestHeader('Univer-Code', user.jwtToken.code);
+					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
 				},
 				success:function(data){
-				  console.log("data",data);
-				  if(data.code==200){
-					
-				  }else{
-					alert("code:"+data.code+"\n msg"+data.msg);
-				  }
+					console.log("data",data);
+					if(data.code==200){
+						
+					}else{
+						alert("code:"+data.code+"\n msg"+data.msg);
+					}
 				},error:function(error){
-				  console.log("error",error);
-				  // window.location="/pages/error/error.html";
+				  	console.log("error",error);
+				  	// window.location="/pages/error/error.html";
 				}
 			});
 		}
@@ -531,11 +537,11 @@
           $("#userName1").html(user.username);
           $("#userName2").html(user.username);
           $("#role").html(user.roleVoList[0].name);
-		  if(user.avatar != null && user.avatar !=undefined){
-			var imageUrl = "http://"+nginxIp+"/"+user.avatar;
+          if(user.avatar != null && user.avatar !=undefined){
+			var imageUrl = "http://"+nginxIp+"/images/"+user.avatar;
 			$("#userImage1").attr("src",imageUrl);
 			$("#userImage2").attr("src",imageUrl);
-		  }
+          }
         }
       }
 

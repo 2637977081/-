@@ -247,7 +247,7 @@
 						  <option value="female">女</option>
 						</select>
 						<label for="role" class="col-sm-1 col-form-label" >角色</label>
-						<select class="form-control" id="form_role" style="width:20%;" onclick="getOrgList(this.selectedIndex)">
+						<select class="form-control" id="form_role" style="width:20%;" onclick="getOrgList()">
 						</select>
 						<label for="gender" class="col-sm-2 col-form-label" style="width:50px">组织结构</label>
 						<select class="form-control" id="form_org" style="width:20%;">
@@ -325,6 +325,8 @@
         setUserInf();
         
 		getRoleList();
+		
+		getOrgList();
       }
       
       //加载左侧导航栏
@@ -427,7 +429,12 @@
 	  }
 	  
 	  function getOrgList(){
-		var type = $("#form_role option:selected")[0].id;
+		var role = $("#form_role option:selected")[0];
+		if(role==null || role=="null"||role==undefined){
+			var type = 'university';
+		}else{
+			var type = $("#form_role option:selected")[0].id;
+		}
 		console.log("type",type);
 		if(user!=null&&user!='null'&&user!=undefined){
 		//ajax

@@ -284,13 +284,13 @@ public class UserService extends BaseService<User> {
         Condition condition = new Condition(User.class);
         Condition.Criteria criteria = condition.createCriteria();
         if(userVo.getUsername() != null) {
-            criteria.andEqualTo("username", userVo.getUsername());
+            criteria.orEqualTo("username", userVo.getUsername());
         }
         if(userVo.getEmail() != null) {
-            criteria.andEqualTo("email", userVo.getEmail());
+            criteria.orEqualTo("email", userVo.getEmail());
         }
         if(userVo.getPhone() != null) {
-            criteria.andEqualTo("phone", userVo.getPhone());
+            criteria.orEqualTo("phone", userVo.getPhone());
         }
         int size = userMapper.selectCountByCondition(condition);
         if (size > 0) {

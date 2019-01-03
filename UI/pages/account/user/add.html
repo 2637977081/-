@@ -251,8 +251,6 @@
 						</select>
 						<label for="gender" class="col-sm-2 col-form-label" style="width:50px">组织结构</label>
 						<select class="form-control" id="form_org" style="width:20%;">
-						  <option value="">计算机科学技术学院</option>
-						  <option value="jx">机械学院</option>
 						</select>
 					  </div>
 					  <div class="form-group row">
@@ -484,6 +482,7 @@
 		var gender = $("#form_gender option:selected")[0].value;
 		var role = parseInt($("#form_role option:selected")[0].value);
 		var org = parseInt($("#form_org option:selected")[0].value);
+		var description = $("#form_description").val();
 		var data = JSON.stringify({
 					username:username,
 					password:password,
@@ -498,7 +497,8 @@
 							roleId:role
 						}
 					],
-				  	status:"enabled"
+					status:"enabled",
+					description:description 
 				});
 		console.log("##############",data);
     	if(user!=null&&user!='null'&&user!=undefined){
@@ -519,7 +519,7 @@
 				success:function(data){
 					console.log("data",data);
 					if(data.code==200){
-						
+						alert("用户创建成功");
 					}else{
 						alert("code:"+data.code+"\n msg"+data.msg);
 					}

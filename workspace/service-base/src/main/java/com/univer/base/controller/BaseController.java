@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  *
  * 控制层基类
  */
-@CrossOrigin
 public class BaseController<T> {
 
 	@Autowired

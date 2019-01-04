@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Purple Admin</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../../vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="../../../css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="http://localhost:8000/images/favicon.png" />
-
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Purple Admin</title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" href="../../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="../../../vendors/css/vendor.bundle.base.css">
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="../../../css/style.css">
+	<!-- endinject -->
+	<link rel="shortcut icon" href="http://localhost:8000/images/favicon.png" />
+	<link rel="stylesheet" href="http://localhost:8000/css/modal.css">
 </head>
 
 <body onload="onload()">
@@ -204,6 +204,23 @@
 	  <div class="main-panel">
 		<div class="content-wrapper" id="mainContent">
 			<div class="col-lg-12 grid-margin stretch-card">
+				<!-- 弹窗 -->
+				<div id="myModal" class="modal">
+					<!-- 弹窗内容 -->
+		  			<div class="modal-content">
+						<div class="modal-header">
+							<div>
+								<h4 class="card-title">账号管理</h4>
+								<p class="card-description">用户列表</p>
+							</div>
+							<span class="close">&times;</span>
+						</div>
+						<div class="modal-body" id="modalBody">
+							<p>弹窗文本...</p>
+							<p>弹窗文本...</p>
+						</div>
+					</div>
+				</div>
 				<div class="card">
 					<div class="card-body">
 						<div>
@@ -213,19 +230,49 @@
 							</div>
 							<div>
 								<div class="form-group row">
-									<label for="gender" class="col-sm-1 col-form-label">性别</label>
-									<select class="form-control" id="form_gender" style="width:20%;">
+									<label for="gender" class="col-sm-1 col-form-label" style="width:10%">账号</label>
+									<input type="text" class="form-control" id="form_username" placeholder="账号" style="width:10%">
+									
+									<label for="role" class="col-sm-1 col-form-label" style="width:10%">名字</label>
+									<input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:10%">
+
+									<label for="gender" class="col-sm-1 col-form-label" style="width:10%">邮箱地址</label>
+									<input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:10%">
+									
+									
+									<label for="gender" class="col-sm-1 col-form-label" style="width:10%">电话</label>
+									<input type="text" class="form-control" id="form_phone" placeholder="电话" style="width:10%">
+
+									
+									<button type="button"  onclick="getUserList()" style="margin-left:5%" class="btn btn-gradient-primary mr-2">查询</button>
+								</div>
+							</div>
+							<div>
+								<div class="form-group row">
+									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">性别</label>
+									<select class="form-control" id="form_gender" style="width:10%;">
+										<option value="all">全部</option>
 										<option value="male">男</option>
 										<option value="female">女</option>
 									</select>
-									
-									<label for="role" class="col-sm-1 col-form-label" >角色</label>
+										
+									<label for="role" class="col-sm-1 col-form-label" style="width:5%">角色</label>
 									<select class="form-control" id="form_role" style="width:20%;" onclick="getOrgList()">
+                   						<option value="all">全部</option>
 									</select>
 
-									<label for="gender" class="col-sm-2 col-form-label" style="width:50px">组织结构</label>
+									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">组织结构</label>
 									<select class="form-control" id="form_org" style="width:20%;">
+                    					<option value="all">全部</option>
 									</select>
+
+									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">状态</label>
+									<select class="form-control" id="form_status" style="width:10%;">
+                    					<option value="all">全部</option>
+										<option value="enable">启用</option>
+										<option value="disable">禁用</option>
+									</select>
+									
 								</div>
 							</div>
 						</div>
@@ -240,24 +287,47 @@
 									<th>邮箱</th>
 									<th>电话</th>
 									<th>角色</th>
-									<th>职位</th>
-									<th rowspan="3">操作</th>
+									<th>所属</th>
+									<th colspan ="3" style="">操作</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
+							<tbody id="userList">
+								<tr id ='1'>
 									<td class="py-1"><img src="http://localhost:8000/images/faces-clipart/pic-1.png" alt="image"></td>
 									<td>lvgang</td>
 									<td>吕钢</td>
 									<td>男</td>
 									<td>2637977000@qq.com</td>
 									<td>18844210000</td>
-									<th>启用</th>
-									<th>详情</th>
-									<th>修改</th>
+									<td>超级管理员</td>
+									<td>北华大学</td>
+									<td style="color:#07cd22" onclick='able(1,"enable")'>启用</td>
+									<td style="color:#fed713" onclick='detail()'>详情</td>
+									<td style="color:#b66dff" onclick='change()'>修改</td>
+								</tr>
+								<tr id ='2'>
+									<td class="py-1"><img src="http://localhost:8000/images/faces-clipart/pic-1.png" alt="image"></td>
+									<td>lvgang1</td>
+									<td>吕钢1</td>
+									<td>男</td>
+									<td>2637977001@qq.com</td>
+									<td>18844210001</td>
+									<td>超级管理员</td>
+									<td>北华大学</td>
+									<td onclick='able(2,"enable")'>启用</td>
+									<td onclick='detail()'>详情</td>
+									<td onclick='change()'>修改</td>
 								</tr>
 							</tbody>
 						</table>
+						<div style="margin-top:5%;margin-left: 75%">
+							<div class="form-group row" id="pages">
+								<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">上一页</button>
+								<button type="button" class="btn btn-inverse-info btn-icon">1</button>
+								<button type="button" class="btn btn-outline-danger btn-fw">下一页</button>
+							</div>
+						</div>
+								
 					</div>
 				</div>
 			</div>
@@ -302,10 +372,11 @@
   <script src="http://localhost:8000/js/file-upload.js"></script>
   <!-- End custom js for this page-->
   <script src="http://localhost:8000/js/init.js"></script>
+  <script src="http://localhost:8000/js/modal.js"></script>
   <script>
-	  var avatar="";
-      //页面加载函数
-      function onload(){
+	var avatar="";
+    //页面加载函数
+    function onload(){
         // for(var i=0;i<getCookie("user").length;i++){
         //   console.log("cookie",getCookie("user").charAt(i));
         // }
@@ -315,15 +386,20 @@
         // console.log("user",user);
         user = JSON.parse(window.localStorage.getItem("user"));
         console.log(user);
-        
-        getJsonUrl();
+		
+		getJsonUrl();
 
         setUserInf();
         
-      }
+		getUserList();
+		
+        getRoleList();
+        
+        getOrgList();
+    }
       
-      //加载左侧导航栏
-      function getJsonUrl(){
+    //加载左侧导航栏
+    function getJsonUrl(){
         $.getJSON("../../../json/url.json",function(data){
           console.log("data",data);
           $.each(data, function(i, parent){
@@ -348,15 +424,15 @@
             $("#leftNav").append(element);
           });
         });
-      }
+    }
 	 
-	  //跳转页面
-	  function clickUrl(url){
+	//跳转页面
+	function clickUrl(url){
 		window.location=url;
-	  }
+	}
 	
-      //设置当前登录用户信息
-      function setUserInf(){
+    //设置当前登录用户信息
+    function setUserInf(){
         console.log("setUserInf",user);
         if(user != null && user!='null' && user !=undefined){
           var imageUrl = "http://"+nginxIp+"/"+user.avatar;
@@ -369,17 +445,17 @@
 			$("#userImage2").attr("src",imageUrl);
           }
         }
-      }
+    }
 
 
-      function gotoLogin(){
+    function gotoLogin(){
         var user = window.localStorage.getItem("user");
         if(user == null || user ==undefined){
           window.location="/pages/account/account/login.html";
         }
-      }
+    }
 	
-	  function logout(){
+	function logout(){
 		var user = JSON.parse(window.localStorage.getItem("user"));
 		console.log("登出user",user);
 		if(user == null || user ==undefined){
@@ -415,7 +491,250 @@
 				}
 			});
 		}
-	  }
+	}
+
+	//获取角色列表
+	function getRoleList(){
+		if(user!=null&&user!='null'&&user!=undefined){
+		//ajax
+		  $.ajax({
+			type:"get",
+			url:bashRoleUrl+"list",
+			contentType:"application/json;charset:utf-8",
+			dataType:"json",
+			beforeSend:function(request){
+			  request.setRequestHeader('Access-Control-Allow-Origin', '*');
+			  request.setRequestHeader('Access-Control-Allow-Credentials', true);
+			  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+			  request.setRequestHeader('Univer-Code', user.jwtToken.code);
+			  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},
+			success:function(data){
+			  console.log("data",data);
+			  if(data.code==200){
+				$.each(data.data.list, function(i, role){
+					console.log(role.roleId,role.name);
+					var html ='<option value="'+role.roleId+'" id='+role.type+'>'+role.name+'</option>';
+					var element = $(html);
+					$("#form_role").append(element);
+				});
+			  }else{
+				alert("code:"+data.code+"\n msg"+data.msg);
+			  }
+			},error:function(error){
+			  console.log("error",error);
+			  // window.location="/pages/error/error.html";
+			}
+		  });
+		}
+	}
+	
+	//获取组织机构列表
+	function getOrgList(){
+		var role = $("#form_role option:selected")[0];
+		if(role==null || role=="null"||role==undefined){
+			var type = 'university';
+		}else{
+			var type = $("#form_role option:selected")[0].id;
+		}
+		console.log("type",type);
+		if(user!=null&&user!='null'&&user!=undefined&&type!=""){
+		//ajax
+			$.ajax({
+				type:"get",
+				url:bashOrgUrl+"list/org",
+				contentType:"application/json;charset:utf-8",
+				dataType:"json",
+				beforeSend:function(request){
+					request.setRequestHeader('Access-Control-Allow-Origin', '*');
+					request.setRequestHeader('Access-Control-Allow-Credentials', true);
+					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+					request.setRequestHeader('Univer-Code', user.jwtToken.code);
+					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+				},
+				success:function(data){
+					console.log("data",data);
+					if(data.code==200){
+						$("#form_org").html(null);
+						$.each(data.data, function(i, org){
+							if(org.type == type){
+								console.log("org",org);
+								var html ='<option value="'+org.orgId+'">'+org.name+'</option>';
+								var element = $(html);
+								$("#form_org").append(element);
+							}
+						});
+					}else{
+						alert("code:"+data.code+"\n msg"+data.msg);
+					}
+				},error:function(error){
+					console.log("error",error);
+				// window.location="/pages/error/error.html";
+				}
+			});
+		}else{
+			$("#form_org").html(null);
+			var html ='<option value="all">全部</option>';
+			var element = $(html);
+			$("#form_org").append(element);
+		}
+	}
+	
+	//获取用户列表
+	function getUserList(page){
+		var username = $("#form_username").val();
+		var name = $("#form_name").val();
+		var email = $("#form_email").val();
+		var phone = $("#form_phone").val();
+		var gender = $("#form_gender option:selected")[0].value=="all"?"":$("#form_gender option:selected")[0].value;
+		var roleName = $("#form_role option:selected")[0].text=="全部"?"":$("#form_role option:selected")[0].text;
+		var orgId = $("#form_org option:selected")[0].value=="all"?"":$("#form_org option:selected")[0].value;
+		var status = $("#form_status option:selected")[0].value=="all"?"":$("#form_status option:selected")[0].value;
+		page= page==null?0:page;
+		var rows= 10;
+		var data="username="+username+
+				"&name="+name+
+				"&email="+email+
+				"&phone="+phone+
+				"&gender="+gender+
+				"&orgId="+orgId+
+				"&roleName="+roleName+
+				"&status="+status+
+				"&page="+page+
+				"&rows="+rows;
+		//ajax
+		$.ajax({
+			type:"get",
+			url:bashUserUrl+"list",
+			contentType:"application/json;charset:utf-8",
+			data:data,
+			dataType:"json",
+			beforeSend:function(request){
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Access-Control-Allow-Credentials', true);
+				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+				request.setRequestHeader('Univer-Code', user.jwtToken.code);
+				request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},	
+			success:function(data){
+				console.log("datalist",data);
+
+				if(data.code==200){
+					//用户列表
+					$("#userList").html(null);
+					$.each(data.data.list, function(i, user){
+						var tr ='<tr>'+
+								'<td class="py-1"><img src="'+"http://"+nginxIp+"/images/"+user.avatar+'" alt="image"></td>'+
+								'<td>'+user.username+'</td>'+
+								'<td>'+user.name+'</td>';
+								var gender = user.gender=='male'?'男':'女';
+							tr=tr+'<td>'+gender+'</td>'+
+								'<td>'+user.email+'</td>'+
+								'<td>'+user.phone+'</td>'+
+								'<td>'+user.roleName+'</td>'+
+								'<td>'+user.roleName+'</td>';
+								var color = user.status=='enabled'?'07cd22':'a12c25';
+								var able = user.status=='enabled'?'启用':'禁用';
+								var mark = user.status=='enabled'?true:false;
+							tr=tr+'<td style="color:#'+color+'" onclick="able('+user.userId+','+mark+')">'+able+'</td>'+
+								'<td style="color:#fed713" onclick="detail('+user.userId+')">详情</td>'+
+								'<td style="color:#b66dff" onclick="change('+user.userId+')">修改</td>'+
+							'</tr>';
+						$("#userList").append($(tr));
+					});
+					
+					//上一页下一页
+					if(data.data.hasPreviousPage){
+						var prev ='<button type="button" onclick="getUserList('+(data.data.pageNum-1)+')" class="btn btn-inverse-success btn-fw">上一页</button>';
+					}else{
+						var prev ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">上一页</button>';
+					}
+
+					if(data.data.hasNextPage){
+						var next ='<button type="button" onclick="getUserList('+(data.data.pageNum+1)+')" class="btn btn-outline-danger btn-fw">下一页</button>';
+					}else{
+						var next ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">下一页</button>';
+					}
+					
+					var pageNum =  '<button type="button" class="btn btn-inverse-info btn-icon">'+data.data.pageNum+'</button>';
+					
+					$("#pages").html(null);
+					$("#pages").append($(prev));
+					$("#pages").append($(pageNum));
+					$("#pages").append($(next));
+				}else{
+					alert("code:"+data.code+"\n msg"+data.msg);
+				}
+			},error:function(error){
+				console.log("error",error);
+				// window.location="/pages/error/error.html";
+			}
+		});
+		
+	}
+
+	//启用or禁用
+	function able(id,mark){
+		var status = mark?'enabled':'disabled';
+		console.log(id,status);
+	}
+
+	//详情
+	function detail(id){
+		console.log("详情",id);
+		modalBody();
+		modal.style.display = "block";
+	}
+
+	//修改
+	function change(id){
+		console.log("修改",id);
+		modal.style.display = "block";
+	}
+
+	function modalBody(){
+		var html = 
+			'<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">'+
+				'<div class="form-group row">'+
+					'<label for="username" class="col-sm-1 col-form-label" style="width:15%">账号</label>'+
+					'<input type="text" class="form-control" id="form_username" placeholder="账号" style="width:40%">'+
+				'</div>'+
+				
+				'<div class="form-group row">'+
+					'<label for="name" class="col-sm-1 col-form-label">姓名</label>'+
+					'<input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:40%">'+
+				'</div>'+
+				
+				'<div class="form-group row">'+
+					'<label for="email" class="col-sm-1 col-form-label">邮箱</label>'+						
+					'<input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:40%">'+
+				'</div>'+
+
+				'<div class="form-group row">'+
+					  	'<label for="phone" class="col-sm-1 col-form-label">电话号码</label>'+
+					  	'<input type="text" class="form-control" id="form_phone" placeholder="电话号码" style="width:40%;">'+
+				'</div>'+
+				
+				'<div class="col-sm-6 row" >'+
+					'<img src="http://localhost:8000/images/faces/face1.jpg">'+
+				'</div>'+ 
+				
+				'<div class="form-group row">'+
+					'<label for="gender" class="col-sm-1 col-form-label">性别</label>'+
+					'<input type="text" class="form-control" id="form_gender" placeholder="男" style="width:20%;">'+
+					'<label for="role" class="col-sm-1 col-form-label" >角色</label>'+
+					'<input type="text" class="form-control" id="form_role" placeholder="角色" style="width:20%;">'+
+					'<label for="gender" class="col-sm-2 col-form-label" style="width:50px">组织结构</label>'+
+					'<input type="text" class="form-control" id="form_org" placeholder="组织结构" style="width:20%;">'+
+				'</div>'+
+				
+				'<div class="form-group row">'+
+					'<textarea class="form-control" id="form_description" rows="4">个人描述</textarea>'+
+				'</div>'+
+			'</form>';
+		
+		$("#modalBody").html($(html));
+	}
     </script>
   <!-- endinject -->
   <!-- Custom js for this page-->

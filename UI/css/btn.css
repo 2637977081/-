@@ -1,0 +1,7 @@
+#禁止点击
+.forbid{
+    color: #9c9fa6;
+    background-color: transparent;
+    background-image: none;
+    border-color: #9c9fa6;
+}

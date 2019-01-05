@@ -682,58 +682,84 @@
 	//详情
 	function detail(id){
 		console.log("详情",id);
-		modalBody();
-		modal.style.display = "block";
+		$.ajax({
+				type:"get",
+				url:bashUserUrl+"detail/"+id,
+				contentType:"application/json;charset:utf-8",
+				dataType:"json",
+				beforeSend:function(request){
+					request.setRequestHeader('Access-Control-Allow-Origin', '*');
+					request.setRequestHeader('Access-Control-Allow-Credentials', true);
+					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+					request.setRequestHeader('Univer-Code', user.jwtToken.code);
+					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+				},
+				success:function(data){
+					console.log("data",data);
+					if(data.code==200){
+						modalBody(data.data);
+					}else{
+						alert("code:"+data.code+"\n msg"+data.msg);
+					}
+				},error:function(error){
+					console.log("error",error);
+				// window.location="/pages/error/error.html";
+				}
+		});
 	}
 
 	//修改
 	function change(id){
 		console.log("修改",id);
-		modal.style.display = "block";
 	}
 
-	function modalBody(){
+	function modalBody(user){
 		var html = 
-			'<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">'+
-				'<div class="form-group row">'+
-					'<label for="username" class="col-sm-1 col-form-label" style="width:15%">账号</label>'+
-					'<input type="text" class="form-control" id="form_username" placeholder="账号" style="width:40%">'+
-				'</div>'+
-				
-				'<div class="form-group row">'+
-					'<label for="name" class="col-sm-1 col-form-label">姓名</label>'+
-					'<input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:40%">'+
-				'</div>'+
-				
-				'<div class="form-group row">'+
-					'<label for="email" class="col-sm-1 col-form-label">邮箱</label>'+						
-					'<input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:40%">'+
-				'</div>'+
-
-				'<div class="form-group row">'+
-					  	'<label for="phone" class="col-sm-1 col-form-label">电话号码</label>'+
-					  	'<input type="text" class="form-control" id="form_phone" placeholder="电话号码" style="width:40%;">'+
-				'</div>'+
-				
-				'<div class="col-sm-6 row" >'+
-					'<img src="http://localhost:8000/images/faces/face1.jpg">'+
-				'</div>'+ 
-				
-				'<div class="form-group row">'+
-					'<label for="gender" class="col-sm-1 col-form-label">性别</label>'+
-					'<input type="text" class="form-control" id="form_gender" placeholder="男" style="width:20%;">'+
-					'<label for="role" class="col-sm-1 col-form-label" >角色</label>'+
-					'<input type="text" class="form-control" id="form_role" placeholder="角色" style="width:20%;">'+
-					'<label for="gender" class="col-sm-2 col-form-label" style="width:50px">组织结构</label>'+
-					'<input type="text" class="form-control" id="form_org" placeholder="组织结构" style="width:20%;">'+
-				'</div>'+
-				
-				'<div class="form-group row">'+
-					'<textarea class="form-control" id="form_description" rows="4">个人描述</textarea>'+
-				'</div>'+
-			'</form>';
+				'<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">'+
+					'<div class="form-group row">'+
+						'<label for="username" class="col-sm-1 col-form-label" style="width:15%">账号</label>'+
+						'<input type="text" class="form-control" style="width:30%" readonly value="'+user.username+'">'+
+						
+					'</div>'+
+					'<div class="form-group row">'+
+						'<label for="name" class="col-sm-1 col-form-label">姓名</label>'+
+						'<input type="email" class="form-control" style="width:30%" readonly value="'+user.name+'">'+
+						
+						'<label for="email" class="col-sm-1 col-form-label">邮箱</label>'+
+						'<input type="text" class="form-control" style="width:30%" readonly value="'+user.email+'">'+
+					'</div>'+
+					'<div class="form-group row">'+
+						'<div class="col-sm-6 row">'+
+							'<label for="phone" class="col-sm-2 col-form-label">电话号码</label>'+
+							'<input type="text" class="form-control" style="width:30%;" readonly value="'+user.phone+'">'+
+						'</div>'+
+						'<label for="gender" class="col-sm-1 col-form-label">性别</label>'+
+						'<select class="form-control" style="width:20%;" readonly>';
+							var gender = user.gender=="male"?"男":"女";
+					html=html+'<option value="'+user.gender+'">'+gender+'</option>'+
+						'</select>'+
+					'</div>'+
+					'<div class="form-group row">'+
+						
+						'<label for="role" class="col-sm-1 col-form-label" >角色</label>'+
+						'<select class="form-control" style="width:20%;" readonly>'+
+							'<option>'+user.roleVoList[0].name+'</option>'+
+						'</select>'+
+						'<label for="gender" class="col-sm-1 col-form-label" style="width:50px">组织结构</label>'+
+						'<select class="form-control" style="width:20%;" readonly>'+
+							'<option>'+user.orgName+'</option>'+
+						'</select>'+
+					'</div>'+
+					'<div class="form-group row">'+
+						'<div style="width:140px;height:160px;">'+
+							'<img src="'+"http://"+nginxIp+"/images/"+user.avatar+'" style="object-fit:cover;width: 100%;height: 100%;"/>'+
+						'</div>'+
+						'<textarea class="form-control" rows="4" style="width:70%" readonly>'+user.description+'</textarea>'+
+					'</div>'+
+				'</form>';	
 		
 		$("#modalBody").html($(html));
+		modal.style.display = "block";
 	}
     </script>
   <!-- endinject -->

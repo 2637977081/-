@@ -265,7 +265,6 @@
 				</form>
 				
 				<button type="button" onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
-				<button class="btn btn-light">重置</button> 
               </div>
             </div>
           </div>
@@ -528,6 +527,7 @@
 					console.log("data",data);
 					if(data.code==200){
 						alert("用户创建成功");
+						window.location="http://localhost:8000/pages/account/user/add.html";
 					}else{
 						alert("code:"+data.code+"\n msg"+data.msg);
 					}

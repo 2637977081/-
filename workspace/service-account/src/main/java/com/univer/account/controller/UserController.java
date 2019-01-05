@@ -1,5 +1,6 @@
 package com.univer.account.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.univer.account.constant.MsgConstant;
 import com.univer.account.po.User;
@@ -10,11 +11,13 @@ import com.univer.account.validation.UserUpdate;
 import com.univer.account.vo.UserVo;
 import com.univer.base.controller.AuthorizationController;
 import com.univer.base.enums.StatusEnum;
+import com.univer.base.poi.ExcelPoi;
 import com.univer.base.util.CaptchaUtil;
 import com.univer.base.util.UUIDUtil;
 import com.univer.base.util.VoUtils;
 import com.univer.base.vo.ResultVo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.CellType;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author guwei
@@ -41,6 +43,8 @@ public class UserController extends AuthorizationController<Object> {
 
     @Value("${bcrypt.salt}")
     private int bcryptSalt;
+
+    private String path="D:\\graduation\\files\\wps";
 
 	@Autowired
 	private StringRedisTemplate template;
@@ -191,6 +195,92 @@ public class UserController extends AuthorizationController<Object> {
 		}else{
 			resultVo.getInstance(MsgConstant.NO_DATA,list);
 		}
+		return resultVo;
+	}
+
+	@GetMapping("down/list")
+	public ResultVo downLst(UserVo temp) throws Exception {
+		VoUtils.copyProperties(temp, userVo, "username", "name", "phone", "email", "type", "orgId", "createrId", "status", "roleName", "page", "rows");
+		List<UserVo> list = userService.findByPage(userVo);
+		List<List<Map<String,Object>>> excelList = new ArrayList<>();
+
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		for(int i=-1;i<list.size();i++){
+
+			List<Map<String,Object>> headList = new ArrayList<>();
+
+			Map<String,Object> userId = new HashMap<>(16);
+			Map<String,Object> username = new HashMap<>(16);
+			Map<String,Object> name = new HashMap<>(16);
+			Map<String,Object> avatar = new HashMap<>(16);
+			Map<String,Object> phone = new HashMap<>(16);
+			Map<String,Object> email = new HashMap<>(16);
+			Map<String,Object> role = new HashMap<>(16);
+			Map<String,Object> org = new HashMap<>(16);
+			Map<String,Object> description = new HashMap<>(16);
+			Map<String,Object> updateTime = new HashMap<>(16);
+			if(i==-1){
+				userId.put("value","id");
+				username.put("value","账号");
+				name.put("value","名字");
+				avatar.put("value","头像");
+				phone.put("value","电话");
+				email.put("value","邮件");
+				role.put("value","角色");
+				org.put("value","组织机构");
+				description.put("value","描述");
+				updateTime.put("value","最近更新时间");
+			}else {
+				userId.put("value",list.get(i).getUserId().toString().isEmpty()?"":list.get(i).getUserId().toString());
+				username.put("value",list.get(i).getUsername().isEmpty()?"":list.get(i).getUsername());
+				name.put("value",list.get(i).getName().isEmpty()?"":list.get(i).getName());
+				avatar.put("value",list.get(i).getAvatar().isEmpty()?"":list.get(i).getAvatar());
+				phone.put("value",list.get(i).getPhone().isEmpty()?"":list.get(i).getPhone());
+				email.put("value",list.get(i).getEmail().isEmpty()?"":list.get(i).getEmail());
+				role.put("value",list.get(i).getRoleName().isEmpty()?"":list.get(i).getRoleName());
+				org.put("value",list.get(i).getOrgName().isEmpty()?"":list.get(i).getOrgName());
+				description.put("value",list.get(i).getDescription()==null?"":list.get(i).getDescription());
+				updateTime.put("value",list.get(i).getUpdateTime()==null?"":list.get(i).getUpdateTime());
+			}
+
+			userId.put("type",CellType.STRING);
+			headList.add(userId);
+
+			username.put("type",CellType.STRING);
+			headList.add(username);
+
+			name.put("type",CellType.STRING);
+			headList.add(name);
+
+			avatar.put("type",CellType.STRING);
+			headList.add(avatar);
+
+			phone.put("type",CellType.STRING);
+			headList.add(phone);
+
+			email.put("type",CellType.STRING);
+			headList.add(email);
+
+			role.put("type",CellType.STRING);
+			headList.add(role);
+
+			org.put("type",CellType.STRING);
+			headList.add(org);
+
+			description.put("type",CellType.STRING);
+			headList.add(description);
+
+			updateTime.put("type",CellType.STRING);
+			headList.add(updateTime);
+
+			excelList.add(headList);
+		}
+		ExcelPoi excelPoi = new ExcelPoi();
+		String excelName = UUIDUtil.getUUID()+".xlsx";
+
+		excelPoi.writeExcel(excelList,path+"/"+excelName);
+		resultVo.getInstance(HttpStatus.OK.toString(), "wps/"+excelName);
 		return resultVo;
 	}
 }

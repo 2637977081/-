@@ -269,8 +269,8 @@
 									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">状态</label>
 									<select class="form-control" id="form_status" style="width:10%;">
                     					<option value="all">全部</option>
-										<option value="enable">启用</option>
-										<option value="disable">禁用</option>
+										<option value="enabled">启用</option>
+										<option value="disabled">禁用</option>
 									</select>
 									
 								</div>
@@ -320,6 +320,9 @@
 								</tr>
 							</tbody>
 						</table>
+						<div style="position: absolute;margin-top: 5%;">
+							<button type="button" class="btn btn-gradient-info btn-rounded btn-fw" onclick="outExcel()">导出excel表</button>
+						</div>
 						<div style="margin-top:5%;margin-left: 75%">
 							<div class="form-group row" id="pages">
 								<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">上一页</button>
@@ -632,7 +635,7 @@
 								'<td>'+user.email+'</td>'+
 								'<td>'+user.phone+'</td>'+
 								'<td>'+user.roleName+'</td>'+
-								'<td>'+user.roleName+'</td>';
+								'<td>'+user.orgName+'</td>';
 								var color = user.status=='enabled'?'07cd22':'a12c25';
 								var able = user.status=='enabled'?'启用':'禁用';
 								var mark = user.status=='enabled'?true:false;
@@ -656,7 +659,7 @@
 						var next ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">下一页</button>';
 					}
 					
-					var pageNum =  '<button type="button" class="btn btn-inverse-info btn-icon">'+data.data.pageNum+'</button>';
+					var pageNum =  '<button type="button" id="pageNum" class="btn btn-inverse-info btn-icon">'+data.data.pageNum+'</button>';
 					
 					$("#pages").html(null);
 					$("#pages").append($(prev));
@@ -673,10 +676,89 @@
 		
 	}
 
+	//导出excel
+	function outExcel(){
+		var username = $("#form_username").val();
+		var name = $("#form_name").val();
+		var email = $("#form_email").val();
+		var phone = $("#form_phone").val();
+		var gender = $("#form_gender option:selected")[0].value=="all"?"":$("#form_gender option:selected")[0].value;
+		var roleName = $("#form_role option:selected")[0].text=="全部"?"":$("#form_role option:selected")[0].text;
+		var orgId = $("#form_org option:selected")[0].value=="all"?"":$("#form_org option:selected")[0].value;
+		var status = $("#form_status option:selected")[0].value=="all"?"":$("#form_status option:selected")[0].value;
+		var data="username="+username+
+				"&name="+name+
+				"&email="+email+
+				"&phone="+phone+
+				"&gender="+gender+
+				"&orgId="+orgId+
+				"&roleName="+roleName+
+				"&status="+status;
+		//ajax
+		$.ajax({
+			type:"get",
+			url:bashUserUrl+"down/list",
+			contentType:"application/json;charset:utf-8",
+			data:data,
+			dataType:"json",
+			beforeSend:function(request){
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Access-Control-Allow-Credentials', true);
+				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+				request.setRequestHeader('Univer-Code', user.jwtToken.code);
+				request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},	
+			success:function(data){
+				console.log("excel",data);
+				if(data.code==200){
+					window.location="http://"+nginxIp+"/"+data.msg;
+				}else{
+					alert("code:"+data.code+"\n msg"+data.msg);
+				}
+			},error:function(error){
+				console.log("error",error);
+				// window.location="/pages/error/error.html";
+			}
+		});
+	}
+
 	//启用or禁用
 	function able(id,mark){
-		var status = mark?'enabled':'disabled';
+		var status = mark?'disabled':'enabled';
 		console.log(id,status);
+		var data = JSON.stringify({
+			userId:id,
+			status:status
+		});
+		if(user!=null&&user!='null'&&user!=undefined){
+			//ajax
+			$.ajax({
+				type:"post",
+				url:bashUserUrl+"update",
+				contentType:"application/json;charset:utf-8",
+				data:data,
+				dataType:"json",
+				beforeSend:function(request){
+					request.setRequestHeader('Access-Control-Allow-Origin', '*');
+					request.setRequestHeader('Access-Control-Allow-Credentials', true);
+					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+					request.setRequestHeader('Univer-Code', user.jwtToken.code);
+					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+				},
+				success:function(data){
+					console.log("data",data);
+					if(data.code==200){
+						alert("用户修改成功");
+						getUserList();
+					}else{
+						alert("code:"+data.code+"\n msg"+data.msg);
+					}
+				},error:function(error){
+					console.log("error",error);
+						// window.location="/pages/error/error.html";
+				}
+			});
+		}
 	}
 
 	//详情
@@ -711,6 +793,7 @@
 	//修改
 	function change(id){
 		console.log("修改",id);
+		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
 	}
 
 	function modalBody(user){

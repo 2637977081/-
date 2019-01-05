@@ -47,7 +47,7 @@
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="#" onclick="goUpdate()">
                 <i class="mdi mdi-cached mr-2 text-success"></i>
                 修改个人信息
               </a>
@@ -496,6 +496,11 @@
 		}
 	}
 
+	//跳转到修改用户页面
+	function goUpdate(){
+		var id = user.userId;
+		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
+	}
 	//获取角色列表
 	function getRoleList(){
 		if(user!=null&&user!='null'&&user!=undefined){

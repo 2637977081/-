@@ -44,7 +44,7 @@ public class OrgService extends BaseService<Org> {
 		Condition condition = new Condition(Org.class);
 		condition.createCriteria().andEqualTo("orgId",id);
 		List<Org> orgList = orgMapper.selectByCondition(condition);
-		if(orgList != null && orgList.size() == 1) {
+		if(orgList != null ) {
 			orgTreeVo = new OrgTreeVo();
 			orgTreeVo.setOrg(orgList.get(0));
 			getChildren(orgTreeVo,findAllByRootId(orgTreeVo.getOrg().getRootId()));
@@ -156,28 +156,28 @@ public class OrgService extends BaseService<Org> {
 	public String deleteOrgById(Long id) {
 		Org org = orgMapper.selectByPrimaryKey(id);
 		if(org != null) {
-			// orgId=rootId 说明是顶级公司，未预置数据，不可删除
-			if (org.getOrgId().longValue() == org.getRootId().longValue()){
-				return com.univer.base.constant.MsgConstant.INVALID_OPERATION;
-			}
-			UserVo userVo = new UserVo();
-			userVo.setOrgId(id);
-			List<UserVo> userList = userService.findUserByOrgId(userVo);
-			if(userList == null || userList.isEmpty()) {
-				Condition condition = new Condition(Org.class);
-				Condition.Criteria criteria = condition.createCriteria();
-				criteria.andEqualTo("parentId", org.getOrgId());
-				Integer count = orgMapper.selectCountByCondition(condition);
-				// 如果该机构下没有子机构且没有用户，则可以删除
-				if(count == 0) {
+//			// orgId=rootId 说明是顶级公司，未预置数据，不可删除
+//			if (org.getOrgId().longValue() == org.getRootId().longValue()){
+//				return com.univer.base.constant.MsgConstant.INVALID_OPERATION;
+//			}
+//			UserVo userVo = new UserVo();
+//			userVo.setOrgId(id);
+//			List<UserVo> userList = userService.findUserByOrgId(userVo);
+//			if(userList == null || userList.isEmpty()) {
+//				Condition condition = new Condition(Org.class);
+//				Condition.Criteria criteria = condition.createCriteria();
+//				criteria.andEqualTo("parentId", org.getOrgId());
+//				Integer count = orgMapper.selectCountByCondition(condition);
+//				// 如果该机构下没有子机构且没有用户，则可以删除
+//				if(count == 0) {
 					orgMapper.deleteByPrimaryKey(id);
 					return HttpStatus.OK.toString();
-				} else {
-					return MsgConstant.ORG_EXISTED_SUBORG;
-				}
-			} else {
-				return MsgConstant.ORG_EXISTED_USER;
-			}
+//				} else {
+//					return MsgConstant.ORG_EXISTED_SUBORG;
+//				}
+//			} else {
+//				return MsgConstant.ORG_EXISTED_USER;
+//			}
 		} else {
 			return com.univer.base.constant.MsgConstant.NO_DATA;
 		}

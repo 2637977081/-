@@ -44,12 +44,12 @@ public class OrgController extends AuthorizationController<Object> {
      */
 	@GetMapping("list")
 	public ResultVo list() {
-		Org org = orgService.findOrgById(loginUser.getOrgId());
-		if (org == null){
-			resultVo.getInstance(MsgConstant.NO_DATA);
-			return resultVo;
-		}
-		OrgTreeVo orgTreeVo = orgService.getOrgTreeById(org.getRootId());
+//		Org org = orgService.findOrgById(loginUser.getOrgId());
+//		if (org == null){
+//			resultVo.getInstance(MsgConstant.NO_DATA);
+//			return resultVo;
+//		}
+		OrgTreeVo orgTreeVo = orgService.getOrgTreeById(Long.valueOf(1));
 		resultVo.getInstance(HttpStatus.OK.toString(), orgTreeVo);
 		return resultVo;
 	}
@@ -120,30 +120,30 @@ public class OrgController extends AuthorizationController<Object> {
 			resultVo.getInstance(MsgConstant.INVALID_DATA);
 			return resultVo;
 		}
-		// 检查该级别下是否存在同一名称
-		if (orgVo.getName() != null) {
-			List<OrgVo> list = orgService.selectByOrg(null,orgVo.getName(),orgVo.getParentId(),null,null);
-			if (list != null && list.size() > 0){
-				Org org = list.get(0);
-				if (org.getOrgId().longValue() != orgVo.getOrgId().longValue()) {
-					resultVo.getInstance(com.univer.account.constant.MsgConstant.ORG_EXISTED);
-					return resultVo;
-				}
-			}
-		}
-		// 检验父级是否存在
-		if (orgVo.getParentId() != null){
-			Org org = orgService.findById(orgVo.getOrgId());
-			Org parent = orgService.findById(orgVo.getParentId());
-			if (parent == null || org == null || !parent.getRootId().equals(org.getRootId())) {
-				resultVo.getInstance(MsgConstant.INVALID_DATA);
-				return resultVo;
-			}
-			if (orgService.checkParent(orgVo.getOrgId(),orgVo.getParentId())){
-				resultVo.getInstance(com.univer.account.constant.MsgConstant.ORG_TARGET_ERROR);
-				return resultVo;
-			}
-		}
+//		// 检查该级别下是否存在同一名称
+//		if (orgVo.getName() != null) {
+//			List<OrgVo> list = orgService.selectByOrg(null,orgVo.getName(),orgVo.getParentId(),null,null);
+//			if (list != null && list.size() > 0){
+//				Org org = list.get(0);
+//				if (org.getOrgId().longValue() != orgVo.getOrgId().longValue()) {
+//					resultVo.getInstance(com.univer.account.constant.MsgConstant.ORG_EXISTED);
+//					return resultVo;
+//				}
+//			}
+//		}
+//		// 检验父级是否存在
+//		if (orgVo.getParentId() != null){
+//			Org org = orgService.findById(orgVo.getOrgId());
+//			Org parent = orgService.findById(orgVo.getParentId());
+//			if (parent == null || org == null || !parent.getRootId().equals(org.getRootId())) {
+//				resultVo.getInstance(MsgConstant.INVALID_DATA);
+//				return resultVo;
+//			}
+//			if (orgService.checkParent(orgVo.getOrgId(),orgVo.getParentId())){
+//				resultVo.getInstance(com.univer.account.constant.MsgConstant.ORG_TARGET_ERROR);
+//				return resultVo;
+//			}
+//		}
         orgVo = orgService.updateOrg(orgVo);
         if (orgVo != null) {
             resultVo.getInstance(HttpStatus.OK.toString(), orgVo);

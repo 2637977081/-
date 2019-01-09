@@ -19,7 +19,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
     <select id="selectMaxNumber" resultType="Long" parameterType="Long">
-		select max(number)
+		select max(org_id)
 		from org
 		where parent_id = #{parentId}
 	</select>

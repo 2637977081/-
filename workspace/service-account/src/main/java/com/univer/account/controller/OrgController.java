@@ -81,12 +81,12 @@ public class OrgController extends AuthorizationController<Object> {
 	public ResultVo add(@RequestBody @Validated( {OrgAdd.class }) OrgVo temp)throws Exception {
 		VoUtils.copyProperties(temp, orgVo,"code","name","type","description","parentId","status");
 		// 检验状态值是否符合
-        if (StatusEnum.getStatus(orgVo.getStatus()) == null){
-            resultVo.getInstance(MsgConstant.INVALID_DATA);
-            return resultVo;
-        }
+//        if (StatusEnum.getStatus(orgVo.getStatus()) == null){
+//            resultVo.getInstance(MsgConstant.INVALID_DATA);
+//            return resultVo;
+//        }
 		// 检查该父级是否存在
-		if (orgService.findById(orgVo.getParentId()) == null){
+		if (orgService.findById(orgVo.getParentId()) == null && orgVo.getParentId()!=0){
 			resultVo.getInstance(MsgConstant.NO_DATA);
 			return resultVo;
 		}
@@ -120,17 +120,17 @@ public class OrgController extends AuthorizationController<Object> {
 			resultVo.getInstance(MsgConstant.INVALID_DATA);
 			return resultVo;
 		}
-//		// 检查该级别下是否存在同一名称
-//		if (orgVo.getName() != null) {
-//			List<OrgVo> list = orgService.selectByOrg(null,orgVo.getName(),orgVo.getParentId(),null,null);
-//			if (list != null && list.size() > 0){
-//				Org org = list.get(0);
-//				if (org.getOrgId().longValue() != orgVo.getOrgId().longValue()) {
-//					resultVo.getInstance(com.univer.account.constant.MsgConstant.ORG_EXISTED);
-//					return resultVo;
-//				}
-//			}
-//		}
+		// 检查该级别下是否存在同一名称
+		if (orgVo.getName() != null) {
+			List<OrgVo> list = orgService.selectByOrg(null,orgVo.getName(),orgVo.getParentId(),null,null);
+			if (list != null && list.size() > 0){
+				Org org = list.get(0);
+				if (org.getOrgId().longValue() != orgVo.getOrgId().longValue()) {
+					resultVo.getInstance(com.univer.account.constant.MsgConstant.ORG_EXISTED);
+					return resultVo;
+				}
+			}
+		}
 //		// 检验父级是否存在
 //		if (orgVo.getParentId() != null){
 //			Org org = orgService.findById(orgVo.getOrgId());

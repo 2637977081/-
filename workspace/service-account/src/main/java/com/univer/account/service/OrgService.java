@@ -123,11 +123,11 @@ public class OrgService extends BaseService<Org> {
 	public OrgVo saveOrg(OrgVo orgVo) throws Exception{
 		Org org = new Org();
 		BeanUtils.copyProperties(orgVo,org);
-		Long maxNumber = orgMapper.selectMaxNumber(orgVo.getParentId());
-		if(maxNumber == null) {
-			org.setNumber(0L);
+		Long orgId = orgMapper.selectMaxNumber(orgVo.getParentId());
+		if(orgId == null) {
+			org.setOrgId(Long.valueOf(orgVo.getParentId()+"01"));
 		} else {
-			org.setNumber(maxNumber + 1);
+			org.setOrgId(orgId + 1);
 		}
 		orgVo = null;
 		int result = orgMapper.insertSelective(org);

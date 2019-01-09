@@ -19,11 +19,6 @@
                 "name":"组织机构",
                 "roles":[1,2],
                 "url":"http://localhost:8000/pages/account/org/org.html"
-            },
-            {
-                "name":"组织机构列表",
-                "roles":[1,2],
-                "url":"http://localhost:8000/pages/account/org/list.html"
             }
         ]
     },

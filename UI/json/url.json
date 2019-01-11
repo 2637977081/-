@@ -29,24 +29,34 @@
         "url":"",
         "children":[
             {
-                "name":"添加用户",
+                "name":"添加课程",
                 "roles":[1,2],
-                "url":"http://localhost:8000/pages/account/user/add.html"
+                "url":"http://localhost:8000/pages/course/course/add.html"
             },
             {
-                "name":"用户列表",
+                "name":"课程列表",
                 "roles":[1,2,3],
-                "url":"http://localhost:8000/pages/account/user/list.html"
+                "url":"http://localhost:8000/pages/course/course/list.html"
             },
             {
-                "name":"添加组织机构",
+                "name":"添加教师",
                 "roles":[1,2],
-                "url":"http://localhost:8000/pages/account/org/add.html"
+                "url":"http://localhost:8000/pages/course/lesson/add.html"
             },
             {
-                "name":"组织机构列表",
+                "name":"教学列表",
                 "roles":[1,2],
-                "url":"http://localhost:8000/pages/account/org/list.html"
+                "url":"http://localhost:8000/pages/course/lesson/list.html"
+            },
+            {
+                "name":"添加学生",
+                "roles":[1,2],
+                "url":"http://localhost:8000/pages/course/teach/add.html"
+            },
+            {
+                "name":"班级列表",
+                "roles":[1,2],
+                "url":"http://localhost:8000/pages/course/teach/list.html"
             }
         ]
     }

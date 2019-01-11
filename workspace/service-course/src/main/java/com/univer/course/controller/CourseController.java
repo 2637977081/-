@@ -9,10 +9,12 @@ import com.univer.base.vo.ResultVo;
 import com.univer.course.constant.MsgConstant;
 import com.univer.course.po.Course;
 import com.univer.course.service.CourseService;
+import com.univer.course.validation.AddCourse;
 import com.univer.course.vo.CourseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -35,7 +37,7 @@ public class CourseController extends AuthorizationController<Object> {
     private CourseService courseService;
 
     @PostMapping("/add")
-    public ResultVo add(@RequestBody CourseVo temp) throws Exception{
+    public ResultVo add(@RequestBody @Validated(AddCourse.class) CourseVo temp) throws Exception{
         VoUtils.copyProperties(temp, courseVo,"name","type","universityId","universityName","facultyId","facultyName","subjectId","subjectName");
         if(courseService.isExistedCourse(courseVo)){
             resultVo.getInstance(MsgConstant.COURSE_EXISTED);

@@ -1,6 +1,10 @@
 package com.univer.course.po;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.univer.base.po.BaseEntity;
+import com.univer.course.validation.AddCourse;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -17,6 +21,9 @@ import java.util.Date;
  * @descript
  * @time 2018-12-19 17:58
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Component
+@Scope("prototype")
 public class Course extends BaseEntity {
 
     /**
@@ -37,9 +44,9 @@ public class Course extends BaseEntity {
     /**
      * 课程名
      */
-    @NotNull(message = "{course.name.not.null}", groups = { })
-    @Size(min = 1, max = 25, message = "{course.name.size}", groups = { })
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]*$", message = "{course.name.pattern}", groups = { })
+    @NotNull(message = "{course.name.not.null}", groups = {AddCourse.class})
+    @Size(min = 1, max = 25, message = "{course.name.size}", groups = {AddCourse.class})
+    @Pattern(regexp = "^[a-z0-9A-Z\u4e00-\u9fa5]+$", message = "{course.name.pattern}", groups = {AddCourse.class })
     private String name;
 
     /**

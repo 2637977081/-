@@ -95,25 +95,26 @@ public class CourseService {
         if(courseVo.getPage() != null && courseVo.getRows()!=null){
             PageHelper.startPage(courseVo.getPage(),courseVo.getRows());
         }
-        Map<String, Object> map = new HashMap<>(16);
+        Condition condition = new Condition(Course.class);
+
         if(!StringUtils.isEmpty(courseVo.getName())){
-            map.put("name",courseVo.getName());
+            condition.createCriteria().andLike("name",courseVo.getName());
         }
         if(!StringUtils.isEmpty(courseVo.getType())){
-            map.put("type",courseVo.getType());
+            condition.createCriteria().andEqualTo("type",courseVo.getType());
         }
         if(courseVo.getUniversityId()!=null){
-            map.put("universityId",courseVo.getUniversityId());
+            condition.createCriteria().andEqualTo("universityId",courseVo.getUniversityId());
         }
         if(courseVo.getFacultyId()!=null){
-            map.put("facultyId",courseVo.getFacultyId());
+            condition.createCriteria().andEqualTo("facultyId",courseVo.getFacultyId());
         }
         if(courseVo.getSubjectId()!=null){
-            map.put("subjectId",courseVo.getSubjectId());
+            condition.createCriteria().andEqualTo("subjectId",courseVo.getSubjectId());
         }
         if(courseVo.getCreateId()!=null){
-            map.put("createId",courseVo.getCreateId());
+            condition.createCriteria().andEqualTo("createId",courseVo.getCreateId());
         }
-        return courseMapper.selectByCondition(map);
+        return courseMapper.selectByCondition(condition);
     }
 }

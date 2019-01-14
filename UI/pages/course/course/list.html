@@ -238,6 +238,7 @@
 										<label for="type" class="col-sm-1 col-form-label">分类</label>
 										<div class="col-sm-3">
 											<select class="form-control" id="type" >
+												<option value="all">全部</option>
 												<option value="required">必修</option>
 												<option value="elective">选修</option>
 											</select>
@@ -248,19 +249,19 @@
 										<label for="university" class="col-sm-1 col-form-label">大学</label>
 										<div class="col-sm-3">
 											<select class="form-control" id="university" onchange="changeOption('university','faculty')">
-													<option>全部</option>
+												<option value="all" >全部</option>
 											</select>
 										</div>
 										<label for="faculty" class="col-sm-1 col-form-label">学院</label>
 										<div class="col-sm-3">
 											<select class="form-control" id="faculty" onchange="changeOption('faculty','subject')">
-												<option>全部</option>
+												<option value="all" >全部</option>
 											</select>
 										</div>
 										<label for="subject" class="col-sm-1 col-form-label">系/班</label>
 										<div class="col-sm-3">
 											<select class="form-control" id="subject" >
-												<option>全部</option>
+												<option value="all" >全部</option>
 											</select>
 										</div>
 									</div>
@@ -273,13 +274,14 @@
 							<thead>
 								<tr>
 									<th>课程名</th>
+									<th>课程类型</th>
 									<th>所属大学</th>
 									<th>所属学院</th>
 									<th>所属系/班</th>
 									<th colspan ="3" style="">操作</th>
 								</tr>
 							</thead>
-							<tbody id="userList">
+							<tbody id="courseList">
 								<tr id ='1'>
 									<td>课程1</td>
 									<td>大学</td>
@@ -374,7 +376,7 @@
 
         setUserInf();
         
-		getUserList();
+		getCourseList();
     }
       
     //加载左侧导航栏
@@ -479,32 +481,44 @@
 	}
 	
 	
-	//获取用户列表
-	function getUserList(page){
-		var username = $("#form_username").val();
-		var name = $("#form_name").val();
-		var email = $("#form_email").val();
-		var phone = $("#form_phone").val();
-		var gender = $("#form_gender option:selected")[0].value=="all"?"":$("#form_gender option:selected")[0].value;
-		var roleName = $("#form_role option:selected")[0].text=="全部"?"":$("#form_role option:selected")[0].text;
-		var orgId = $("#form_org option:selected")[0].value=="all"?"":$("#form_org option:selected")[0].value;
-		var status = $("#form_status option:selected")[0].value=="all"?"":$("#form_status option:selected")[0].value;
+	//获取课程列表
+	function getCourseList(page){
+		var name = $("#name").val();
+		var type = $("#type option:selected")[0].value;
+		if(type=="all"){
+			type="";
+		}
+		var universityId = $("#university option:selected")[0].value;
+		var universityName = $("#university option:selected")[0].textContent;
+		if(universityId=="all"){
+			universityId = "";
+			universityName = "";
+		}
+		var facultyId = $("#faculty option:selected")[0].value;
+		var facultyName = $("#faculty option:selected")[0].textContent;
+		if(facultyId=="all"){
+			facultyId = "";
+			facultyName = "";
+		}
+		var subjectId = $("#subject option:selected")[0].value;
+		var subjectName = $("#subject option:selected")[0].textContent;
+		if(subjectId=="all"){
+			subjectId = "";
+			subjectName = "";
+		}
 		page= page==null?0:page;
 		var rows= 10;
-		var data="username="+username+
-				"&name="+name+
-				"&email="+email+
-				"&phone="+phone+
-				"&gender="+gender+
-				"&orgId="+orgId+
-				"&roleName="+roleName+
-				"&status="+status+
+		var data="name="+name+
+				"&type="+type+
+				"&universityId="+universityId+
+				"&facultyId="+facultyId+
+				"&subjectId="+subjectId+
 				"&page="+page+
 				"&rows="+rows;
 		//ajax
 		$.ajax({
 			type:"get",
-			url:bashUserUrl+"list",
+			url:bashCourseUrl+"list",
 			contentType:"application/json;charset:utf-8",
 			data:data,
 			dataType:"json",
@@ -519,38 +533,35 @@
 				console.log("datalist",data);
 
 				if(data.code==200){
-					//用户列表
-					$("#userList").html(null);
-					$.each(data.data.list, function(i, user){
+					//课程列表
+					$("#courseList").html(null);
+					$.each(data.data.list, function(i, course){
 						var tr ='<tr>'+
-								'<td class="py-1"><img src="'+"http://"+nginxIp+"/images/"+user.avatar+'" alt="image"></td>'+
-								'<td>'+user.username+'</td>'+
-								'<td>'+user.name+'</td>';
-								var gender = user.gender=='male'?'男':'女';
-							tr=tr+'<td>'+gender+'</td>'+
-								'<td>'+user.email+'</td>'+
-								'<td>'+user.phone+'</td>'+
-								'<td>'+user.roleName+'</td>'+
-								'<td>'+user.orgName+'</td>';
-								var color = user.status=='enabled'?'07cd22':'a12c25';
-								var able = user.status=='enabled'?'启用':'禁用';
-								var mark = user.status=='enabled'?true:false;
-							tr=tr+'<td style="color:#'+color+'" onclick="able('+user.userId+','+mark+')">'+able+'</td>'+
+								'<td>'+course.name+'</td>';
+								var type = course.type=="elective"?"选修":"必修";
+								var universityName = course.universityName==undefined?"全部":course.universityName;
+								var facultyName = course.facultyName==undefined?"全部":course.facultyName;
+								var subjectName = course.subjectName==undefined?"全部":course.subjectName;
+							tr=tr+'<td>'+type+'</td>'+
+								'<td>'+universityName+'</td>'+
+								'<td>'+facultyName+'</td>'+
+								'<td>'+subjectName+'</td>';
+							tr=tr+'<td style="color:#a12c25" onclick="delete('+user.userId+')">删除</td>'+
 								'<td style="color:#fed713" onclick="detail('+user.userId+')">详情</td>'+
 								'<td style="color:#b66dff" onclick="change('+user.userId+')">修改</td>'+
 							'</tr>';
-						$("#userList").append($(tr));
+						$("#courseList").append($(tr));
 					});
 					
 					//上一页下一页
 					if(data.data.hasPreviousPage){
-						var prev ='<button type="button" onclick="getUserList('+(data.data.pageNum-1)+')" class="btn btn-inverse-success btn-fw">上一页</button>';
+						var prev ='<button type="button" onclick="getCourseList('+(data.data.pageNum-1)+')" class="btn btn-inverse-success btn-fw">上一页</button>';
 					}else{
 						var prev ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">上一页</button>';
 					}
 
 					if(data.data.hasNextPage){
-						var next ='<button type="button" onclick="getUserList('+(data.data.pageNum+1)+')" class="btn btn-outline-danger btn-fw">下一页</button>';
+						var next ='<button type="button" onclick="getCourseList('+(data.data.pageNum+1)+')" class="btn btn-outline-danger btn-fw">下一页</button>';
 					}else{
 						var next ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">下一页</button>';
 					}
@@ -593,7 +604,7 @@
 		//ajax
 		$.ajax({
 			type:"get",
-			url:bashUserUrl+"down/list",
+			url:bashCourseUrl+"down/list",
 			contentType:"application/json;charset:utf-8",
 			data:data,
 			dataType:"json",
@@ -630,7 +641,7 @@
 			//ajax
 			$.ajax({
 				type:"post",
-				url:bashUserUrl+"update",
+				url:bashCourseUrl+"update",
 				contentType:"application/json;charset:utf-8",
 				data:data,
 				dataType:"json",
@@ -645,7 +656,7 @@
 					console.log("data",data);
 					if(data.code==200){
 						alert("用户修改成功");
-						getUserList();
+						getCourseList();
 					}else{
 						alert("code:"+data.code+"\n msg"+data.msg);
 					}
@@ -662,7 +673,7 @@
 		console.log("详情",id);
 		$.ajax({
 				type:"get",
-				url:bashUserUrl+"detail/"+id,
+				url:bashCourseUrl+"detail/"+id,
 				contentType:"application/json;charset:utf-8",
 				dataType:"json",
 				beforeSend:function(request){
@@ -692,49 +703,65 @@
 		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
 	}
 
+	//修改大学选择框
+	function changeOption(type,son){
+		console.log("type:"+type);
+		var parentId = parseInt($("#"+type+" option:selected")[0].value);
+		var all = '<option value="all" >全部</option>';
+		$("#"+son+"").html(null);
+		$("#"+son+"").append($(all));
+		$.each(orgList,function(i,org){
+			if(org.parentId==parentId){
+				var html ='<option value="'+org.orgId+'" id='+org.parentId+'>'+org.name+'</option>';
+				var element = $(html);
+				$("#"+son+"").append(element);	
+			}
+		});
+	}
+
 	function modalBody(user){
 		var html = 
 				'<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">'+
 					'<div class="form-group row">'+
-						'<label for="username" class="col-sm-1 col-form-label" style="width:15%">账号</label>'+
-						'<input type="text" class="form-control" style="width:30%" readonly value="'+user.username+'">'+
-						
-					'</div>'+
-					'<div class="form-group row">'+
-						'<label for="name" class="col-sm-1 col-form-label">姓名</label>'+
-						'<input type="email" class="form-control" style="width:30%" readonly value="'+user.name+'">'+
-						
-						'<label for="email" class="col-sm-1 col-form-label">邮箱</label>'+
-						'<input type="text" class="form-control" style="width:30%" readonly value="'+user.email+'">'+
-					'</div>'+
-					'<div class="form-group row">'+
-						'<div class="col-sm-6 row">'+
-							'<label for="phone" class="col-sm-2 col-form-label">电话号码</label>'+
-							'<input type="text" class="form-control" style="width:30%;" readonly value="'+user.phone+'">'+
+						'<label for="name" class="col-sm-1 col-form-label">课程名</label>'+
+						'<div class="col-sm-3">'+
+						  	'<input type="text" class="form-control" id="name" placeholder="课程名">'+
 						'</div>'+
-						'<label for="gender" class="col-sm-1 col-form-label">性别</label>'+
-						'<select class="form-control" style="width:20%;" readonly>';
-							var gender = user.gender=="male"?"男":"女";
-					html=html+'<option value="'+user.gender+'">'+gender+'</option>'+
-						'</select>'+
 					'</div>'+
 					'<div class="form-group row">'+
-						
-						'<label for="role" class="col-sm-1 col-form-label" >角色</label>'+
-						'<select class="form-control" style="width:20%;" readonly>'+
-							'<option>'+user.roleVoList[0].name+'</option>'+
-						'</select>'+
-						'<label for="gender" class="col-sm-1 col-form-label" style="width:50px">组织结构</label>'+
-						'<select class="form-control" style="width:20%;" readonly>'+
-							'<option>'+user.orgName+'</option>'+
-						'</select>'+
-					'</div>'+
-					'<div class="form-group row">'+
-						'<div style="width:140px;height:160px;">'+
-							'<img src="'+"http://"+nginxIp+"/images/"+user.avatar+'" style="object-fit:cover;width: 100%;height: 100%;"/>'+
+						'<label for="type" class="col-sm-1 col-form-label">分类</label>'+
+						'<div class="col-sm-3">'+
+							'<select class="form-control" id="type" >'+
+								'<option value="required">必修</option>'+
+								'<option value="elective">选修</option>'+
+							'</select>'+
 						'</div>'+
-						'<textarea class="form-control" rows="4" style="width:70%" readonly>'+user.description+'</textarea>'+
 					'</div>'+
+					'<div class="form-group row">'+
+						'<label for="university" class="col-sm-1 col-form-label">大学</label>'+
+						'<div class="col-sm-3">'+
+							'<select class="form-control" id="university" onchange="changeOption(\'university\',\'faculty\')">'+
+								'<option>全部</option>'+
+							'</select>'+
+						'</div>'+
+					'</div>'+
+					'<div class="form-group row">'+
+						'<label for="faculty" class="col-sm-1 col-form-label">学院</label>'+
+						'<div class="col-sm-3">'+
+							'<select class="form-control" id="faculty" onchange="changeOption(\'faculty\',\'subject\')">'+
+								'<option>全部</option>'+
+							'</select>'+
+						'</div>'+
+					'</div>'+
+					'<div class="form-group row">'+
+						'<label for="subject" class="col-sm-1 col-form-label">系/班</label>'+
+						'<div class="col-sm-3">'+
+							'<select class="form-control" id="subject" >'+
+								'<option>全部</option>'+
+							'</select>'+
+						'</div>'+
+					'</div>'+
+						
 				'</form>';	
 		
 		$("#modalBody").html($(html));

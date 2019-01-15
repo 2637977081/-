@@ -21,8 +21,8 @@ public class Main {
 
         course.setName("高等数学1");
         course.setDescription("描述一下");
-        course.setUniverityId(Long.valueOf(1));
-        course.setUniverityName("北华大学");
+        course.setUniversityId(Long.valueOf(1));
+        course.setUniversityName("北华大学");
 //        course.setFacultyId(Long.valueOf(11));
 //        course.setFacultyName("计算机科学技术学院");
 //        course.setSubjectId(Long.valueOf(1101));

@@ -149,16 +149,16 @@ public class Course extends BaseEntity {
         return universityId;
     }
 
-    public void setUniverityId(Long univerityId) {
-        this.universityId = univerityId;
+    public void setUniversityId(Long universityId) {
+        this.universityId = universityId;
     }
 
-    public String getUniverityName() {
+    public String getUniversityName() {
         return universityName;
     }
 
-    public void setUniverityName(String univerityName) {
-        this.universityName = univerityName;
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
     }
 
     public Long getFacultyId() {

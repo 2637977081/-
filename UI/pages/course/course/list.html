@@ -302,9 +302,9 @@
 								</tr>
 							</tbody>
 						</table>
-						<div style="position: absolute;margin-top: 5%;">
+						<!-- <div style="position: absolute;margin-top: 5%;">
 							<button type="button" class="btn btn-gradient-info btn-rounded btn-fw" onclick="outExcel()">导出excel表</button>
-						</div>
+						</div> -->
 						<div style="margin-top:5%;margin-left: 75%">
 							<div class="form-group row" id="pages">
 								<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">上一页</button>
@@ -506,7 +506,7 @@
 			subjectId = "";
 			subjectName = "";
 		}
-		page= page==null?0:page;
+		page= page==null?1:page;
 		var rows= 10;
 		var data="name="+name+
 				"&type="+type+
@@ -546,9 +546,9 @@
 								'<td>'+universityName+'</td>'+
 								'<td>'+facultyName+'</td>'+
 								'<td>'+subjectName+'</td>';
-							tr=tr+'<td style="color:#a12c25" onclick="delete('+user.userId+')">删除</td>'+
-								'<td style="color:#fed713" onclick="detail('+user.userId+')">详情</td>'+
-								'<td style="color:#b66dff" onclick="change('+user.userId+')">修改</td>'+
+							tr=tr+'<td style="color:#a12c25" onclick="deleted('+course.courseId+')">删除</td>'+
+								'<td style="color:#fed713" onclick="detail('+course.courseId+')">详情</td>'+
+								'<td style="color:#b66dff" onclick="change('+course.courseId+')">修改</td>'+
 							'</tr>';
 						$("#courseList").append($(tr));
 					});
@@ -629,21 +629,13 @@
 		});
 	}
 
-	//启用or禁用
-	function able(id,mark){
-		var status = mark?'disabled':'enabled';
-		console.log(id,status);
-		var data = JSON.stringify({
-			userId:id,
-			status:status
-		});
-		if(user!=null&&user!='null'&&user!=undefined){
-			//ajax
-			$.ajax({
-				type:"post",
-				url:bashCourseUrl+"update",
+	//删除
+	function deleted(id){
+		console.log("删除",id);
+		$.ajax({
+				type:"get",
+				url:bashCourseUrl+"delete/"+id,
 				contentType:"application/json;charset:utf-8",
-				data:data,
 				dataType:"json",
 				beforeSend:function(request){
 					request.setRequestHeader('Access-Control-Allow-Origin', '*');
@@ -655,19 +647,18 @@
 				success:function(data){
 					console.log("data",data);
 					if(data.code==200){
-						alert("用户修改成功");
+						alert("删除成功");
 						getCourseList();
 					}else{
 						alert("code:"+data.code+"\n msg"+data.msg);
 					}
 				},error:function(error){
 					console.log("error",error);
-						// window.location="/pages/error/error.html";
+				// window.location="/pages/error/error.html";
 				}
-			});
-		}
+		});
 	}
-
+	
 	//详情
 	function detail(id){
 		console.log("详情",id);
@@ -700,7 +691,7 @@
 	//修改
 	function change(id){
 		console.log("修改",id);
-		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
+		window.location="http://localhost:8000/pages/course/course/update.html?id="+id;
 	}
 
 	//修改大学选择框
@@ -719,45 +710,48 @@
 		});
 	}
 
-	function modalBody(user){
+	function modalBody(course){
+		var type = course.type=="elective"?"选修":"必修";
+		var universityName = course.universityName==undefined?"全部":course.universityName;
+		var facultyName = course.facultyName==undefined?"全部":course.facultyName;
+		var subjectName = course.subjectName==undefined?"全部":course.subjectName;
 		var html = 
 				'<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">'+
 					'<div class="form-group row">'+
 						'<label for="name" class="col-sm-1 col-form-label">课程名</label>'+
 						'<div class="col-sm-3">'+
-						  	'<input type="text" class="form-control" id="name" placeholder="课程名">'+
+						  	'<input type="text" class="form-control" id="name" readonly value="'+course.name+'">'+
 						'</div>'+
 					'</div>'+
 					'<div class="form-group row">'+
 						'<label for="type" class="col-sm-1 col-form-label">分类</label>'+
 						'<div class="col-sm-3">'+
-							'<select class="form-control" id="type" >'+
-								'<option value="required">必修</option>'+
-								'<option value="elective">选修</option>'+
+							'<select class="form-control" id="type" readonly>';
+					html=html+'<option>'+type+'</option>'+
 							'</select>'+
 						'</div>'+
 					'</div>'+
 					'<div class="form-group row">'+
 						'<label for="university" class="col-sm-1 col-form-label">大学</label>'+
 						'<div class="col-sm-3">'+
-							'<select class="form-control" id="university" onchange="changeOption(\'university\',\'faculty\')">'+
-								'<option>全部</option>'+
+							'<select class="form-control" id="university" readonly>';
+					html=html+'<option>'+universityName+'</option>'+
 							'</select>'+
 						'</div>'+
 					'</div>'+
 					'<div class="form-group row">'+
 						'<label for="faculty" class="col-sm-1 col-form-label">学院</label>'+
 						'<div class="col-sm-3">'+
-							'<select class="form-control" id="faculty" onchange="changeOption(\'faculty\',\'subject\')">'+
-								'<option>全部</option>'+
+							'<select class="form-control" id="faculty" readonly>';
+					html=html+'<option>'+facultyName+'</option>'+
 							'</select>'+
 						'</div>'+
 					'</div>'+
 					'<div class="form-group row">'+
 						'<label for="subject" class="col-sm-1 col-form-label">系/班</label>'+
 						'<div class="col-sm-3">'+
-							'<select class="form-control" id="subject" >'+
-								'<option>全部</option>'+
+							'<select class="form-control" id="subject" readonly>';
+					html=html+'<option>'+subjectName+'</option>'+
 							'</select>'+
 						'</div>'+
 					'</div>'+

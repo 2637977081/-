@@ -115,6 +115,7 @@ public class CourseService {
         if(courseVo.getCreateId()!=null){
             condition.createCriteria().andEqualTo("createId",courseVo.getCreateId());
         }
+        condition.createCriteria().andEqualTo("status","enabled");
         return courseMapper.selectByCondition(condition);
     }
 }

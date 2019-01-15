@@ -315,7 +315,9 @@
         
         getJsonUrl();
 
-        setUserInf();
+		setUserInf();
+		getOrgList();
+
 		var url=window.location.search;
 		if(url.indexOf("?")!=-1){
 			var id = url.substr(url.indexOf("=")+1);
@@ -419,6 +421,95 @@
 		}
 	  }
 
+	  function getOrgList(type,parent){
+
+		if(type==null||type==undefined||type==""){
+			type = "university";
+		}
+
+		if(parent==null||parent==undefined||parent==""){
+			parent=0;
+		}
+
+		if(user!=null&&user!='null'&&user!=undefined){
+			//ajax
+			$.ajax({
+				type:"get",
+				url:bashOrgUrl+"list/org",
+				contentType:"application/json;charset:utf-8",
+				dataType:"json",
+				beforeSend:function(request){
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Access-Control-Allow-Credentials', true);
+				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+				request.setRequestHeader('Univer-Code', user.jwtToken.code);
+				request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+			},
+			success:function(data){
+				console.log("data",data);
+				if(data.code==200){
+					orgList = data.data;
+					var all = '<option value="all" >全部</option>';
+					$("#university").html(null);
+					$("#university").append($(all));
+					$.each(orgList,function(i,org){
+						if(org.parentId==0){
+							var html ='<option value="'+org.orgId+'" id='+org.parentId+'>'+org.name+'</option>';
+							var element = $(html);
+							$("#university").append(element);
+						}
+					});
+
+					var university = parseInt($("#university option:selected")[0].value);
+					if(university!=null&&university!="null"&&university!=undefined){
+						$("#faculty").html(null);
+						$("#faculty").append($(all));
+						$.each(orgList,function(i,org){
+							if(org.parentId==university){
+								var html ='<option value="'+org.orgId+'" id='+org.parentId+'>'+org.name+'</option>';
+								var element = $(html);
+								$("#faculty").append(element);
+							}
+						});
+					}
+
+					var faculty = parseInt($("#faculty option:selected")[0].value);
+					if(faculty!=null&&faculty!="null"&&faculty!=undefined){
+						$("#subject").html(null);
+						$("#subject").append($(all));
+						$.each(orgList,function(i,org){
+							if(org.parentId==faculty){
+								var html ='<option value="'+org.orgId+'" id='+org.parentId+'>'+org.name+'</option>';
+								var element = $(html);
+								$("#subject").append(element);
+							}
+						});
+					}
+				}else{
+					alert("code:"+data.code+"\n msg"+data.msg);
+				}
+			},error:function(error){
+				console.log("error",error);
+			// window.location="/pages/error/error.html";
+			}
+			});
+		}
+	}
+	//修改大学选择框
+	function changeOption(type,son){
+		console.log("type:"+type);
+		var parentId = parseInt($("#"+type+" option:selected")[0].value);
+		var all = '<option value="all" >全部</option>';
+		$("#"+son+"").html(null);
+		$("#"+son+"").append($(all));
+		$.each(orgList,function(i,org){
+			if(org.parentId==parentId){
+				var html ='<option value="'+org.orgId+'" id='+org.parentId+'>'+org.name+'</option>';
+				var element = $(html);
+				$("#"+son+"").append(element);	
+			}
+		});
+	}
 	  function detail(id){
 		console.log("详情",id);
 		$.ajax({
@@ -434,9 +525,18 @@
 					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
 				},
 				success:function(data){
-					console.log("data",data);
+					console.log("courseData",data);
 					if(data.code==200){
-						
+						var course = data.data;
+						var type = course.type=="elective"?"选修":"必修";
+						var universityName = course.universityName==undefined?"全部":course.universityName;
+						var facultyName = course.facultyName==undefined?"全部":course.facultyName;
+						var subjectName = course.subjectName==undefined?"全部":course.subjectName;
+						$('#name').val(course.name);
+						$("#type").find("option:contains('"+type+"')").attr("selected",true);
+						$("#university").find("option:contains('"+universityName+"')").attr("selected",true);
+						$("#faculty").find("option:contains('"+facultyName+"')").attr("selected",true);
+						$("#subject").find("option:contains('"+subjectName+"')").attr("selected",true);
 					}else{
 						alert("code:"+data.code+"\n msg"+data.msg);
 					}
@@ -445,6 +545,76 @@
 				// window.location="/pages/error/error.html";
 				}
 		});
+	  }
+
+	  function addCourse(){
+		var url=window.location.search;
+		var id="";
+		if(url.indexOf("?")!=-1){
+			id= url.substr(url.indexOf("=")+1);
+		}else{
+			window.history.back(-1);
+		}
+		var name = $("#name").val();
+		var type = $("#type option:selected")[0].value;
+		var universityId = $("#university option:selected")[0].value;
+		var universityName = $("#university option:selected")[0].textContent;
+		if(universityId=="all"){
+			universityId = null;
+			universityName = null;
+		}
+		var facultyId = $("#faculty option:selected")[0].value;
+		var facultyName = $("#faculty option:selected")[0].textContent;
+		if(facultyId=="all"){
+			facultyId = null;
+			facultyName = null;
+		}
+		var subjectId = $("#subject option:selected")[0].value;
+		var subjectName = $("#subject option:selected")[0].textContent;
+		if(subjectId=="all"){
+			subjectId = null;
+			subjectName = null;
+		}
+		var data = JSON.stringify({
+			courseId:id,
+			name:name,
+			type:type,
+			universityId:universityId,
+			universityName:universityName,
+			facultyId:facultyId,
+			facultyName:facultyName,
+			subjectid:subjectId,
+			subjectName:subjectName
+		});
+		console.log("提交课程",data);
+		if(user!=null&&user!='null'&&user!=undefined){
+			//ajax
+			$.ajax({
+				type:"post",
+				url:bashCourseUrl+"update",
+				contentType:"application/json;charset:utf-8",
+				data:data,
+				dataType:"json",
+				beforeSend:function(request){
+					request.setRequestHeader('Access-Control-Allow-Origin', '*');
+					request.setRequestHeader('Access-Control-Allow-Credentials', true);
+					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+					request.setRequestHeader('Univer-Code', user.jwtToken.code);
+					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+				},
+				success:function(data){
+					console.log("data",data);
+					if(data.code==200){
+						alert("修改成功");
+					}else{
+						alert("code:"+data.code+"\n msg"+data.msg);
+					}
+				},error:function(error){
+					console.log("error",error);
+				// window.location="/pages/error/error.html";
+				}
+			});
+		}
 	  }
     </script>
   <!-- endinject -->

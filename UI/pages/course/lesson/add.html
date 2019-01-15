@@ -207,61 +207,64 @@
 			<div class="card" style="margin-top:50px;">
 				
               <div class="card-body" >
-                <h4 class="card-title">账号管理</h4>
+                <h4 class="card-title">课程管理</h4>
                 <p class="card-description">
-                  添加用户
+                  添加教师
 				</p>
 				<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">
 					<div class="form-group row">
-						<label for="username" class="col-sm-1 col-form-label" style="width:15%">账号</label>
-						<input type="text" class="form-control" id="form_username" placeholder="账号" style="width:30%">
-						
-						<label for="password" class="col-sm-1 col-form-label">密码</label>
-						<input type="password" class="form-control" id="form_password" placeholder="密码" style="width:30%">
-						
+						<label for="name" class="col-sm-1 col-form-label">课程名</label>
+						<div class="col-sm-3">
+						  	<input type="text" class="form-control" id="name" placeholder="课程名">
+                        </div>
+                        <label for="name" class="col-sm-1 col-form-label">上限人数</label>
+					    <div class="col-sm-1">
+                            <input type="text" class="form-control" id="name" placeholder="上限人数" value="40">
+                        </div>
+                        <label for="name" class="col-sm-1 col-form-label">已选人数</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="name" placeholder="已选人数" value="0">
+                        </div>
 					</div>
 					<div class="form-group row">
-						<label for="name" class="col-sm-1 col-form-label">姓名</label>
-						<input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:30%">
-						
-						<label for="email" class="col-sm-1 col-form-label">邮箱</label>
-						<input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:30%">
-					</div>
-					<div class="form-group row">
-						<div class="col-sm-6 row">
-						  <label for="phone" class="col-sm-2 col-form-label">电话号码</label>
-						  <input type="text" class="form-control" id="form_phone" placeholder="电话号码" style="width:30%;">
-						</div>
-						<label for="gender" class="col-sm-1 col-form-label">性别</label>
-						<select class="form-control" id="form_gender" style="width:20%;">
-						  <option value="male">男</option>
-						  <option value="female">女</option>
-						</select>
-						
-								  
-					</div>  
-					<div class="form-group row">
-						
-						<label for="role" class="col-sm-1 col-form-label" >角色</label>
-						<select class="form-control" id="form_role" style="width:20%;" onclick="getOrgList()">
-						</select>
-						<label for="gender" class="col-sm-1 col-form-label" style="width:50px">组织结构</label>
-						<select class="form-control" id="form_org" style="width:20%;">
-						</select>
-						<div class="col-sm-4 row">
-							<input type="file" name="img[]" class="file-upload-default" id="form_avatar"  onchange="uploadAvatar()">
-							<input type="text" class="form-control file-upload-info" style="width:50%;" disabled="" placeholder="上传头像" >
-							<span class="input-group-append">
-							  <button class="file-upload-browse btn btn-gradient-primary" type="button">上传</button>
-							</span>
-						</div>
-					</div>
-					<div class="form-group row">
-						<div style="width:140px;height:160px;">
-							<img src="http://localhost:8000/images/faces/face1.jpg" id="showAvatar" style="object-fit:cover;width: 100%;height: 100%;"/>
-						</div>
-						<textarea class="form-control" id="form_description" rows="4" style="width:70%">个人描述</textarea>
-					</div>
+                        <label for="name" class="col-sm-1 col-form-label">授课老师</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="teacher">
+                                <option>全部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-1 col-form-label">学分</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="name" placeholder="学分" value="10">
+                        </div>
+                        <label for="name" class="col-sm-1 col-form-label">学时</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="name" placeholder="学时" value="50">
+                        </div>
+                        <label for="name" class="col-sm-1 col-form-label">状态</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="teacher">
+                                <option>启用</option>
+                                <option>禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-1 col-form-label">平时分百分比</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="name" placeholder="平时分百分比" value="0">
+                        </div>
+                        <label for="name" class="col-sm-1 col-form-label">实验分百分比</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="name" placeholder="实验分百分比" value="0">
+                        </div>
+                        <label for="name" class="col-sm-1 col-form-label">考试分百分比</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="name" placeholder="考试分百分比" value="100">
+                        </div>
+                    </div>
 				</form>
 				
 				<button type="button" onclick="submit()" class="btn btn-gradient-primary mr-2">提交</button>
@@ -326,10 +329,6 @@
         getJsonUrl();
 
         setUserInf();
-        
-        getRoleList();
-        
-        getOrgList();
       }
       
       //加载左侧导航栏
@@ -359,190 +358,11 @@
           });
         });
       }
-	  //上传图片
-    function uploadAvatar(){
-        
-		var image = $("#form_avatar")[0].files[0];
-		var data= new FormData();
-		data.append("file",image);
-		console.log(typeof(image));
-		//ajax
-		$.ajax({
-			type:"post",
-			url:bashStorageUrl+"save",
-			cache: false,
-      		processData: false,
-      		contentType: false,
-			dataType:"json",
-			data:data ,
-			beforeSend:function(request){
-				request.setRequestHeader('Access-Control-Allow-Origin', '*');
-				request.setRequestHeader('Access-Control-Allow-Credentials', true);
-				request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-			},
-			success:function(data){
-				console.log("data",data);
-				if(data.code==200){
-					avatar = data.msg;
-					console.log($("#showAvatar"));
-					$("#showAvatar").attr("src","http://"+nginxIp+"/images/"+avatar);
-					alert("上传头像成功");
-				}else{
-					alert("code:"+data.code+"\n msg"+data.msg);
-				}
-			},error:function(error){
-				console.log("error",error);
-				// window.location="/pages/error/error.html";
-			}
-		});
-      }
-
-	  //获取角色列表
-	  function getRoleList(){
-		if(user!=null&&user!='null'&&user!=undefined){
-		//ajax
-		  $.ajax({
-			type:"get",
-			url:bashRoleUrl+"list",
-			contentType:"application/json;charset:utf-8",
-			dataType:"json",
-			beforeSend:function(request){
-			  request.setRequestHeader('Access-Control-Allow-Origin', '*');
-			  request.setRequestHeader('Access-Control-Allow-Credentials', true);
-			  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-			  request.setRequestHeader('Univer-Code', user.jwtToken.code);
-			  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
-			},
-			success:function(data){
-			  console.log("data",data);
-			  if(data.code==200){
-				$.each(data.data.list, function(i, role){
-					console.log(role.roleId,role.name);
-					var html ='<option value="'+role.roleId+'" id='+role.type+'>'+role.name+'</option>';
-					var element = $(html);
-					$("#form_role").append(element);
-				});
-			  }else{
-				alert("code:"+data.code+"\n msg"+data.msg);
-			  }
-			},error:function(error){
-			  console.log("error",error);
-			  // window.location="/pages/error/error.html";
-			}
-		  });
-		}
-	  }
-	  
-	  function getOrgList(){
-		var role = $("#form_role option:selected")[0];
-		if(role==null || role=="null"||role==undefined){
-			var type = 'university';
-		}else{
-			var type = $("#form_role option:selected")[0].id;
-		}
-		console.log("type",type);
-		if(user!=null&&user!='null'&&user!=undefined){
-		//ajax
-		  $.ajax({
-			type:"get",
-			url:bashOrgUrl+"list/org",
-			contentType:"application/json;charset:utf-8",
-			dataType:"json",
-			beforeSend:function(request){
-			  request.setRequestHeader('Access-Control-Allow-Origin', '*');
-			  request.setRequestHeader('Access-Control-Allow-Credentials', true);
-			  request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-			  request.setRequestHeader('Univer-Code', user.jwtToken.code);
-			  request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
-			},
-			success:function(data){
-			  console.log("data",data);
-			  if(data.code==200){
-				$("#form_org").html(null);
-				$.each(data.data, function(i, org){
-					if(org.type == type){
-						console.log("org",org);
-						var html ='<option value="'+org.orgId+'">'+org.name+'</option>';
-						var element = $(html);
-						$("#form_org").append(element);
-					}
-				});
-			  }else{
-				alert("code:"+data.code+"\n msg"+data.msg);
-			  }
-			},error:function(error){
-			  console.log("error",error);
-			  // window.location="/pages/error/error.html";
-			}
-		  });
-		}
-	  }
-	  
+	
 	  //跳转到修改用户页面
 	  function goUpdate(){
 		var id = user.userId;
 		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
-	  }
-
-	  //提交用户信息
-	  function submit(){
-		console.log("submit form");
-		var username = $("#form_username").val();
-		var password = $("#form_password").val();
-		var name = $("#form_name").val();
-		var email = $("#form_email").val();
-		var phone = $("#form_phone").val();
-		var gender = $("#form_gender option:selected")[0].value;
-		var role = parseInt($("#form_role option:selected")[0].value);
-		var org = parseInt($("#form_org option:selected")[0].value);
-		var description = $("#form_description").val();
-		var data = JSON.stringify({
-					username:username,
-					password:password,
-					name:name,
-					email:email,
-					phone:phone,
-					gender:gender,
-					avatar:avatar,
-					orgId:org,
-					roleVoList:[
-						{
-							roleId:role
-						}
-					],
-					status:"enabled",
-					description:description 
-				});
-		console.log("##############",data);
-    	if(user!=null&&user!='null'&&user!=undefined){
-			//ajax
-			$.ajax({
-				type:"post",
-				url:bashUserUrl+"add",
-				contentType:"application/json;charset:utf-8",
-				data:data,
-				dataType:"json",
-				beforeSend:function(request){
-					request.setRequestHeader('Access-Control-Allow-Origin', '*');
-					request.setRequestHeader('Access-Control-Allow-Credentials', true);
-					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-					request.setRequestHeader('Univer-Code', user.jwtToken.code);
-					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
-				},
-				success:function(data){
-					console.log("data",data);
-					if(data.code==200){
-						alert("用户创建成功");
-						window.location="http://localhost:8000/pages/account/user/add.html";
-					}else{
-						alert("code:"+data.code+"\n msg"+data.msg);
-					}
-				},error:function(error){
-				  	console.log("error",error);
-				  	// window.location="/pages/error/error.html";
-				}
-			});
-		}
 	  }
 	 
 	  //跳转页面

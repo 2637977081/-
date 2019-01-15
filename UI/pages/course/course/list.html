@@ -548,7 +548,8 @@
 								'<td>'+subjectName+'</td>';
 							tr=tr+'<td style="color:#a12c25" onclick="deleted('+course.courseId+')">删除</td>'+
 								'<td style="color:#fed713" onclick="detail('+course.courseId+')">详情</td>'+
-								'<td style="color:#b66dff" onclick="change('+course.courseId+')">修改</td>'+
+                                '<td style="color:#b66dff" onclick="change('+course.courseId+')">修改</td>'+
+                                '<td style="color:#b66dff" onclick="lesson('+course.courseId+')">添加教师</td>'+
 							'</tr>';
 						$("#courseList").append($(tr));
 					});
@@ -693,6 +694,10 @@
 		console.log("修改",id);
 		window.location="http://localhost:8000/pages/course/course/update.html?id="+id;
 	}
+
+    function lesson(id){
+        window.location="http://localhost:8000/pages/course/lesson/add.html?courseId="+id;
+    }
 
 	//修改大学选择框
 	function changeOption(type,son){

@@ -27,14 +27,26 @@ import java.util.List;
 public class LessonController extends AuthorizationController<Object> {
 
     @Autowired
+
     private LessonVo lessonVo;
 
     @Autowired
     private LessonService lessonService;
 
-    @PostMapping("add/lesson")
-    public Object addLesson(@RequestBody List<Lesson> temp,String type){
-        List<Lesson> list = lessonService.addLesson(temp,type);
+    @GetMapping("add/lesson")
+    public Object addLesson(@RequestBody Lesson temp){
+        Lesson lesson = lessonService.addLesson(temp);
+        if(lesson!=null){
+            resultVo.getInstance(HttpStatus.OK.toString(),lesson);
+        }else {
+            resultVo.getInstance(MsgConstant.NO_DATA);
+        }
+        return resultVo;
+    }
+
+    @PostMapping("add/lessons")
+    public Object addLessons(@RequestBody List<Lesson> temp,String type){
+        List<Lesson> list = lessonService.addLessons(temp,type);
         if(list.size()>0){
             resultVo.getInstance(HttpStatus.OK.toString(),list);
         }else {

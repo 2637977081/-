@@ -564,6 +564,8 @@
 					console.log("data",data);
 					if(data.code==200){
 						$("#form_org").html(null);
+                        var all ='<option value="all">全部</option>';
+                        $("#form_org").append($(all));
 						$.each(data.data, function(i, org){
 							if(org.type == type){
 								console.log("org",org);

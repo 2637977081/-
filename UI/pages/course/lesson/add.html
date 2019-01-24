@@ -217,9 +217,9 @@
 						<div class="col-sm-3">
 						  	<input type="text" class="form-control" id="name" placeholder="课程名">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">上限人数</label>
+                        <label for="name" class="col-sm-1 col-form-label">预计人数</label>
 					    <div class="col-sm-1">
-                            <input type="text" class="form-control" id="name" placeholder="上限人数" value="40">
+                            <input type="text" class="form-control" id="name" placeholder="预计人数" value="40">
                         </div>
                         <label for="name" class="col-sm-1 col-form-label">已选人数</label>
                         <div class="col-sm-1">
@@ -313,124 +313,206 @@
   <!-- End custom js for this page-->
   <script src="http://localhost:8000/js/init.js"></script>
   <script>
-	  var avatar="";
-      //页面加载函数
-      function onload(){
-        // for(var i=0;i<getCookie("user").length;i++){
-        //   console.log("cookie",getCookie("user").charAt(i));
-        // }
-        // var json = JSON.stringify(getCookie("user"));
-        // console.log("json",json);
-        
-        // console.log("user",user);
-        user = JSON.parse(window.localStorage.getItem("user"));
-        console.log(user);
-        
-        getJsonUrl();
+        var avatar="";
+        //页面加载函数
+        function onload(){
+            // for(var i=0;i<getCookie("user").length;i++){
+            //   console.log("cookie",getCookie("user").charAt(i));
+            // }
+            // var json = JSON.stringify(getCookie("user"));
+            // console.log("json",json);
+            
+            // console.log("user",user);
+            user = JSON.parse(window.localStorage.getItem("user"));
+            console.log(user);
+            
+            getJsonUrl();
 
-        setUserInf();
-      }
-      
-      //加载左侧导航栏
-      function getJsonUrl(){
-        $.getJSON("../../../json/url.json",function(data){
-          console.log("data",data);
-          $.each(data, function(i, parent){
-            console.log(parent.name);
-            var html = '<li class="nav-item">'+
-              '<a class="nav-link" data-toggle="collapse" href="#'+parent.group+'" aria-expanded="false" aria-controls="'+parent.group+'">'+
-                '<span class="menu-title">'+parent.name+'</span>'+
-                '<i class="menu-arrow"></i>'+
-                '<i class="mdi mdi-contacts menu-icon"></i>'+
-              '</a>'+
-              '<div class="collapse" id="'+parent.group+'">'+
-                '<ul class="nav flex-column sub-menu">';
+            setUserInf();
 
-                  $.each(parent.children, function(i, son){
-                    html=html+'<li class="nav-item"> <a class="nav-link" href="'+son.url+'">'+son.name+'</a></li>';
-                  });
-
-                html=html+'</ul>'+
-              '</div>'+
-            '</li>';
-            var element = $(html);
-            $("#leftNav").append(element);
-          });
-        });
-      }
-	
-	  //跳转到修改用户页面
-	  function goUpdate(){
-		var id = user.userId;
-		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
-	  }
-	 
-	  //跳转页面
-	  function clickUrl(url){
-		window.location=url;
-	  }
-	
-      //设置当前登录用户信息
-      function setUserInf(){
-        console.log("setUserInf",user);
-        if(user != null && user!='null' && user !=undefined){
-          var imageUrl = "http://"+nginxIp+"/"+user.avatar;
-          $("#userName1").html(user.username);
-          $("#userName2").html(user.username);
-          $("#role").html(user.roleVoList[0].name);
-          if(user.avatar != null && user.avatar !=undefined){
-			var imageUrl = "http://"+nginxIp+"/images/"+user.avatar;
-			$("#userImage1").attr("src",imageUrl);
-			$("#userImage2").attr("src",imageUrl);
-          }
+            var url=window.location.search;
+            if(url.indexOf("?")!=-1){
+                var id = url.substr(url.indexOf("=")+1);
+                show(id);
+            }else{
+                window.history.back(-1);
+            }
         }
-      }
+        
+        //加载左侧导航栏
+        function getJsonUrl(){
+            $.getJSON("../../../json/url.json",function(data){
+            console.log("data",data);
+            $.each(data, function(i, parent){
+                console.log(parent.name);
+                var html = '<li class="nav-item">'+
+                '<a class="nav-link" data-toggle="collapse" href="#'+parent.group+'" aria-expanded="false" aria-controls="'+parent.group+'">'+
+                    '<span class="menu-title">'+parent.name+'</span>'+
+                    '<i class="menu-arrow"></i>'+
+                    '<i class="mdi mdi-contacts menu-icon"></i>'+
+                '</a>'+
+                '<div class="collapse" id="'+parent.group+'">'+
+                    '<ul class="nav flex-column sub-menu">';
 
+                    $.each(parent.children, function(i, son){
+                        html=html+'<li class="nav-item"> <a class="nav-link" href="'+son.url+'">'+son.name+'</a></li>';
+                    });
 
-      function gotoLogin(){
-        var user = window.localStorage.getItem("user");
-        if(user == null || user ==undefined){
-          window.location="/pages/account/account/login.html";
+                    html=html+'</ul>'+
+                '</div>'+
+                '</li>';
+                var element = $(html);
+                $("#leftNav").append(element);
+            });
+            });
         }
-      }
-	
-	  function logout(){
-		var user = JSON.parse(window.localStorage.getItem("user"));
-		console.log("登出user",user);
-		if(user == null || user ==undefined){
-          window.location="/pages/account/account/login.html";
-        }else{
-			//本地存储设为null
-			window.localStorage.setItem("user",null);
-			//ajax
-			$.ajax({
-				type:"post",
-				url:bashAccountUrl+"logout",
-				contentType:"application/json;charset:utf-8",
-				data:JSON.stringify({
-				}),
-				dataType:"json",
-				beforeSend:function(request){
-					request.setRequestHeader('Access-Control-Allow-Origin', '*');
-					request.setRequestHeader('Access-Control-Allow-Credentials', true);
-					request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
-					request.setRequestHeader('Univer-Code', user.jwtToken.code);
-					request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
-				},
-				success:function(data){
-					if(data.code==200){
-						window.location="/pages/account/account/login.html";
-					}else{
-						alert("code:"+data.code+"\n msg"+data.msg);
-					}
-				},error:function(error){
-					console.log("error",error);
-					alert("网络错误");
-					// window.location="/pages/error/error.html";
-				}
-			});
-		}
-	  }
+        
+        //跳转到修改用户页面
+        function goUpdate(){
+            var id = user.userId;
+            window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
+        }
+        
+        //跳转页面
+        function clickUrl(url){
+            window.location=url;
+        }
+        
+        //设置当前登录用户信息
+        function setUserInf(){
+            console.log("setUserInf",user);
+            if(user != null && user!='null' && user !=undefined){
+            var imageUrl = "http://"+nginxIp+"/"+user.avatar;
+            $("#userName1").html(user.username);
+            $("#userName2").html(user.username);
+            $("#role").html(user.roleVoList[0].name);
+            if(user.avatar != null && user.avatar !=undefined){
+                var imageUrl = "http://"+nginxIp+"/images/"+user.avatar;
+                $("#userImage1").attr("src",imageUrl);
+                $("#userImage2").attr("src",imageUrl);
+            }
+            }
+        }
+
+
+        function gotoLogin(){
+            var user = window.localStorage.getItem("user");
+            if(user == null || user ==undefined){
+            window.location="/pages/account/account/login.html";
+            }
+        }
+        
+        function logout(){
+            var user = JSON.parse(window.localStorage.getItem("user"));
+            console.log("登出user",user);
+            if(user == null || user ==undefined){
+            window.location="/pages/account/account/login.html";
+            }else{
+                //本地存储设为null
+                window.localStorage.setItem("user",null);
+                //ajax
+                $.ajax({
+                    type:"post",
+                    url:bashAccountUrl+"logout",
+                    contentType:"application/json;charset:utf-8",
+                    data:JSON.stringify({
+                    }),
+                    dataType:"json",
+                    beforeSend:function(request){
+                        request.setRequestHeader('Access-Control-Allow-Origin', '*');
+                        request.setRequestHeader('Access-Control-Allow-Credentials', true);
+                        request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+                        request.setRequestHeader('Univer-Code', user.jwtToken.code);
+                        request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+                    },
+                    success:function(data){
+                        if(data.code==200){
+                            window.location="/pages/account/account/login.html";
+                        }else{
+                            alert("code:"+data.code+"\n msg"+data.msg);
+                        }
+                    },error:function(error){
+                        console.log("error",error);
+                        alert("网络错误");
+                        // window.location="/pages/error/error.html";
+                    }
+                });
+            }
+        }
+        //显示课程-老师页信息
+        function show(id){
+            var course = courseDetail(id);
+        }
+        //获取课程信息
+        function courseDetail(id){
+            console.log("详情",id);
+            $.ajax({
+                    type:"get",
+                    url:bashCourseUrl+"detail/"+id,
+                    contentType:"application/json;charset:utf-8",
+                    dataType:"json",
+                    beforeSend:function(request){
+                        request.setRequestHeader('Access-Control-Allow-Origin', '*');
+                        request.setRequestHeader('Access-Control-Allow-Credentials', true);
+                        request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+                        request.setRequestHeader('Univer-Code', user.jwtToken.code);
+                        request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+                    },
+                    success:function(data){
+                        console.log("data",data);
+                        if(data.code==200){
+                            teacher(data.data);
+                        }else{
+                            alert("code:"+data.code+"\n msg"+data.msg);
+                        }
+                    },error:function(error){
+                        console.log("error",error);
+                    // window.location="/pages/error/error.html";
+                    }
+            });
+        }
+        //获取教师列表
+        function teacher(course){
+            var data="roleName=教师";
+            console.log("teacher",course);
+            if(course.hasOwnProperty("facultyId")){
+                data=data+"&orgId="+course.facultyId;
+            }		
+            //ajax
+            $.ajax({
+                type:"get",
+                url:bashUserUrl+"list",
+                contentType:"application/json;charset:utf-8",
+                data:data,
+                dataType:"json",
+                beforeSend:function(request){
+                    request.setRequestHeader('Access-Control-Allow-Origin', '*');
+                    request.setRequestHeader('Access-Control-Allow-Credentials', true);
+                    request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+                    request.setRequestHeader('Univer-Code', user.jwtToken.code);
+                    request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+                },	
+                success:function(data){
+                    console.log("datalist",data);
+
+                    if(data.code==200){
+                        //用户列表
+                        $("#teacher").html(null);
+                        $.each(data.data.list, function(i, user){
+                            var html ='<option value="'+user.userId+'">'+user.name+'</option>';
+							var element = $(html);
+							$("#teacher").append(element);
+                        });
+                        
+                    }else{
+                        alert("code:"+data.code+"\n msg"+data.msg);
+                    }
+                },error:function(error){
+                    console.log("error",error);
+                    // window.location="/pages/error/error.html";
+                }
+            });
+        }
     </script>
   <!-- endinject -->
   <!-- Custom js for this page-->

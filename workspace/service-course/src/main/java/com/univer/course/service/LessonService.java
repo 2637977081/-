@@ -30,7 +30,22 @@ public class LessonService {
     @Autowired
     private RedisProducer redisProducer;
 
-    public List<Lesson> addLesson(List<Lesson> temp,String type){
+    public Lesson addLesson(Lesson temp){
+        Integer result = lessonMapper.insert(temp);
+        Long courseId = temp.getCourseId();
+        Lesson lesson = new Lesson();
+        lesson.setCourseId(courseId);
+        lesson = lessonMapper.selectByPrimaryKey(lesson);
+        //将选修课放入队列
+        if(CourseTypeEnum.isExisted(temp.getType())){
+            for(int i=0;i<lesson.getMaxnum();i++){
+                String num = String.format("3%s",i);
+                redisProducer.sendResourceMessage(lesson.getCode(),lesson.getLessonId()+num);
+            }
+        }
+        return lesson;
+    }
+    public List<Lesson> addLessons(List<Lesson> temp,String type){
         Integer result = lessonMapper.insertList(temp);
         Long courseId = temp.get(0).getCourseId();
         Lesson lesson = new Lesson();
@@ -40,12 +55,7 @@ public class LessonService {
         if(CourseTypeEnum.isExisted(type)){
             for(Lesson l:list){
                 for(int i=0;i<l.getMaxnum();i++){
-                    String num = "";
-                    if(i<10){
-                        num = "0"+i;
-                    }else {
-                        num = ""+i;
-                    }
+                    String num = String.format("3%s",i);
                     redisProducer.sendResourceMessage(l.getCode(),l.getLessonId()+num);
                 }
             }

@@ -3,6 +3,7 @@ package com.univer.course.controller;
 import com.github.pagehelper.PageInfo;
 import com.univer.base.controller.AuthorizationController;
 import com.univer.base.enums.StatusEnum;
+import com.univer.base.util.UUIDUtil;
 import com.univer.base.util.VoUtils;
 import com.univer.course.constant.MsgConstant;
 import com.univer.course.po.Lesson;
@@ -35,6 +36,7 @@ public class LessonController extends AuthorizationController<Object> {
 
     @GetMapping("add/lesson")
     public Object addLesson(@RequestBody Lesson temp){
+        temp.setCode(UUIDUtil.getUUID());
         Lesson lesson = lessonService.addLesson(temp);
         if(lesson!=null){
             resultVo.getInstance(HttpStatus.OK.toString(),lesson);

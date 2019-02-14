@@ -213,21 +213,21 @@
 				</p>
 				<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">
 					<div class="form-group row">
-						<label for="name" class="col-sm-1 col-form-label">课程名</label>
+						<label for="name" class="col-sm-1 col-form-label">教学名</label>
 						<div class="col-sm-3">
-						  	<input type="text" class="form-control" id="name" placeholder="课程名">
+						  	<input type="text" class="form-control" id="name" placeholder="教学名">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">预计人数</label>
+                        <label for="maxnum" class="col-sm-1 col-form-label">预计人数</label>
 					    <div class="col-sm-1">
-                            <input type="text" class="form-control" id="name" placeholder="预计人数" value="40">
+                            <input type="text" class="form-control" id="maxnum" placeholder="预计人数" value="40">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">已选人数</label>
+                        <label for="num" class="col-sm-1 col-form-label">已选人数</label>
                         <div class="col-sm-1">
-                            <input type="text" class="form-control" id="name" placeholder="已选人数" value="0">
+                            <input type="text" class="form-control" id="num" placeholder="已选人数" value="0">
                         </div>
 					</div>
 					<div class="form-group row">
-                        <label for="name" class="col-sm-1 col-form-label">授课老师</label>
+                        <label for="teacher" class="col-sm-1 col-form-label">授课老师</label>
                         <div class="col-sm-4">
                             <select class="form-control" id="teacher">
                                 <option>全部</option>
@@ -235,34 +235,34 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-1 col-form-label">学分</label>
+                        <label for="credit" class="col-sm-1 col-form-label">学分</label>
                         <div class="col-sm-1">
-                            <input type="text" class="form-control" id="name" placeholder="学分" value="10">
+                            <input type="text" class="form-control" id="credit" placeholder="学分" value="10">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">学时</label>
+                        <label for="teachTime" class="col-sm-1 col-form-label">学时</label>
                         <div class="col-sm-1">
-                            <input type="text" class="form-control" id="name" placeholder="学时" value="50">
+                            <input type="text" class="form-control" id="teachTime" placeholder="学时" value="50">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">状态</label>
+                        <label for="status" class="col-sm-1 col-form-label">状态</label>
                         <div class="col-sm-2">
-                            <select class="form-control" id="teacher">
-                                <option>启用</option>
-                                <option>禁用</option>
+                            <select class="form-control" id="status">
+                                <option value="enabled">启用</option>
+								<option value="disabled">禁用</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-1 col-form-label">平时分百分比</label>
+                        <label for="behavior" class="col-sm-1 col-form-label">平时分百分比</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="name" placeholder="平时分百分比" value="0">
+                            <input type="text" class="form-control" id="behavior" placeholder="平时分百分比" value="0">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">实验分百分比</label>
+                        <label for="test" class="col-sm-1 col-form-label">实验分百分比</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="name" placeholder="实验分百分比" value="0">
+                            <input type="text" class="form-control" id="test" placeholder="实验分百分比" value="0">
                         </div>
-                        <label for="name" class="col-sm-1 col-form-label">考试分百分比</label>
+                        <label for="exam" class="col-sm-1 col-form-label">考试分百分比</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="name" placeholder="考试分百分比" value="100">
+                            <input type="text" class="form-control" id="exam" placeholder="考试分百分比" value="100">
                         </div>
                     </div>
 				</form>
@@ -382,15 +382,15 @@
         function setUserInf(){
             console.log("setUserInf",user);
             if(user != null && user!='null' && user !=undefined){
-            var imageUrl = "http://"+nginxIp+"/"+user.avatar;
-            $("#userName1").html(user.username);
-            $("#userName2").html(user.username);
-            $("#role").html(user.roleVoList[0].name);
-            if(user.avatar != null && user.avatar !=undefined){
-                var imageUrl = "http://"+nginxIp+"/images/"+user.avatar;
-                $("#userImage1").attr("src",imageUrl);
-                $("#userImage2").attr("src",imageUrl);
-            }
+                var imageUrl = "http://"+nginxIp+"/"+user.avatar;
+                $("#userName1").html(user.username);
+                $("#userName2").html(user.username);
+                $("#role").html(user.roleVoList[0].name);
+                if(user.avatar != null && user.avatar !=undefined){
+                    var imageUrl = "http://"+nginxIp+"/images/"+user.avatar;
+                    $("#userImage1").attr("src",imageUrl);
+                    $("#userImage2").attr("src",imageUrl);
+                }
             }
         }
 
@@ -512,6 +512,45 @@
                     // window.location="/pages/error/error.html";
                 }
             });
+        }
+
+        //提交表单
+        function submit(){
+            var name = $("#name").val();
+            var maxnum = $("#maxnum").val();
+            var num = $("#num").val();
+            var type = "surplus";
+            var teacherId = $("#teacher").val();
+            var teacherName = $("#teacher option:selected")[0].text;
+            var behavior = $("#behavior").val();
+            var test = $("#test").val();
+            var exam = $("#exam").val();
+            var credit = $("#credit").val();
+            var teachTime = $("#teachTime").val();
+            var status = $("#status").val();
+            var courseId = null;
+            var url=window.location.search;
+            if(url.indexOf("?")!=-1){
+                courseId = url.substr(url.indexOf("=")+1);
+            }else{
+                window.history.back(-1);
+            }
+            var data = JSON.stringify({
+                name:name,
+                courseId:courseId,
+                maxnum:maxnum,
+                num:num,
+                type:type,
+                teacherId:teacherId,
+                teacherName:teacherName,
+                behavior:behavior,
+                test:test,
+                exam:exam,
+                status:status,
+                credit:credit,
+                teachTime:teachTime,
+            });
+            console.log("提交",data);
         }
     </script>
   <!-- endinject -->

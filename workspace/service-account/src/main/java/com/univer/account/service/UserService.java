@@ -86,7 +86,6 @@ public class UserService extends BaseService<User> {
         if (!StringUtils.isEmpty(userVo.getRoleName())) {
             map.put("roleName", userVo.getRoleName());
         }
-        map.put("notStatus",StatusEnum.DELETED.toString());
         return userMapper.selectUserVoByCondition(map);
     }
 
@@ -175,7 +174,7 @@ public class UserService extends BaseService<User> {
 	 * 创建
 	 */
 	public UserVo saveUser(UserVo userVo) {
-		User user = new User();
+ 		User user = new User();
 		BeanUtils.copyProperties(userVo, user);
 		int result = userMapper.insertSelective(user);
 		if(result == 1) {

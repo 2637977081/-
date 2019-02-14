@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 29/01/2019 15:12:14
+ Date: 13/02/2019 18:32:30
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `dict`  (
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE INDEX `key_UNIQUE`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dict
@@ -226,11 +226,11 @@ CREATE TABLE `org`  (
 -- Records of org
 -- ----------------------------
 INSERT INTO `org` VALUES (1, '5c493c91f94511e89e9b0242ac120002', '北华大学', 'university', 0, '人工智能', 0, 1, 1, 'enabled', '2018-12-06 18:54:53', '2018-12-17 20:04:31');
-INSERT INTO `org` VALUES (2, '26df6c5b1e184288827afcbe6ef330ae', '计算机科学技术学院', 'faculty', 0, '', 1, 1, 2, 'enabled', '2018-12-07 10:53:02', '2018-12-17 20:07:52');
-INSERT INTO `org` VALUES (3, 'fb4a8981134e40e6bb30bba41094947e', '电气学院', 'faculty', 1, '', 1, 1, 2, 'enabled', '2018-12-07 10:54:11', '2018-12-17 20:07:53');
-INSERT INTO `org` VALUES (4, '627569c496c14d60b234ae0bd17ea758', '机械学院', 'faculty', 2, '', 1, 1, 2, 'enabled', '2018-12-07 10:54:21', '2018-12-17 20:07:16');
-INSERT INTO `org` VALUES (6, '6c257305cb27403a933cce8cb3eb8526', '网络', 'department', 1, NULL, 2, 1, 3, 'enabled', '2018-12-17 11:51:54', '2018-12-17 20:07:39');
-INSERT INTO `org` VALUES (101, 'bad9ff5e0f3a4a3ebdf1841a67b93d6c', '计算机科学与技术', 'department', 0, '', 2, 1, 2, 'enabled', '2018-12-07 10:54:28', '2018-12-17 20:08:16');
+INSERT INTO `org` VALUES (12, '26df6c5b1e184288827afcbe6ef330ae', '计算机科学技术学院', 'faculty', 0, '', 1, 1, 2, 'enabled', '2018-12-07 10:53:02', '2019-02-13 18:18:04');
+INSERT INTO `org` VALUES (13, 'fb4a8981134e40e6bb30bba41094947e', '电气学院', 'faculty', 1, '', 1, 1, 2, 'enabled', '2018-12-07 10:54:11', '2019-02-13 18:18:06');
+INSERT INTO `org` VALUES (14, '627569c496c14d60b234ae0bd17ea758', '机械学院', 'faculty', 2, '', 1, 1, 2, 'enabled', '2018-12-07 10:54:21', '2019-02-13 18:18:08');
+INSERT INTO `org` VALUES (101, 'bad9ff5e0f3a4a3ebdf1841a67b93d6c', '计算机科学与技术', 'department', 0, '', 12, 1, 2, 'enabled', '2018-12-07 10:54:28', '2019-02-13 18:18:22');
+INSERT INTO `org` VALUES (102, '6c257305cb27403a933cce8cb3eb8526', '网络', 'department', 1, NULL, 12, 1, 3, 'enabled', '2018-12-17 11:51:54', '2019-02-13 18:18:27');
 
 -- ----------------------------
 -- Table structure for role
@@ -255,10 +255,10 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, 'super', '超级管理员', '所有权限', 'function', 1, 'enabled', '2018-12-06 18:54:53', '2018-12-06 18:54:53');
-INSERT INTO `role` VALUES (2, 'tag-admin', '标注管理员', '标注管理', 'roleType', 1, 'enabled', '2018-12-06 18:54:53', '2018-12-17 10:54:37');
-INSERT INTO `role` VALUES (3, '1a1dc8af5fdf4b4e86001c175b7a1670', '标注测试', NULL, 'roleType', 1, 'enabled', '2018-12-06 19:07:20', '2018-12-06 19:07:20');
-INSERT INTO `role` VALUES (9, '2035dcdfdba7411e8fe71dafa2d3bb3e', '测试角色', '测试标注系统修改角色', 'roleType', 3, 'enabled', '2018-12-17 10:36:13', '2018-12-17 11:52:14');
+INSERT INTO `role` VALUES (1, 'super', '超级管理员', '所有权限', 'university', 1, 'enabled', '2018-12-06 18:54:53', '2019-02-13 17:45:43');
+INSERT INTO `role` VALUES (2, 'faculty-admin', '学院管理员', '学院管理', 'faculty', 1, 'enabled', '2018-12-06 18:54:53', '2019-02-13 17:49:40');
+INSERT INTO `role` VALUES (3, 'teacher', '教师', '教师', 'faculty', 1, 'enabled', '2018-12-06 19:07:20', '2019-02-13 17:50:25');
+INSERT INTO `role` VALUES (9, 'student', '学生', '学生', 'department', 3, 'enabled', '2018-12-17 10:36:13', '2019-02-13 17:50:28');
 
 -- ----------------------------
 -- Table structure for user
@@ -295,8 +295,18 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '5c4cddebf94511e89e9b0242ac120002', 'superadmin', '周同科技', '', 'lvgang@univer.ai', '15101195887', '$2a$04$Pn6IfavXvPpIZ203SCRerOAFlu4KlX6R/1CwZq4hTi1oFLEdcVMiS', NULL, NULL, '让视频的每一秒都是人工智能', 0, 0, 1, 1, 'enabled', '2018-12-06 18:54:53', '2018-12-18 17:51:07');
-INSERT INTO `user` VALUES (3, 'f3a9da196e6e473fadef716ca5735158', 'gaoliting', 'gaoliting', '', 'liting@univer.ai', '15748596325', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, NULL, NULL, 0, 1, 1, 1, 'enabled', '2018-12-06 19:07:04', '2018-12-17 09:14:24');
+INSERT INTO `user` VALUES (1, '5c4cddebf94511e89e9b0242ac120002', 'superadmin', '周同科技', 'male', 'lvgang@univer.ai', '15222222222', '$2a$04$Pn6IfavXvPpIZ203SCRerOAFlu4KlX6R/1CwZq4hTi1oFLEdcVMiS', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', '让视频的每一秒都是人工智能', 0, 0, 1, 1, 'enabled', '2018-12-06 18:54:53', '2019-02-13 18:25:22');
+INSERT INTO `user` VALUES (3, 'f3a9da196e6e473fadef716ca5735158', 'gaoliting', 'gaoliting', 'female', 'liting@univer.ai', '15700000015', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 12, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:31');
+INSERT INTO `user` VALUES (10, '72db258e490347feb4fa436a08942f4a', 'teahcer0', 'teacher0', 'male', 'teacher0@univer.ai', '15600000001', '$2a$04$F6dLOzDQjrT.jHlvfn/88uz6kPDx2nMVjixRU9JNuM3FMDIpayatK', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', '个人描述', 0, 1, 12, 1, 'enabled', '2019-02-13 18:15:38', '2019-02-13 18:23:14');
+INSERT INTO `user` VALUES (11, 'f3a9da196e6e473fadef716ca5735151', 'teacher1', 'teacher1', 'female', 'teacher1@univer.ai', '15700000001', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 12, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:16');
+INSERT INTO `user` VALUES (12, 'f3a9da196e6e473fadef716ca5735152', 'teacher2', 'teacher2', 'female', 'teacher2@univer.ai', '15700000002', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 13, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:17');
+INSERT INTO `user` VALUES (13, 'f3a9da196e6e473fadef716ca5735153', 'teacher3', 'teacher3', 'female', 'teacher3@univer.ai', '15700000003', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 13, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:19');
+INSERT INTO `user` VALUES (14, 'f3a9da196e6e473fadef716ca5735154', 'teacher4', 'teacher4', 'male', 'teacher4@univer.ai', '15700000004', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 14, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:23');
+INSERT INTO `user` VALUES (16, 'f3a9da196e6e473fadef716ca5735155', 'teacher5', 'teacher5', 'male', 'teacher5@univer.ai', '15700000005', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 14, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:25');
+INSERT INTO `user` VALUES (1131, '125149c3ffb947278df3f5fa8d96d561', 'student1', 'student1', 'female', 'student1@univer.ai', '15600000011', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
+INSERT INTO `user` VALUES (1132, '125149c3ffb947278df3f5fa8d96d562', 'student2', 'student2', 'female', 'student2@univer.ai', '15600000012', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
+INSERT INTO `user` VALUES (1133, '125149c3ffb947278df3f5fa8d96d563', 'student3', 'student3', 'female', 'student3@univer.ai', '15600000013', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
+INSERT INTO `user` VALUES (1134, '125149c3ffb947278df3f5fa8d96d564', 'student4', 'student4', 'female', 'student4@univer.ai', '15600000014', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -307,8 +317,8 @@ CREATE TABLE `user_role`  (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `status` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'enabled' COMMENT '状态',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`user_role_id`) USING BTREE,
   UNIQUE INDEX `user_role`(`user_id`, `role_id`) USING BTREE,
   INDEX `user_role_key_1_idx`(`user_id`) USING BTREE,
@@ -321,6 +331,8 @@ CREATE TABLE `user_role`  (
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES (1, 1, 1, 'enabled', '2018-12-06 18:54:53', '2018-12-06 18:54:53');
-INSERT INTO `user_role` VALUES (3, 3, 1, 'enabled', '2018-12-06 19:07:04', '2018-12-06 19:07:04');
+INSERT INTO `user_role` VALUES (3, 3, 2, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:22:08');
+INSERT INTO `user_role` VALUES (46, 10, 3, 'enabled', NULL, NULL);
+INSERT INTO `user_role` VALUES (47, 1133, 9, 'enabled', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

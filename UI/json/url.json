@@ -39,19 +39,9 @@
                 "url":"http://localhost:8000/pages/course/course/list.html"
             },
             {
-                "name":"添加教师",
-                "roles":[1,2],
-                "url":"http://localhost:8000/pages/course/lesson/add.html"
-            },
-            {
                 "name":"教学列表",
                 "roles":[1,2],
                 "url":"http://localhost:8000/pages/course/lesson/list.html"
-            },
-            {
-                "name":"添加学生",
-                "roles":[1,2],
-                "url":"http://localhost:8000/pages/course/teach/add.html"
             },
             {
                 "name":"班级列表",

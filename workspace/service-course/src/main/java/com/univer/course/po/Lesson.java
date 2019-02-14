@@ -96,6 +96,16 @@ public class Lesson extends BaseEntity {
      * 状态 是否禁用
      */
     private String status;
+
+    /**
+     * 学分
+     */
+    private Integer credit;
+
+    /**
+     * 授课时长
+     */
+    private Integer teachTime;
     private Long createId;
     /**
      * 创建时间
@@ -247,6 +257,22 @@ public class Lesson extends BaseEntity {
         this.updateTime = updateTime;
     }
 
+    public Integer getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Integer credit) {
+        this.credit = credit;
+    }
+
+    public Integer getTeachTime() {
+        return teachTime;
+    }
+
+    public void setTeachTime(Integer teachTime) {
+        this.teachTime = teachTime;
+    }
+
     @Override
     public String toString() {
         return "Lesson{" +
@@ -264,6 +290,8 @@ public class Lesson extends BaseEntity {
                 ", test=" + test +
                 ", exam=" + exam +
                 ", status='" + status + '\'' +
+                ", credit=" + credit +
+                ", teachTime=" + teachTime +
                 ", createId=" + createId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

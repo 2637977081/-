@@ -237,7 +237,7 @@
                     <div class="form-group row">
                         <label for="credit" class="col-sm-1 col-form-label">学分</label>
                         <div class="col-sm-1">
-                            <input type="text" class="form-control" id="credit" placeholder="学分" value="10">
+                            <input type="text" class="form-control" id="cred" placeholder="学时" value="5">
                         </div>
                         <label for="teachTime" class="col-sm-1 col-form-label">学时</label>
                         <div class="col-sm-1">
@@ -314,6 +314,7 @@
   <script src="http://localhost:8000/js/init.js"></script>
   <script>
         var avatar="";
+        var course=null;
         //页面加载函数
         function onload(){
             // for(var i=0;i<getCookie("user").length;i++){
@@ -461,6 +462,7 @@
                     success:function(data){
                         console.log("data",data);
                         if(data.code==200){
+                            course = data.data;
                             teacher(data.data);
                         }else{
                             alert("code:"+data.code+"\n msg"+data.msg);
@@ -516,6 +518,7 @@
 
         //提交表单
         function submit(){
+            console.log("提交",course);
             var name = $("#name").val();
             var maxnum = $("#maxnum").val();
             var num = $("#num").val();
@@ -525,16 +528,10 @@
             var behavior = $("#behavior").val();
             var test = $("#test").val();
             var exam = $("#exam").val();
-            var credit = $("#credit").val();
+            var credit = $("#cred").val();
             var teachTime = $("#teachTime").val();
             var status = $("#status").val();
-            var courseId = null;
-            var url=window.location.search;
-            if(url.indexOf("?")!=-1){
-                courseId = url.substr(url.indexOf("=")+1);
-            }else{
-                window.history.back(-1);
-            }
+            var courseId = course.courseId;
             var data = JSON.stringify({
                 name:name,
                 courseId:courseId,
@@ -551,6 +548,40 @@
                 teachTime:teachTime,
             });
             console.log("提交",data);
+            console.log(parseInt(test),parseInt(exam),parseInt(behavior));
+            if((parseInt(test)+parseInt(exam)+parseInt(behavior))!=100){
+                alert("分数比例错误");
+                return;
+            }
+            if(user!=null&&user!='null'&&user!=undefined){
+                //ajax
+                $.ajax({
+                    type:"post",
+                    url:bashLessonUrl+"add/lesson",
+                    contentType:"application/json;charset:utf-8",
+                    data:data,
+                    dataType:"json",
+                    beforeSend:function(request){
+                        request.setRequestHeader('Access-Control-Allow-Origin', '*');
+                        request.setRequestHeader('Access-Control-Allow-Credentials', true);
+                        request.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
+                        request.setRequestHeader('Univer-Code', user.jwtToken.code);
+                        request.setRequestHeader('Univer-Token', user.jwtToken.accessToken);
+                    },
+                    success:function(data){
+                        console.log("data",data);
+                        if(data.code==200){
+                            alert("班级 *"+data.data.name+"* 创建成功");
+                            window.location="http://localhost:8000/pages/course/lesson/add.html?courseId="+course.courseId;
+                        }else{
+                            alert("code:"+data.code+"\n msg"+data.msg);
+                        }
+                    },error:function(error){
+                        console.log("error",error);
+                        // window.location="/pages/error/error.html";
+                    }
+                });
+            }
         }
     </script>
   <!-- endinject -->

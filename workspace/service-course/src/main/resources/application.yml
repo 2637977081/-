@@ -54,3 +54,9 @@ mapper:
   mappers: com.univer.base.mapper.BaseMapper
   not-empty: false
   identity: MYSQL
+
+#日志控制
+logging:
+  root: /opt/service/log
+  config: classpath:service-logback.xml
+  file: /opt/service/log/${spring.application.name}/${spring.application.name}.info.log

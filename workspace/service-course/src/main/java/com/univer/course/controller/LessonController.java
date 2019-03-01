@@ -34,14 +34,20 @@ public class LessonController extends AuthorizationController<Object> {
     @Autowired
     private LessonService lessonService;
 
-    @GetMapping("add/lesson")
-    public Object addLesson(@RequestBody Lesson temp){
-        temp.setCode(UUIDUtil.getUUID());
-        Lesson lesson = lessonService.addLesson(temp);
-        if(lesson!=null){
-            resultVo.getInstance(HttpStatus.OK.toString(),lesson);
+    @PostMapping("add/lesson")
+    public Object addLesson(@RequestBody Lesson temp) throws Exception{
+        VoUtils.copyProperties(temp, lessonVo,"name");
+        if(lessonService.isExistedLesson(lessonVo)){
+            resultVo.getInstance(MsgConstant.COURSE_EXISTED);
         }else {
-            resultVo.getInstance(MsgConstant.NO_DATA);
+            temp.setCode(UUIDUtil.getUUID());
+            temp.setCreateTime(new Date());
+            Lesson lesson = lessonService.addLesson(temp);
+            if (lesson != null) {
+                resultVo.getInstance(HttpStatus.OK.toString(), lesson);
+            } else {
+                resultVo.getInstance(MsgConstant.NO_DATA);
+            }
         }
         return resultVo;
     }

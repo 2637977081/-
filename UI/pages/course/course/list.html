@@ -483,38 +483,37 @@
 	
 	//获取课程列表
 	function getCourseList(page){
-		var name = $("#name").val();
+        var data="";
+        page= page==null?1:page;
+		var rows= 10;
+		data=data+"page="+page;
+		data=data+"&rows="+rows;
+        var name = $("#name").val();
+        if(name!=""){
+            data=data+"&name="+name;
+        }
 		var type = $("#type option:selected")[0].value;
-		if(type=="all"){
-			type="";
+		if(type!="all"){
+			data=data+"&type="+type;
 		}
 		var universityId = $("#university option:selected")[0].value;
 		var universityName = $("#university option:selected")[0].textContent;
-		if(universityId=="all"){
-			universityId = "";
-			universityName = "";
+		if(universityId!="all"){
+            data=data+"&universityId="+universityId;
+            data=data+"&universityName="+universityName;
 		}
 		var facultyId = $("#faculty option:selected")[0].value;
 		var facultyName = $("#faculty option:selected")[0].textContent;
-		if(facultyId=="all"){
-			facultyId = "";
-			facultyName = "";
+		if(facultyId!="all"){
+            data=data+"&facultyId="+facultyId;
+            data=data+"&facultyName="+facultyName;
 		}
 		var subjectId = $("#subject option:selected")[0].value;
 		var subjectName = $("#subject option:selected")[0].textContent;
-		if(subjectId=="all"){
-			subjectId = "";
-			subjectName = "";
+		if(subjectId!="all"){
+			data=data+"&subjectId="+subjectId;
+			data=data+"&subjectName="+subjectName;
 		}
-		page= page==null?1:page;
-		var rows= 10;
-		var data="name="+name+
-				"&type="+type+
-				"&universityId="+universityId+
-				"&facultyId="+facultyId+
-				"&subjectId="+subjectId+
-				"&page="+page+
-				"&rows="+rows;
 		//ajax
 		$.ajax({
 			type:"get",

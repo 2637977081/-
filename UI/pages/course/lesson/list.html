@@ -229,91 +229,89 @@
 								<p class="card-description">用户列表</p>
 							</div>
 							<div>
-								<div class="form-group row">
-									<label for="gender" class="col-sm-1 col-form-label" style="width:10%">账号</label>
-									<input type="text" class="form-control" id="form_username" placeholder="账号" style="width:10%">
-									
-									<label for="role" class="col-sm-1 col-form-label" style="width:10%">名字</label>
-									<input type="email" class="form-control" id="form_name" placeholder="姓名" style="width:10%">
-
-									<label for="gender" class="col-sm-1 col-form-label" style="width:10%">邮箱地址</label>
-									<input type="text" class="form-control" id="form_email" placeholder="邮箱地址" style="width:10%">
-									
-									
-									<label for="gender" class="col-sm-1 col-form-label" style="width:10%">电话</label>
-									<input type="text" class="form-control" id="form_phone" placeholder="电话" style="width:10%">
-
-									
-									<button type="button"  onclick="getUserList()" style="margin-left:5%" class="btn btn-gradient-primary mr-2">查询</button>
-								</div>
-							</div>
-							<div>
-								<div class="form-group row">
-									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">性别</label>
-									<select class="form-control" id="form_gender" style="width:10%;">
-										<option value="all">全部</option>
-										<option value="male">男</option>
-										<option value="female">女</option>
-									</select>
-										
-									<label for="role" class="col-sm-1 col-form-label" style="width:5%">角色</label>
-									<select class="form-control" id="form_role" style="width:20%;" onclick="getOrgList()">
-                   						<option value="all">全部</option>
-									</select>
-
-									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">组织结构</label>
-									<select class="form-control" id="form_org" style="width:20%;">
-                    					<option value="all">全部</option>
-									</select>
-
-									<label for="gender" class="col-sm-1 col-form-label" style="width:5%">状态</label>
-									<select class="form-control" id="form_status" style="width:10%;">
-                    					<option value="all">全部</option>
-										<option value="enabled">启用</option>
-										<option value="disabled">禁用</option>
-									</select>
-									
-								</div>
+								<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">
+									<div class="form-group row">
+										<label for="name" class="col-sm-1 col-form-label">教学名</label>
+										<div class="col-sm-3">
+												  <input type="text" class="form-control" id="name" placeholder="教学名">
+										</div>
+										<label for="type" class="col-sm-1 col-form-label">课程类型</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="type" >
+												<option value="all">全部</option>
+												<option value="full">满员</option>
+                                                <option value="surplus">待选</option>
+                                                <option value="stop">停止</option>
+											</select>
+										</div>
+										<button type="button" onclick="getTeachList()" style="margin-left:5%" class="btn btn-gradient-primary mr-2">查询</button>
+									</div>
+									<div class="form-group row">
+										<label for="university" class="col-sm-1 col-form-label">所属课程</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="course" onchange="">
+												<option value="all" >全部</option>
+											</select>
+										</div>
+										<label for="teacher" class="col-sm-1 col-form-label">授课老师</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="teach" onchange="">
+												<option value="all" >全部</option>
+											</select>
+										</div>
+										<label for="status" class="col-sm-1 col-form-label">状态</label>
+										<div class="col-sm-3">
+											<select class="form-control" id="status" >
+												<option value="enable">启用</option>
+												<option value="disable">禁用</option> 
+											</select>
+										</div>
+									</div>
+											
+								</form>
 							</div>
 						</div>
 						
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>头像</th>
-									<th>账号</th>
-									<th>名字</th>
-									<th>性别</th>
-									<th>邮箱</th>
-									<th>电话</th>
-									<th>角色</th>
-									<th>所属</th>
+									<th>教学名</th>
+									<th>最大人数</th>
+									<th>当前人数</th>
+									<th>课程类型</th>
+									<th>教师名</th>
+									<th>平时分</th>
+									<th>实验分</th>
+                                    <th>考试分</th>
+                                    <th>学分</th>
 									<th colspan ="3" style="">操作</th>
 								</tr>
 							</thead>
-							<tbody id="userList">
+							<tbody id="teachList">
 								<tr id ='1'>
-									<td class="py-1"><img src="http://localhost:8000/images/faces-clipart/pic-1.png" alt="image"></td>
-									<td>lvgang</td>
-									<td>吕钢</td>
-									<td>男</td>
-									<td>2637977000@qq.com</td>
-									<td>18844210000</td>
-									<td>超级管理员</td>
-									<td>北华大学</td>
+									<th>教学名</th>
+									<th>最大人数</th>
+									<th>当前人数</th>
+									<th>课程类型</th>
+									<th>教师名</th>
+									<th>平时分</th>
+									<th>实验分</th>
+                                    <th>考试分</th>
+                                    <th>学分</th>
 									<td style="color:#07cd22" onclick='able(1,"enable")'>启用</td>
 									<td style="color:#fed713" onclick='detail()'>详情</td>
 									<td style="color:#b66dff" onclick='change()'>修改</td>
 								</tr>
 								<tr id ='2'>
-									<td class="py-1"><img src="http://localhost:8000/images/faces-clipart/pic-1.png" alt="image"></td>
-									<td>lvgang1</td>
-									<td>吕钢1</td>
-									<td>男</td>
-									<td>2637977001@qq.com</td>
-									<td>18844210001</td>
-									<td>超级管理员</td>
-									<td>北华大学</td>
+									<th>教学名</th>
+									<th>最大人数</th>
+									<th>当前人数</th>
+									<th>课程类型</th>
+									<th>教师名</th>
+									<th>平时分</th>
+									<th>实验分</th>
+                                    <th>考试分</th>
+                                    <th>学分</th>
 									<td onclick='able(2,"enable")'>启用</td>
 									<td onclick='detail()'>详情</td>
 									<td onclick='change()'>修改</td>
@@ -394,7 +392,7 @@
 
         setUserInf();
         
-		getUserList();
+		getTeachList();
 		
         getRoleList();
         
@@ -589,31 +587,26 @@
 	}
 	
 	//获取用户列表
-	function getUserList(page){
-		var username = $("#form_username").val();
-		var name = $("#form_name").val();
-		var email = $("#form_email").val();
-		var phone = $("#form_phone").val();
-		var gender = $("#form_gender option:selected")[0].value=="all"?"":$("#form_gender option:selected")[0].value;
-		var roleName = $("#form_role option:selected")[0].text=="全部"?"":$("#form_role option:selected")[0].text;
-		var orgId = $("#form_org option:selected")[0].value=="all"?"":$("#form_org option:selected")[0].value;
-		var status = $("#form_status option:selected")[0].value=="all"?"":$("#form_status option:selected")[0].value;
+	function getTeachList(page){
+        
+        var name = $("#name").val();
+        var type = $("#type option:selected")[0].value=="all"?"":$("#type option:selected")[0].value;
+        var teacherId = $("#teach option:selected")[0].value=="all"?"":$("#teach option:selected")[0].value;
+		var status = $("#status option:selected")[0].value=="all"?"":$("#status option:selected")[0].value;
 		page= page==null?0:page;
 		var rows= 10;
-		var data="username="+username+
-				"&name="+name+
-				"&email="+email+
-				"&phone="+phone+
-				"&gender="+gender+
-				"&orgId="+orgId+
-				"&roleName="+roleName+
+        var data=
+                "name="+name+
+				"&type="+type+
+				"&teacherId="+teacherId+
 				"&status="+status+
 				"&page="+page+
-				"&rows="+rows;
+                "&rows="+rows;
+        console.log("data",data);
 		//ajax
 		$.ajax({
 			type:"get",
-			url:bashUserUrl+"list",
+			url:bashLessonUrl+"list",
 			contentType:"application/json;charset:utf-8",
 			data:data,
 			dataType:"json",
@@ -629,37 +622,43 @@
 
 				if(data.code==200){
 					//用户列表
-					$("#userList").html(null);
-					$.each(data.data.list, function(i, user){
+					$("#teachList").html(null);
+					$.each(data.data.list, function(i, lesson){
 						var tr ='<tr>'+
-								'<td class="py-1"><img src="'+"http://"+nginxIp+"/images/"+user.avatar+'" alt="image"></td>'+
-								'<td>'+user.username+'</td>'+
-								'<td>'+user.name+'</td>';
-								var gender = user.gender=='male'?'男':'女';
-							tr=tr+'<td>'+gender+'</td>'+
-								'<td>'+user.email+'</td>'+
-								'<td>'+user.phone+'</td>'+
-								'<td>'+user.roleName+'</td>'+
-								'<td>'+user.orgName+'</td>';
-								var color = user.status=='enabled'?'07cd22':'a12c25';
-								var able = user.status=='enabled'?'启用':'禁用';
-								var mark = user.status=='enabled'?true:false;
-							tr=tr+'<td style="color:#'+color+'" onclick="able('+user.userId+','+mark+')">'+able+'</td>'+
-								'<td style="color:#fed713" onclick="detail('+user.userId+')">详情</td>'+
-								'<td style="color:#b66dff" onclick="change('+user.userId+')">修改</td>'+
-							'</tr>';
-						$("#userList").append($(tr));
+                            '<td>'+lesson.name+'</td>'+
+							'<td>'+lesson.maxnum+'</td>'+
+                            '<td>'+lesson.num+'</td>';
+                            var type=null;
+                            if(lesson.type=="full"){
+                                type="满员";
+                            }else if(lesson.type=="surplus"){
+                                type="未满";
+                            }else if(lesson.type=="stop"){
+                                type="停止";
+                            }
+						tr=tr+'<td>'+type+'</td>'+
+							'<td>'+lesson.teacherName+'</td>'+
+							'<td>'+lesson.behavior+'</td>'+
+							'<td>'+lesson.test+'</td>'+
+                            '<td>'+lesson.exam+'</td>'+
+                            '<td>'+lesson.credit+'</td>'
+                        tr=tr+'<td style="color:#a12c25" onclick="deleted('+course.courseId+')">删除</td>'+
+							'<td style="color:#fed713" onclick="detail('+course.courseId+')">详情</td>'+
+                            '<td style="color:#b66dff" onclick="change('+course.courseId+')">修改</td>'+
+                            '<td style="color:#b66dff" onclick="lesson('+course.courseId+')">添加教师</td>'+
+                        '</tr>';
+						$("#teachList").append($(tr));
 					});
 					
 					//上一页下一页
 					if(data.data.hasPreviousPage){
-						var prev ='<button type="button" onclick="getUserList('+(data.data.pageNum-1)+')" class="btn btn-inverse-success btn-fw">上一页</button>';
+						var prev ='<button type="button" onclick="getTeachList('+(data.data.pageNum-1)+')" class="btn btn-inverse-success btn-fw">上一页</button>';
 					}else{
 						var prev ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">上一页</button>';
 					}
 
 					if(data.data.hasNextPage){
-						var next ='<button type="button" onclick="getUserList('+(data.data.pageNum+1)+')" class="btn btn-outline-danger btn-fw">下一页</button>';
+						var next ='<button type="button" onclick="getTeachList('+(data.data.pageNum+1)+')" class="btn btn-outline-danger btn-fw">下一页</button>';
 					}else{
 						var next ='<button type="button" class="btn btn-fw" style="color: #9c9fa6;background-color: transparent;background-image: none;border-color: #9c9fa6;">下一页</button>';
 					}
@@ -754,7 +753,7 @@
 					console.log("data",data);
 					if(data.code==200){
 						alert("用户修改成功");
-						getUserList();
+						getTeachList();
 					}else{
 						alert("code:"+data.code+"\n msg"+data.msg);
 					}
@@ -798,10 +797,10 @@
 	//修改
 	function change(id){
 		console.log("修改",id);
-		window.location="http://localhost:8000/pages/account/user/update.html?id="+id;
+		window.location="http://localhost:8000/pages/course/lesson/update.html?id="+id;
 	}
 
-	function modalBody(user){
+	function modalBody(teach){
 		var html = 
 				'<form enctype="multipart/form-data;charset=utf-8" method="post" name="userForm">'+
 					'<div class="form-group row">'+

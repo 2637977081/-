@@ -1,17 +1,21 @@
 package com.univer.course.service;
 
 import com.aliyuncs.utils.StringUtils;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.univer.course.enums.CourseTypeEnum;
 import com.univer.course.mapper.LessonMapper;
 import com.univer.course.po.Lesson;
+import com.univer.course.po.Teach;
 import com.univer.course.redis.RedisProducer;
 import com.univer.course.vo.LessonVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Condition;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +36,12 @@ public class LessonService {
 
     public Lesson addLesson(Lesson temp){
         Integer result = lessonMapper.insert(temp);
-        Long courseId = temp.getCourseId();
-        Lesson lesson = new Lesson();
-        lesson.setCourseId(courseId);
-        lesson = lessonMapper.selectByPrimaryKey(lesson);
+        Condition condition = new Condition(Lesson.class);
+        Condition.Criteria criteria = condition.createCriteria();
+        if(temp.getCode() !=null){
+            criteria.andEqualTo("code",temp.getCode());
+        }
+        Lesson lesson  = lessonMapper.selectByCondition(condition).get(0);
         //将选修课放入队列
         if(CourseTypeEnum.isExisted(temp.getType())){
             for(int i=0;i<lesson.getMaxnum();i++){
@@ -66,18 +72,27 @@ public class LessonService {
     public List<Lesson> findByPage(LessonVo lessonVo){
         if(lessonVo.getPage() != null && lessonVo.getRows()!=null){
             PageHelper.startPage(lessonVo.getPage(),lessonVo.getRows());
+        }else {
+            PageHelper.startPage(1,10);
         }
+        Condition condition = new Condition(Teach.class);
         Map<String, Object> map = new HashMap<>(16);
-        if(!StringUtils.isEmpty(lessonVo.getName())){
-            map.put("name",lessonVo.getName());
+        if(lessonVo.getCourseId()!=null){
+            condition.createCriteria().andEqualTo("courseId",lessonVo.getCourseId());
         }
         if(!StringUtils.isEmpty(lessonVo.getType())){
-            map.put("type",lessonVo.getType());
+            condition.createCriteria().andEqualTo("type",lessonVo.getType());
         }
-        if(!StringUtils.isEmpty(lessonVo.getTeacherName())){
-            map.put("teacherName",lessonVo.getTeacherName());
+        if(lessonVo.getTeacherId()!=null){
+            condition.createCriteria().andEqualTo("teacherId",lessonVo.getTeacherId());
         }
-        return lessonMapper.selectByCondition(map);
+        if(!StringUtils.isEmpty(lessonVo.getName())){
+            condition.createCriteria().andLike("name",lessonVo.getName());
+        }
+        if(!StringUtils.isEmpty(lessonVo.getStatus())){
+
+        }
+        return lessonMapper.selectByCondition(condition);
     }
 
     /**
@@ -111,5 +126,22 @@ public class LessonService {
         }
     }
 
-
+    /**
+     * 课程是否存在
+     * @param lessonVo
+     * @return
+     */
+    public Boolean isExistedLesson(LessonVo lessonVo){
+        Boolean bool = false;
+        Condition condition = new Condition(Lesson.class);
+        Condition.Criteria criteria = condition.createCriteria();
+        if(lessonVo.getName() !=null){
+            criteria.andEqualTo("name",lessonVo.getName());
+        }
+        int size = lessonMapper.selectCountByCondition(condition);
+        if(size>0){
+            bool = true;
+        }
+        return bool;
+    }
 }

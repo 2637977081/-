@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 13/02/2019 18:32:30
+ Date: 30/04/2019 16:20:08
 */
 
 SET NAMES utf8mb4;
@@ -113,7 +113,7 @@ CREATE TABLE `func`  (
   PRIMARY KEY (`func_id`) USING BTREE,
   UNIQUE INDEX `name_UNIQUE`(`name`) USING BTREE,
   UNIQUE INDEX `code_UNIQUE`(`code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 120514 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 110506 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of func
@@ -165,7 +165,7 @@ CREATE TABLE `func_role`  (
   INDEX `func_role_key_2_idx`(`role_id`) USING BTREE,
   CONSTRAINT `func_role_key_1` FOREIGN KEY (`func_id`) REFERENCES `func` (`func_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `func_role_key_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 266 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 141 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of func_role
@@ -250,7 +250,7 @@ CREATE TABLE `role`  (
   UNIQUE INDEX `code_UNIQUE`(`code`) USING BTREE,
   INDEX `role_key_1_idx`(`creater_id`) USING BTREE,
   CONSTRAINT `role_key_1` FOREIGN KEY (`creater_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -290,7 +290,7 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `phone_UNIQUE`(`phone`) USING BTREE,
   INDEX `user_key_1_idx`(`org_id`) USING BTREE,
   CONSTRAINT `user_key_1` FOREIGN KEY (`org_id`) REFERENCES `org` (`org_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1122 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1135 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -303,10 +303,10 @@ INSERT INTO `user` VALUES (12, 'f3a9da196e6e473fadef716ca5735152', 'teacher2', '
 INSERT INTO `user` VALUES (13, 'f3a9da196e6e473fadef716ca5735153', 'teacher3', 'teacher3', 'female', 'teacher3@univer.ai', '15700000003', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 13, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:19');
 INSERT INTO `user` VALUES (14, 'f3a9da196e6e473fadef716ca5735154', 'teacher4', 'teacher4', 'male', 'teacher4@univer.ai', '15700000004', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 14, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:23');
 INSERT INTO `user` VALUES (16, 'f3a9da196e6e473fadef716ca5735155', 'teacher5', 'teacher5', 'male', 'teacher5@univer.ai', '15700000005', '$2a$04$.PsYr7LhusxiozsVGKwANekEqG6knXs44gbXbVEUauYWE3AmWovW2', NULL, 'e8ca93f0f93d4e6bbd226de5c3c15767.gif', NULL, 0, 1, 14, 1, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:25:25');
-INSERT INTO `user` VALUES (1131, '125149c3ffb947278df3f5fa8d96d561', 'student1', 'student1', 'female', 'student1@univer.ai', '15600000011', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
+INSERT INTO `user` VALUES (1131, '125149c3ffb947278df3f5fa8d96d561', 'student1', 'student1', 'female', 'student1@univer.ai', '15600000011', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:35:07');
 INSERT INTO `user` VALUES (1132, '125149c3ffb947278df3f5fa8d96d562', 'student2', 'student2', 'female', 'student2@univer.ai', '15600000012', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
-INSERT INTO `user` VALUES (1133, '125149c3ffb947278df3f5fa8d96d563', 'student3', 'student3', 'female', 'student3@univer.ai', '15600000013', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
 INSERT INTO `user` VALUES (1134, '125149c3ffb947278df3f5fa8d96d564', 'student4', 'student4', 'female', 'student4@univer.ai', '15600000014', '$2a$04$d6ADhItaE/Weko9QQUrNeeYYDGpEfsnrqtwqP945lAjusLPC3Wtuu', NULL, 'e0a7823f84194f8a87a451fd20b6ffa3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 18:31:19', '2019-02-13 18:31:19');
+INSERT INTO `user` VALUES (1135, '9928f8f7fb094760a91209037593a60b', 'student3', 'student3', 'male', 'student3@univer.ai', '15600000003', '$2a$04$mUAB2tQuUjT66NFMmRS1KO27dSohUp.eLYmdljAZ7SvQc4Oq./pWK', NULL, 'd5dc05bba3a943b58ba507b6b2e0cdb3.jpg', '个人描述', 0, 1, 101, 1, 'enabled', '2019-02-13 19:47:25', '2019-02-13 19:47:25');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -325,7 +325,7 @@ CREATE TABLE `user_role`  (
   INDEX `user_role_key_2_idx`(`role_id`) USING BTREE,
   CONSTRAINT `user_role_key_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_role_key_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
@@ -333,6 +333,14 @@ CREATE TABLE `user_role`  (
 INSERT INTO `user_role` VALUES (1, 1, 1, 'enabled', '2018-12-06 18:54:53', '2018-12-06 18:54:53');
 INSERT INTO `user_role` VALUES (3, 3, 2, 'enabled', '2018-12-06 19:07:04', '2019-02-13 18:22:08');
 INSERT INTO `user_role` VALUES (46, 10, 3, 'enabled', NULL, NULL);
-INSERT INTO `user_role` VALUES (47, 1133, 9, 'enabled', NULL, NULL);
+INSERT INTO `user_role` VALUES (47, 1131, 9, 'enabled', NULL, NULL);
+INSERT INTO `user_role` VALUES (48, 1135, 9, 'enabled', NULL, NULL);
+INSERT INTO `user_role` VALUES (49, 11, 3, 'enabled', '2019-02-13 19:48:16', '2019-02-13 19:48:16');
+INSERT INTO `user_role` VALUES (50, 12, 3, 'enabled', '2019-02-13 19:48:35', '2019-02-13 19:48:35');
+INSERT INTO `user_role` VALUES (51, 13, 3, 'enabled', '2019-02-13 19:48:43', '2019-02-13 19:49:16');
+INSERT INTO `user_role` VALUES (52, 14, 3, 'enabled', '2019-02-13 19:48:55', '2019-02-13 19:49:11');
+INSERT INTO `user_role` VALUES (53, 16, 3, 'enabled', '2019-02-13 19:49:07', '2019-02-13 19:49:07');
+INSERT INTO `user_role` VALUES (54, 1132, 9, 'enabled', '2019-02-13 19:49:28', '2019-02-13 19:49:28');
+INSERT INTO `user_role` VALUES (56, 1134, 9, 'enabled', '2019-02-13 19:50:15', '2019-02-13 19:50:15');
 
 SET FOREIGN_KEY_CHECKS = 1;

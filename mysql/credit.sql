@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 29/01/2019 15:12:28
+ Date: 30/04/2019 16:20:22
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `course`  (
 -- ----------------------------
 INSERT INTO `course` VALUES (1, 'a93d1bafb4884a56aa60b077fd7be25d', '高等数学1', NULL, 'elective', 1, '北华大学', NULL, NULL, NULL, NULL, 'enabled', 1, '2019-01-14 10:52:49', '2019-01-14 10:52:50');
 INSERT INTO `course` VALUES (2, '980de821b92a43cda33751546ef8c01e', '高等数学2', NULL, 'elective', 1, '北华大学', NULL, NULL, NULL, NULL, 'enabled', 1, '2019-01-14 10:56:24', '2019-01-14 10:56:25');
-INSERT INTO `course` VALUES (3, '8c8e0899e14642ec8e73e3aea93e5b8b', '高等数学3', NULL, 'elective', 1, '北华大学', 110, '计算机科学技术学院', NULL, NULL, 'enabled', 1, '2019-01-15 11:57:56', '2019-01-15 11:57:57');
+INSERT INTO `course` VALUES (3, '8c8e0899e14642ec8e73e3aea93e5b8b', '高等数学3', NULL, 'elective', 1, '北华大学', 12, '计算机科学技术学院', NULL, NULL, 'enabled', 1, '2019-02-13 19:56:49', '2019-02-13 19:56:49');
 INSERT INTO `course` VALUES (4, '8c8e0899e14642ec8e73e3aea93e5b86', '高等数学4', NULL, 'elective', 1, '北华大学', NULL, NULL, NULL, NULL, 'disabled', 1, '2019-01-14 11:01:44', '2019-01-14 11:01:45');
 INSERT INTO `course` VALUES (5, '2b20f9ebf3514108a3574f7e950d94e7', '高等数学5', NULL, 'elective', 1, '北华大学', NULL, NULL, NULL, NULL, 'disabled', 1, '2018-12-21 09:12:36', '2018-12-21 09:12:36');
 INSERT INTO `course` VALUES (6, '6c9e80ac1edd44318f91213891190ca4', '大学英语1', NULL, 'elective', 1, '北华大学', NULL, NULL, NULL, NULL, 'enabled', 1, '2019-01-14 10:56:55', '2019-01-14 10:56:55');
@@ -76,7 +76,23 @@ CREATE TABLE `lesson`  (
   `create_time` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `update_time` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`lesson_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of lesson
+-- ----------------------------
+INSERT INTO `lesson` VALUES (1, '29c73bd7fab14167b2ae1e809291fff9', 1, '班级1', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, NULL, NULL);
+INSERT INTO `lesson` VALUES (3, '5e480652624f4ae183c580c6d4379df7', 1, '班级2', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 16:59:30', NULL);
+INSERT INTO `lesson` VALUES (4, '06d89b6c3b6747da92c6ccbd893c9617', 1, '班级3', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:02:31', NULL);
+INSERT INTO `lesson` VALUES (5, '9534fdc20f464c1c915775eaef8f1f59', 1, '班级4', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:03:51', NULL);
+INSERT INTO `lesson` VALUES (6, '6ec65bb9bd1c44e488f310ef85f013b6', 1, '班级5', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:05:58', NULL);
+INSERT INTO `lesson` VALUES (7, '4ea8490205ef49c181d63d266605240d', 1, '班级6', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:06:13', NULL);
+INSERT INTO `lesson` VALUES (8, '8b15ff25d6714131a778f4bd06353c5d', 1, '班级8', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:07:08', NULL);
+INSERT INTO `lesson` VALUES (9, '93dc9572be67489d919fa76e28ec1fb7', 1, '班级9', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:09:04', NULL);
+INSERT INTO `lesson` VALUES (10, '108bdaf6fa0c455b91bfe2a89a78b003', 1, '班级10', NULL, 40, 0, 'surplus', 10, 'teacher0', 0, 0, 100, 5, 50, 'enabled', NULL, '2019-02-14 17:09:13', NULL);
+INSERT INTO `lesson` VALUES (11, '42c2eac5b96b4525a9b77eccfc3cc870', 1, '教学班2019年2月28日11:10:46', NULL, 40, 0, 'surplus', 12, 'teacher2', 50, 0, 50, 5, 50, 'enabled', NULL, '2019-02-28 14:26:31', '2019-02-28 14:26:31');
+INSERT INTO `lesson` VALUES (12, 'f7c05d4ead374fac8aa38125a217e972', 1, '教学班2019年2月28日11:17:07', NULL, 40, 0, 'surplus', 10, 'teacher0', 50, 0, 100, 5, 50, 'enabled', NULL, '2019-02-28 14:26:34', '2019-02-28 14:26:34');
+INSERT INTO `lesson` VALUES (13, 'fd0523ec64204b7c9a4ece70d189cbd0', 1, '教学班2019年2月28日11:10:48', NULL, 40, 0, 'surplus', 10, 'teacher0', 20, 0, 80, 5, 50, 'enabled', NULL, '2019-02-28 14:26:39', '2019-02-28 14:26:39');
 
 -- ----------------------------
 -- Table structure for teach

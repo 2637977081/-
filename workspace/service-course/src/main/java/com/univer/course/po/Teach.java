@@ -247,7 +247,7 @@ public class Teach extends BaseEntity {
     @Override
     public String toString() {
         return "Teach{" +
-                "teachId=" + teachId +
+                "teacherId=" + teachId +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", lessonId='" + lessonId + '\'' +

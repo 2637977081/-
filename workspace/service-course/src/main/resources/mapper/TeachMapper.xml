@@ -5,7 +5,7 @@
         <!--
           WARNING - @mbg.generated
         -->
-        <id column="teach_id" jdbcType="BIGINT" property="taskId" />
+        <id column="teach_id" jdbcType="BIGINT" property="teachId" />
         <result column="code" jdbcType="VARCHAR" property="code" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="lesson_id" jdbcType="BIGINT" property="lessonId" />

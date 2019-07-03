@@ -31,9 +31,9 @@ spring:
       mail:
         smtp:
           auth: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+          connectiontimeout: 25000
+          timeout: 25000
+          writetimeout: 25000
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
             fallback: false
@@ -41,7 +41,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://service-monitor:8091
+        url: http://localhost:8091
         instance:
           prefer-ip: true
 

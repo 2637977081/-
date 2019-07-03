@@ -2,7 +2,8 @@
 var bashIp = "127.0.0.1";
 var bashAccountPort = "8031";
 var bashStoragePort = "8041";
-var bashCoursePort = "8061";
+var bashCreditPort = "8051";
+var bashCoursePort = "8071";
 
 //账号管理服接口调用
 var bashAccountUrl = "http://"+bashIp+":"+bashAccountPort+"/account/";
@@ -17,6 +18,9 @@ var bashStorageUrl = "http://"+bashIp+":"+bashStoragePort+"/file/";
 var bashCourseUrl = "http://"+bashIp+":"+bashCoursePort+"/course/";
 var bashLessonUrl = "http://"+bashIp+":"+bashCoursePort+"/lesson/";
 var bashTeachUrl = "http://"+bashIp+":"+bashCoursePort+"/teach/";
+
+//学分管理服务接口调用
+var bashCreditUrl = "http://"+bashIp+":"+bashCreditPort+"/credit/";
 
 var user = null;
 

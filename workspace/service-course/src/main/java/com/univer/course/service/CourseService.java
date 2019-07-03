@@ -98,7 +98,7 @@ public class CourseService {
         Condition condition = new Condition(Course.class);
 
         if(!StringUtils.isEmpty(courseVo.getName())){
-            condition.createCriteria().andLike("name",courseVo.getName());
+            condition.createCriteria().andLike("name","%"+courseVo.getName()+"%");
         }
         if(!StringUtils.isEmpty(courseVo.getType())){
             condition.createCriteria().andEqualTo("type",courseVo.getType());
@@ -111,9 +111,6 @@ public class CourseService {
         }
         if(courseVo.getSubjectId()!=null){
             condition.createCriteria().andEqualTo("subjectId",courseVo.getSubjectId());
-        }
-        if(courseVo.getCreateId()!=null){
-            condition.createCriteria().andEqualTo("createId",courseVo.getCreateId());
         }
         condition.createCriteria().andEqualTo("status","enabled");
         return courseMapper.selectByCondition(condition);

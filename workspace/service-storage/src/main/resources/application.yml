@@ -18,7 +18,3 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  elasticsearch:
-    jest:
-      uris: http://192.168.152.128:9200
-      read-timeout: 5000

@@ -4,7 +4,9 @@ import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.univer.course.enums.CourseTypeEnum;
+import com.univer.course.mapper.CourseMapper;
 import com.univer.course.mapper.LessonMapper;
+import com.univer.course.po.Course;
 import com.univer.course.po.Lesson;
 import com.univer.course.po.Teach;
 import com.univer.course.redis.RedisProducer;
@@ -15,10 +17,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author lvgang
@@ -32,6 +31,9 @@ public class LessonService {
     private LessonMapper lessonMapper;
 
     @Autowired
+    private CourseMapper courseMapper;
+
+    @Autowired
     private RedisProducer redisProducer;
 
     public Lesson addLesson(Lesson temp){
@@ -42,9 +44,13 @@ public class LessonService {
             criteria.andEqualTo("code",temp.getCode());
         }
         Lesson lesson  = lessonMapper.selectByCondition(condition).get(0);
+        Condition courseCondition = new Condition(Course.class);
+        Condition.Criteria courseCriteria = courseCondition.createCriteria();
+        courseCriteria.andEqualTo("courseId",lesson.getCourseId());
+        Course course = courseMapper.selectByCondition(courseCondition).get(0);
         //将选修课放入队列
-        if(CourseTypeEnum.isExisted(temp.getType())){
-            for(int i=0;i<lesson.getMaxnum();i++){
+        if(CourseTypeEnum.ELECTIVE.toString().equals(course.getType())){
+            for(int i=0;i<course.getMaxnum();i++){
                 String num = String.format("3%s",i);
                 redisProducer.sendResourceMessage(lesson.getCode(),lesson.getLessonId()+num);
             }
@@ -60,7 +66,11 @@ public class LessonService {
         //将选修课放入队列
         if(CourseTypeEnum.isExisted(type)){
             for(Lesson l:list){
-                for(int i=0;i<l.getMaxnum();i++){
+                Condition courseCondition = new Condition(Course.class);
+                Condition.Criteria courseCriteria = courseCondition.createCriteria();
+                courseCriteria.andEqualTo("courseId",l.getCourseId());
+                Course course = courseMapper.selectByCondition(courseCondition).get(0);
+                for(int i=0;i<course.getMaxnum();i++){
                     String num = String.format("3%s",i);
                     redisProducer.sendResourceMessage(l.getCode(),l.getLessonId()+num);
                 }
@@ -75,7 +85,7 @@ public class LessonService {
         }else {
             PageHelper.startPage(1,10);
         }
-        Condition condition = new Condition(Teach.class);
+        Condition condition = new Condition(Lesson.class);
         Map<String, Object> map = new HashMap<>(16);
         if(lessonVo.getCourseId()!=null){
             condition.createCriteria().andEqualTo("courseId",lessonVo.getCourseId());
@@ -87,12 +97,46 @@ public class LessonService {
             condition.createCriteria().andEqualTo("teacherId",lessonVo.getTeacherId());
         }
         if(!StringUtils.isEmpty(lessonVo.getName())){
-            condition.createCriteria().andLike("name",lessonVo.getName());
+            condition.createCriteria().andLike("name","%"+lessonVo.getName()+"%");
         }
-        if(!StringUtils.isEmpty(lessonVo.getStatus())){
-
-        }
+        condition.createCriteria().andEqualTo("status","enabled");
         return lessonMapper.selectByCondition(condition);
+    }
+
+    public List<Map> findAllByPage(LessonVo lessonVo){
+        if(lessonVo.getPage() != null && lessonVo.getRows()!=null){
+            PageHelper.startPage(lessonVo.getPage(),lessonVo.getRows());
+        }else {
+            PageHelper.startPage(1,10);
+        }
+        Condition condition = new Condition(Lesson.class);
+        if(lessonVo.getCourseId()!=null){
+            condition.createCriteria().andEqualTo("courseId",lessonVo.getCourseId());
+        }
+        if(!StringUtils.isEmpty(lessonVo.getType())){
+            condition.createCriteria().andEqualTo("type",lessonVo.getType());
+        }
+        if(lessonVo.getTeacherId()!=null){
+            condition.createCriteria().andEqualTo("teacherId",lessonVo.getTeacherId());
+        }
+        if(!StringUtils.isEmpty(lessonVo.getName())){
+            condition.createCriteria().andLike("name","%"+lessonVo.getName()+"%");
+        }
+        condition.createCriteria().andEqualTo("status","enabled");
+        List<Lesson> lessonList = lessonMapper.selectByCondition(condition);
+        List<Map> mapList = new ArrayList<>();
+        for(Lesson l:lessonList){
+            Map<String,Object> map = new HashMap<>(16);
+            Course c = new Course();
+            c.setCourseId(l.getCourseId());
+            Course course = courseMapper.selectByPrimaryKey(c);
+            if(course.getType().equals("elective")){
+                map.put("course",course);
+                map.put("lesson",l);
+                mapList.add(map);
+            }
+        }
+        return mapList;
     }
 
     /**

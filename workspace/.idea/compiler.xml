@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="service-account" />
+        <module name="service-base" />
+        <module name="service-course" />
+        <module name="service-credit" />
+        <module name="service-message" />
+        <module name="service-monitor" />
+        <module name="service-storage" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="service-account" target="1.8" />
+      <module name="service-base" target="1.8" />
+      <module name="service-course" target="1.8" />
+      <module name="service-credit" target="1.8" />
+      <module name="service-message" target="1.8" />
+      <module name="service-monitor" target="1.8" />
+      <module name="service-parent" target="1.8" />
+      <module name="service-storage" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -58,7 +58,7 @@
               </a>
             </div>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" style="display:none">
             <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <i class="mdi mdi-email-outline"></i>
               <span class="count-symbol bg-warning"></span>
@@ -109,7 +109,7 @@
           </li>
 
           <!-- 公告信息 -->
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" style="display:none">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell-outline"></i>
               <span class="count-symbol bg-danger"></span>
@@ -163,7 +163,7 @@
             </div>
           </li>
           <li class="nav-item nav-logout d-none d-lg-block">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#" onclick="logout()">
               <i class="mdi mdi-power"></i>
             </a>
           </li>
@@ -323,7 +323,7 @@
         user = JSON.parse(window.localStorage.getItem("user"));
         console.log(user);
         
-        getJsonUrl();
+        getJsonUrl(user);
 
         setUserInf();
         
@@ -340,7 +340,7 @@
       }
       
       //加载左侧导航栏
-      function getJsonUrl(){
+      function getJsonUrl(user){
         $.getJSON("../../../json/url.json",function(data){
           console.log("data",data);
           $.each(data, function(i, parent){
@@ -395,7 +395,7 @@
 					$("#showAvatar").attr("src","http://"+nginxIp+"/images/"+avatar);
 					alert("上传头像成功");
 				}else{
-					alert("code:"+data.code+"\n msg"+data.msg);
+					alert("code:"+data.code+"\n msg:"+data.msg);
 				}
 			},error:function(error){
 				console.log("error",error);
@@ -430,7 +430,7 @@
 					$("#form_role").append(element);
 				});
 			  }else{
-				alert("code:"+data.code+"\n msg"+data.msg);
+				alert("code:"+data.code+"\n msg:"+data.msg);
 			  }
 			},error:function(error){
 			  console.log("error",error);
@@ -475,7 +475,7 @@
 					}
 				});
 			  }else{
-				alert("code:"+data.code+"\n msg"+data.msg);
+				alert("code:"+data.code+"\n msg:"+data.msg);
 			  }
 			},error:function(error){
 			  console.log("error",error);
@@ -539,7 +539,7 @@
 						if(data.code==200){
 							alert("用户修改成功");
 						}else{
-							alert("code:"+data.code+"\n msg"+data.msg);
+							alert("code:"+data.code+"\n msg:"+data.msg);
 						}
 					},error:function(error){
 						console.log("error",error);
@@ -607,7 +607,7 @@
 						$("#form_description").val(user.description);
 						$("#showAvatar").attr("src","http://"+nginxIp+"/images/"+user.avatar);
 					}else{
-						alert("code:"+data.code+"\n msg"+data.msg);
+						alert("code:"+data.code+"\n msg:"+data.msg);
 					}
 				},error:function(error){
 					console.log("error",error);
@@ -650,7 +650,7 @@
 					if(data.code==200){
 						window.location="/pages/account/account/login.html";
 					}else{
-						alert("code:"+data.code+"\n msg"+data.msg);
+						alert("code:"+data.code+"\n msg:"+data.msg);
 					}
 				},error:function(error){
 					console.log("error",error);

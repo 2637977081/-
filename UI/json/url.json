@@ -12,7 +12,7 @@
             },
             {
                 "name":"用户列表",
-                "roles":[1,2,3],
+                "roles":[1,2],
                 "url":"http://localhost:8000/pages/account/user/list.html"
             },
             {
@@ -24,7 +24,7 @@
     },
     {
         "name":"课程管理",
-        "group":"credit",
+        "group":"course",
         "icon":"",
         "url":"",
         "children":[
@@ -35,7 +35,7 @@
             },
             {
                 "name":"课程列表",
-                "roles":[1,2,3],
+                "roles":[1,2],
                 "url":"http://localhost:8000/pages/course/course/list.html"
             },
             {
@@ -47,6 +47,49 @@
                 "name":"班级列表",
                 "roles":[1,2],
                 "url":"http://localhost:8000/pages/course/teach/list.html"
+            },
+            {
+                "name":"教学列表",
+                "roles":[3],
+                "url":"http://localhost:8000/pages/course/teacher/listLesson.html"
+            },
+            {
+                "name":"课程列表",
+                "roles":[4],
+                "url":"http://localhost:8000/pages/course/student/listLesson.html"
+            },
+            {
+                "name":"成绩列表",
+                "roles":[4],
+                "url":"http://localhost:8000/pages/course/student/listTeach.html"
+            },
+            {
+                "name":"成绩列表",
+                "roles":[3],
+                "url":"http://localhost:8000/pages/course/teacher/listTeach.html"
+            }
+        ]
+    },
+    {
+        "name":"学分管理",
+        "group":"credit",
+        "icon":"",
+        "url":"",
+        "children":[
+            {
+                "name":"添加学分",
+                "roles":[1,2],
+                "url":"http://localhost:8000/pages/credit/add.html"
+            },
+            {
+                "name":"学分列表",
+                "roles":[1,2],
+                "url":"http://localhost:8000/pages/credit/list.html"
+            },
+            {
+                "name":"学分列表",
+                "roles":[4],
+                "url":"http://localhost:8000/pages/course/student/listCredit.html"
             }
         ]
     }

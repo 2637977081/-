@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lvgang
@@ -117,6 +118,15 @@ public class LessonController extends AuthorizationController<Object> {
         VoUtils.copyProperties(temp, lessonVo,"lessonId","name","type","teacherId","teacherName","behavior","test","exam","credit","teachTime", "page", "rows");
         List<Lesson> list = lessonService.findByPage(lessonVo);
         PageInfo<Lesson> pageInfo = new PageInfo<Lesson>(list);
+        resultVo.getInstance(HttpStatus.OK.toString(), pageInfo);
+        return resultVo;
+    }
+
+    @GetMapping("all/list")
+    public Object allList(LessonVo temp) throws Exception {
+        VoUtils.copyProperties(temp, lessonVo,"lessonId","name","type","teacherId","teacherName","behavior","test","exam","credit","teachTime", "page", "rows");
+        List<Map> list = lessonService.findAllByPage(lessonVo);
+        PageInfo<Map> pageInfo = new PageInfo<Map>(list);
         resultVo.getInstance(HttpStatus.OK.toString(), pageInfo);
         return resultVo;
     }

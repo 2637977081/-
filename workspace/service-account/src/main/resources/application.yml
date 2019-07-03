@@ -45,7 +45,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://service-monitor:8091
+        url: http://localhost:8091
         instance:
           prefer-ip: true
 

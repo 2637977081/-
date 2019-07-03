@@ -38,7 +38,8 @@ public class CourseController extends AuthorizationController<Object> {
 
     @PostMapping("/add")
     public ResultVo add(@RequestBody @Validated(AddCourse.class) CourseVo temp) throws Exception{
-        VoUtils.copyProperties(temp, courseVo,"name","type","universityId","universityName","facultyId","facultyName","subjectId","subjectName");
+        VoUtils.copyProperties(temp, courseVo,"name","type","universityId","universityName","facultyId","facultyName","subjectId",
+                "subjectName","maxnum","behavior","test","exam","credit","teachTime");
         if(courseService.isExistedCourse(courseVo)){
             resultVo.getInstance(MsgConstant.COURSE_EXISTED);
         }else {
@@ -57,7 +58,8 @@ public class CourseController extends AuthorizationController<Object> {
 
     @PostMapping("/update")
     public ResultVo update(@RequestBody CourseVo temp) throws Exception{
-        VoUtils.copyProperties(temp, courseVo,"courseId","name","type","universityId","universityName","facultyId","facultyName","subjectId","subjectName");
+        VoUtils.copyProperties(temp, courseVo,"courseId","name","type","universityId","universityName","facultyId","facultyName","subjectId",
+                "subjectName","maxnum","behavior","test","exam","credit","teachTime");
         courseVo.setUpdateTime(new Date());
         Boolean bool = courseService.updateCourse(courseVo);
         if(bool){

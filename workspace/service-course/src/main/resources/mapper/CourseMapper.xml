@@ -16,6 +16,12 @@
         <result column="faculty_name" jdbcType="VARCHAR" property="facultyName" />
         <result column="subject_id" jdbcType="VARCHAR" property="subjectId" />
         <result column="subject_name" jdbcType="INTEGER" property="subjectName" />
+        <result column=" maxnum" jdbcType="INTEGER" property="maxnum" />
+        <result column="behavior" jdbcType="INTEGER" property="behavior" />
+        <result column="test" jdbcType="INTEGER" property="test" />
+        <result column="exam" jdbcType="INTEGER" property="exam" />
+        <result column="credit" jdbcType="INTEGER" property="credit" />
+        <result column="teach_time" jdbcType="INTEGER" property="teachTime" />
         <result column="status" jdbcType="VARCHAR" property="status" />
         <result column="create_id" jdbcType="BIGINT" property="createId" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

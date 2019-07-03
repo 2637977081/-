@@ -1,5 +1,5 @@
 server:
-  port: 8061 #服务端口
+  port: 8071 #服务端口
 
 spring:
   application:
@@ -42,7 +42,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://service-monitor:8091
+        url: http://localhost:8091
         instance:
           prefer-ip: true
 

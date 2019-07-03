@@ -41,7 +41,7 @@
 		<appender-ref ref="systemLog"/>
 	</root>
 
-    <logger name="com.univer.account" level="DEBUG" additivity="false">
+    <logger name="com.univer.course" level="DEBUG" additivity="false">
         <appender-ref ref="consoleLog" />
 		<appender-ref ref="systemLog"/>
     </logger>

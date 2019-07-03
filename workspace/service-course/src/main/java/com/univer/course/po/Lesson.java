@@ -54,12 +54,6 @@ public class Lesson extends BaseEntity {
     private String description;
 
     /**
-     * 最大人数
-     */
-    @NotNull(message = "{lesson.maxnum.not.null}", groups = { })
-    private Integer maxnum;
-
-    /**
      *已选人数
      */
     @NotNull(message = "{lesson.num.not.null}", groups = { })
@@ -78,34 +72,12 @@ public class Lesson extends BaseEntity {
      * 教师名
      */
     private String teacherName;
-    /**
-     * 表现分比例
-     */
-    private Integer behavior;
-    /**
-     * 实验分比例
-     */
-    private Integer test;
-
-    /**
-     * 考试分比例
-     */
-    private Integer exam;
 
     /**
      * 状态 是否禁用
      */
     private String status;
 
-    /**
-     * 学分
-     */
-    private Integer credit;
-
-    /**
-     * 授课时长
-     */
-    private Integer teachTime;
     private Long createId;
     /**
      * 创建时间
@@ -161,14 +133,6 @@ public class Lesson extends BaseEntity {
         this.description = description;
     }
 
-    public Integer getMaxnum() {
-        return maxnum;
-    }
-
-    public void setMaxnum(Integer maxnum) {
-        this.maxnum = maxnum;
-    }
-
     public Integer getNum() {
         return num;
     }
@@ -201,29 +165,7 @@ public class Lesson extends BaseEntity {
         this.teacherName = teacherName;
     }
 
-    public Integer getBehavior() {
-        return behavior;
-    }
 
-    public void setBehavior(Integer behavior) {
-        this.behavior = behavior;
-    }
-
-    public Integer getTest() {
-        return test;
-    }
-
-    public void setTest(Integer test) {
-        this.test = test;
-    }
-
-    public Integer getExam() {
-        return exam;
-    }
-
-    public void setExam(Integer exam) {
-        this.exam = exam;
-    }
 
     public String getStatus() {
         return status;
@@ -257,22 +199,6 @@ public class Lesson extends BaseEntity {
         this.updateTime = updateTime;
     }
 
-    public Integer getCredit() {
-        return credit;
-    }
-
-    public void setCredit(Integer credit) {
-        this.credit = credit;
-    }
-
-    public Integer getTeachTime() {
-        return teachTime;
-    }
-
-    public void setTeachTime(Integer teachTime) {
-        this.teachTime = teachTime;
-    }
-
     @Override
     public String toString() {
         return "Lesson{" +
@@ -281,17 +207,11 @@ public class Lesson extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", courseId=" + courseId +
                 ", description='" + description + '\'' +
-                ", maxnum=" + maxnum +
                 ", num=" + num +
                 ", type='" + type + '\'' +
                 ", teacherId=" + teacherId +
                 ", teacherName='" + teacherName + '\'' +
-                ", behavior=" + behavior +
-                ", test=" + test +
-                ", exam=" + exam +
                 ", status='" + status + '\'' +
-                ", credit=" + credit +
-                ", teachTime=" + teachTime +
                 ", createId=" + createId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

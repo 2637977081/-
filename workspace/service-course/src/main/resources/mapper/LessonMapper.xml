@@ -10,16 +10,10 @@
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="course_id" jdbcType="BIGINT" property="courseId" />
         <result column="description" jdbcType="VARCHAR" property="description" />
-        <result column=" maxnum" jdbcType="INTEGER" property="maxnum" />
         <result column=" num" jdbcType="INTEGER" property="num" />
         <result column="type" jdbcType="VARCHAR" property="type" />
         <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
         <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
-        <result column="behavior" jdbcType="INTEGER" property="behavior" />
-        <result column="test" jdbcType="INTEGER" property="test" />
-        <result column="exam" jdbcType="INTEGER" property="exam" />
-        <result column="credit" jdbcType="INTEGER" property="credit" />
-        <result column="teach_time" jdbcType="INTEGER" property="teachTime" />
         <result column="create_id" jdbcType="BIGINT" property="createId" />
         <result column="status" jdbcType="VARCHAR" property="status" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

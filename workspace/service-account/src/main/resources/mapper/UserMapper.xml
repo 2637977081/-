@@ -63,6 +63,9 @@
         <if test="type != null">
             and u.type = #{type}
         </if>
+        <if test="gender != null">
+            and u.gender = #{gender}
+        </if>
         <if test="orgId != null">
             and u.org_id = #{orgId}
         </if>
